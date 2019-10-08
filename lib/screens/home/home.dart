@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hunger_preventer/screens/settings/settings.dart';
+import 'package:hunger_preventer/screens/transaction_list/transaction_list.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -17,7 +18,7 @@ class HomeScreen extends StatelessWidget {
       ]),
       tabBuilder: (context, index) {
         if (index == 0) {
-          return Text("Home");
+          return TransactionList();
         } else if (index == 1) {
           return SettingsScreen();
         } else {
