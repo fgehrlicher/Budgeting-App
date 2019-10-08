@@ -1,6 +1,6 @@
 class Transaction {
-  DateTime _time;
-  double _amount;
+  final DateTime _time;
+  final double _amount;
 
   Transaction(this._time, this._amount);
 
