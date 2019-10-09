@@ -8,4 +8,3 @@ class AppState extends Model {
 
   TransactionRepository get transactionRepository => _transactionRepository;
 }
-t
