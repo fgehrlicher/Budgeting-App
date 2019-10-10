@@ -1,6 +1,4 @@
-import 'package:scoped_model/scoped_model.dart';
-
-class BalanceSnapshot extends Model {
+class BalanceSnapshot {
   final double _balance;
   final DateTime _date;
 
@@ -8,6 +6,8 @@ class BalanceSnapshot extends Model {
     this._balance,
     this._date,
   );
+
+  DateTime get date => _date;
 
   @override
   String toString() {
