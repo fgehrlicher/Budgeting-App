@@ -35,7 +35,7 @@ void main() {
     });
 
     test('Sort by "DateAscending" sorts by ascending date', () {
-      final List<Transaction> expectedSortedList = [
+      List<Transaction> expectedSortedList = [
         oldestTransaction,
         secondOldestTransaction,
         secondNewestTransaction,
@@ -44,14 +44,16 @@ void main() {
 
       subject.sortBy(TransactionListSorting.DateAscending);
 
+      List<Transaction> actualSortedList =
+          subject.getRange(0, expectedSortedList.length).toList();
       expect(
-        subject.getRange(0, expectedSortedList.length).toList(),
+        actualSortedList,
         expectedSortedList,
       );
     });
 
     test('Sort by "DateDescending" sorts by descending date', () {
-      final List<Transaction> expectedSortedList = [
+      List<Transaction> expectedSortedList = [
         newestTransaction,
         secondNewestTransaction,
         secondOldestTransaction,
@@ -60,8 +62,10 @@ void main() {
 
       subject.sortBy(TransactionListSorting.DateDescending);
 
+      List<Transaction> actualSortedList =
+          subject.getRange(0, expectedSortedList.length).toList();
       expect(
-        subject.getRange(0, expectedSortedList.length).toList(),
+        actualSortedList,
         expectedSortedList,
       );
     });
