@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hunger_preventer/data/models/transaction_list.dart';
-import 'package:hunger_preventer/data/transaction_repository.dart';
+import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
 
 class TransactionList extends StatelessWidget {
   @override
