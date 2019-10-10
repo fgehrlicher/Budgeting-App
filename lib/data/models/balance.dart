@@ -7,4 +7,6 @@ class Balance {
   String toString() {
     return this._balance.toString() + " €";
   }
+
+  double get balance => _balance;
 }
