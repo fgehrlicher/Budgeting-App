@@ -9,14 +9,9 @@ class BalanceIntegrityChecker {
     BalanceSnapshot until,
     TransactionList transactions,
   ) {
-    final dateComparison = until.date.compareTo(from.date);
-    if (dateComparison == -1) {
-      throw Exception("'from' date can´t be bigger than the 'until' date");
-    } else if (dateComparison == 0) {
-      throw Exception("'from' date and 'until' date cant be identical");
-    }
+    this._validateDate(from.date, until.date);
 
-    double balance = from.balance;
+    double calculationBalance = from.balance;
     transactions.sortBy(TransactionListSorting.DateAscending);
     for (var i = 0; i < transactions.length; i++) {
       Transaction transaction = transactions[i];
@@ -24,9 +19,20 @@ class BalanceIntegrityChecker {
           transaction.date.isAfter(until.date)) {
         throw Exception("transaction is not in range");
       }
-      balance += transaction.amount;
+      calculationBalance += transaction.amount;
     }
 
-    return (balance != until.balance) ? Balance(until.balance - balance) : null;
+    return (calculationBalance != until.balance)
+        ? Balance(until.balance - calculationBalance)
+        : null;
+  }
+
+  void _validateDate(DateTime from, DateTime until) {
+    final dateComparison = until.compareTo(from);
+    if (dateComparison == -1) {
+      throw Exception("'from' date can´t be bigger than the 'until' date");
+    } else if (dateComparison == 0) {
+      throw Exception("'from' date and 'until' date cant be identical");
+    }
   }
 }
