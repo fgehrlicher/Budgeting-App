@@ -10,21 +10,28 @@ class BalanceIntegrityChecker {
     TransactionList transactions,
   ) {
     this._validateDate(from.date, until.date);
-
     double calculationBalance = from.balance;
     transactions.sortBy(TransactionListSorting.DateAscending);
+
     for (var i = 0; i < transactions.length; i++) {
       Transaction transaction = transactions[i];
-      if (transaction.date.isBefore(from.date) ||
-          transaction.date.isAfter(until.date)) {
-        throw Exception("transaction is not in range");
-      }
+      this._validateTransaction(from.date, until.date, transaction);
       calculationBalance += transaction.amount;
     }
 
     return (calculationBalance != until.balance)
         ? Balance(until.balance - calculationBalance)
         : null;
+  }
+
+  void _validateTransaction(
+    DateTime from,
+    DateTime until,
+    Transaction transaction,
+  ) {
+    if (transaction.date.isBefore(from) || transaction.date.isAfter(until)) {
+      throw Exception("transaction is not in range");
+    }
   }
 
   void _validateDate(DateTime from, DateTime until) {
