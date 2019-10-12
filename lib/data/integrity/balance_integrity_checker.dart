@@ -4,7 +4,7 @@ import 'package:hunger_preventer/data/models/transaction.dart';
 import 'package:hunger_preventer/data/models/transaction_list.dart';
 
 class BalanceIntegrityChecker {
-  Balance check(
+  Balance calculateOffset(
     BalanceSnapshot from,
     BalanceSnapshot until,
     TransactionList transactions,
