@@ -69,5 +69,26 @@ void main() {
         expectedSortedList,
       );
     });
+
+    test("Get Transactions returns the right transactions", () {
+      var expectedFilteredList = TransactionList();
+      expectedFilteredList.addAll([
+        secondOldestTransaction,
+        secondNewestTransaction,
+      ]);
+      expectedFilteredList.sortBy(TransactionListSorting.DateAscending);
+
+      TransactionList actualFilteredList = subject.getTransactions(
+        secondOldestTransaction.date,
+        newestTransaction.date,
+      );
+
+      actualFilteredList.sortBy(TransactionListSorting.DateAscending);
+
+      expect(
+        actualFilteredList,
+        expectedFilteredList,
+      );
+    });
   });
 }
