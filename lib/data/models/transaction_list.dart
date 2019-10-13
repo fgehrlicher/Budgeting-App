@@ -26,6 +26,7 @@ class TransactionList extends DelegatingList<Transaction> {
   }
 
   TransactionList getTransactions(DateTime from, DateTime until) {
+    this._validateDate(from, until);
     var subList = new TransactionList();
     subList.addAll(this._transactions.where((Transaction transaction) {
       return transaction.date.isAtSameMomentAs(until) ||
@@ -39,4 +40,13 @@ class TransactionList extends DelegatingList<Transaction> {
 
   int _compareDateDescending(Transaction base, Transaction comparison) =>
       comparison.date.compareTo(base.date);
+
+  void _validateDate(DateTime from, DateTime until) {
+    final dateComparison = until.compareTo(from);
+    if (dateComparison == -1) {
+      throw Exception("'from' date can´t be bigger than the 'until' date");
+    } else if (dateComparison == 0) {
+      throw Exception("'from' date and 'until' date cant be identical");
+    }
+  }
 }
