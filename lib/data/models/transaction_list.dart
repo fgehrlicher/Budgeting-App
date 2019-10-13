@@ -25,6 +25,15 @@ class TransactionList extends DelegatingList<Transaction> {
     this.delegate.sort(comparisonMethod);
   }
 
+  TransactionList getTransactions(DateTime from, DateTime until) {
+    var subList = new TransactionList();
+    subList.addAll(this._transactions.where((Transaction transaction) {
+      return transaction.date.isAtSameMomentAs(from) ||
+          (transaction.date.isAfter(from) && transaction.date.isBefore(until));
+    }));
+    return subList;
+  }
+
   int _compareDateAscending(Transaction base, Transaction comparison) =>
       base.date.compareTo(comparison.date);
 
