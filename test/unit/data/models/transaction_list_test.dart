@@ -73,8 +73,8 @@ void main() {
     test("Get Transactions returns the right transactions", () {
       var expectedFilteredList = TransactionList();
       expectedFilteredList.addAll([
-        secondOldestTransaction,
         secondNewestTransaction,
+        newestTransaction,
       ]);
       expectedFilteredList.sortBy(TransactionListSorting.DateAscending);
 

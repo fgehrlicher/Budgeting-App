@@ -28,7 +28,7 @@ class TransactionList extends DelegatingList<Transaction> {
   TransactionList getTransactions(DateTime from, DateTime until) {
     var subList = new TransactionList();
     subList.addAll(this._transactions.where((Transaction transaction) {
-      return transaction.date.isAtSameMomentAs(from) ||
+      return transaction.date.isAtSameMomentAs(until) ||
           (transaction.date.isAfter(from) && transaction.date.isBefore(until));
     }));
     return subList;
