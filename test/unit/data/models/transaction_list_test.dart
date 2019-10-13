@@ -90,5 +90,23 @@ void main() {
         expectedFilteredList,
       );
     });
+
+    test("Get Transactions throws exception dates are identical", () {
+      expect(() {
+        subject.getTransactions(
+          newestTransaction.date,
+          newestTransaction.date,
+        );
+      }, throwsException);
+    });
+
+    test("'Get Transactions if until happens after from", () {
+      expect(() {
+        subject.getTransactions(
+          newestTransaction.date,
+          oldestTransaction.date,
+        );
+      }, throwsException);
+    });
   });
 }
