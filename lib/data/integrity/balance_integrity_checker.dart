@@ -19,8 +19,10 @@ class BalanceIntegrityChecker {
       calculationBalance += transaction.amount;
     }
 
+    var offset = calculationBalance - until.balance;
+
     return (calculationBalance != until.balance)
-        ? Balance(until.balance - calculationBalance)
+        ? Balance(offset)
         : null;
   }
 
