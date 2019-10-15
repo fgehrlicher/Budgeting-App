@@ -56,7 +56,7 @@ class TransactionList extends StatelessWidget {
           ));
           balance += currentTransactions[y].amount;
           children.add(Text(
-            ShadowBalance(balance, currentTransactions[y].date).toString(),
+            ShadowAccountBalance(balance, currentTransactions[y].date).toString(),
             style: TextStyle(backgroundColor: Colors.grey),
           ));
         }
@@ -81,7 +81,7 @@ class TransactionList extends StatelessWidget {
           ));
           balance += currentTransactions[y].amount;
           children.add(Text(
-            ShadowBalance(balance, currentTransactions[y].date).toString(),
+            ShadowAccountBalance(balance, currentTransactions[y].date).toString(),
             style: TextStyle(backgroundColor: Colors.grey),
           ));
         }

@@ -12,12 +12,12 @@ void main() {
     BalanceIntegrityChecker subject;
     TransactionListMock dummyTransactions;
 
-    final dummyFrom = BalanceSnapshot(
+    final dummyFrom = AccountBalanceSnapshot(
       1000,
       DateTime.parse("2020-01-01 10:00:00"),
     );
 
-    final dummyUntil = BalanceSnapshot(
+    final dummyUntil = AccountBalanceSnapshot(
       2000,
       DateTime.parse("2020-02-01 10:00:00"),
     );
@@ -90,7 +90,7 @@ void main() {
 
     test("'check' throws exception dates are identical", () {
       final date = DateTime.parse("2010-01-01 10:00:00");
-      final balanceSnapshot = BalanceSnapshot(0, date);
+      final balanceSnapshot = AccountBalanceSnapshot(0, date);
 
       expect(() {
         subject.calculateOffset(
@@ -104,8 +104,8 @@ void main() {
     test("'check' throws exception if until happens after from", () {
       final fromDate = DateTime.parse("2020-01-01 10:00:00");
       final untilDate = DateTime.parse("2010-01-01 10:00:00");
-      final from = BalanceSnapshot(0, fromDate);
-      final until = BalanceSnapshot(0, untilDate);
+      final from = AccountBalanceSnapshot(0, fromDate);
+      final until = AccountBalanceSnapshot(0, untilDate);
 
       expect(() {
         subject.calculateOffset(from, until, TransactionList());

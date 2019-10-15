@@ -1,7 +1,7 @@
-class Balance {
+class AccountBalance {
   final double _balance;
 
-  Balance(this._balance);
+  AccountBalance(this._balance);
 
   @override
   String toString() {

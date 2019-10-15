@@ -1,14 +1,14 @@
-import 'package:hunger_preventer/data/models/balance.dart';
+import 'package:hunger_preventer/data/models/account_balance.dart';
 
-class BalanceSnapshot extends Balance {
+class AccountBalanceSnapshot extends AccountBalance {
   final DateTime _date;
 
-  BalanceSnapshot(double balance, this._date) : super(balance);
+  AccountBalanceSnapshot(double balance, this._date) : super(balance);
 
   DateTime get date => _date;
 
   @override
   String toString() {
-    return 'Balance: ${this.date} ${this.balance.toStringAsFixed(2)}';
+    return '${this.date} ${this.balance.toStringAsFixed(2)} Account Balance Snapshot';
   }
 }
