@@ -10,4 +10,9 @@ class Transaction {
   double get amount => _amount;
 
   DateTime get date => _date;
+
+  @override
+  String toString() {
+    return 'Transaction: ${this.date} ${this.amount.toStringAsFixed(2)}';
+  }
 }
