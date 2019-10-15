@@ -14,7 +14,9 @@ class TransactionRepository {
       ..add(Transaction(DateTime.parse("2020-01-06 09:00:00"), 2800))
       ..add(Transaction(DateTime.parse("2020-01-07 09:00:00"), -100.23))
       ..add(Transaction(DateTime.parse("2020-01-08 09:00:00"), -100.23))
-      ..add(Transaction(DateTime.parse("2020-01-09 09:00:00"), -100.23));
+      ..add(Transaction(DateTime.parse("2020-01-09 09:00:00"), -100.23))
+      ..add(Transaction(DateTime.parse("2020-01-12 09:00:00"), 500))
+      ..add(Transaction(DateTime.parse("2020-01-13 09:00:00"), -145));
 
     return list;
   }
