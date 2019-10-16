@@ -17,13 +17,13 @@ class TransactionList extends StatelessWidget {
     var balanceSnapshots = balanceRepository.get(DateTime.now());
 
     List<Widget> children = List();
-
+    double balance;
     transactions.sortBy(TransactionListSorting.DateAscending);
 
     for (var i = 0; i < balanceSnapshots.length; i++) {
       var isCurrentSnapshot = (i + 1 == balanceSnapshots.length);
       var snapshot = balanceSnapshots[i];
-      var balance = snapshot.balance;
+      balance = snapshot.balance;
 
       children.add(
         Divider(
@@ -62,7 +62,7 @@ class TransactionList extends StatelessWidget {
         }
         if (offset != null) {
           children.add(Text(
-            "!OFFSET: ${offset.balance}",
+            "!! OFFSET: ${offset.balance} !!",
             style: TextStyle(backgroundColor: Colors.purpleAccent),
           ));
         }
@@ -87,6 +87,19 @@ class TransactionList extends StatelessWidget {
         }
       }
     }
+
+    children.add(
+        Container(
+          padding: const EdgeInsets.all(3),
+          color: Colors.grey[600],
+          alignment: Alignment.center,
+          child: Text('Current Balance: $balance €',
+              style: Theme.of(context)
+                  .textTheme
+                  .display1
+                  .copyWith(color: Colors.white)),
+        )
+    );
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
