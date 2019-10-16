@@ -9,6 +9,6 @@ class AccountBalanceSnapshot extends AccountBalance {
 
   @override
   String toString() {
-    return '${this.date} ${this.balance.toStringAsFixed(2)} Account Balance Snapshot';
+    return '${this.date.day}/${this.date.month}/${this.date.year} ${this.balance.toStringAsFixed(2)} Account Balance Snapshot';
   }
 }

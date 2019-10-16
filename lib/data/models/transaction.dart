@@ -13,6 +13,6 @@ class Transaction {
 
   @override
   String toString() {
-    return 'Transaction: ${this.date} ${this.amount.toStringAsFixed(2)}';
+    return '${this.date.day}/${this.date.month}/${this.date.year} ${this.amount.toStringAsFixed(2)} Transaction';
   }
 }

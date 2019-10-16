@@ -5,6 +5,6 @@ class ShadowAccountBalance extends AccountBalanceSnapshot {
 
   @override
   String toString() {
-    return '${this.date} ${this.balance.toStringAsFixed(2)} Shadow Account Balance';
+    return '${this.date.day}/${this.date.month}/${this.date.year} ${this.balance.toStringAsFixed(2)} Shadow Account Balance';
   }
 }
