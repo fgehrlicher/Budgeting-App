@@ -10,7 +10,7 @@ class BalanceIntegrityChecker {
     TransactionList transactions,
   ) {
     this._validateDate(from.date, until.date);
-    double calculationBalance = from.balance;
+    int calculationBalance = from.balance;
     transactions.sortBy(TransactionListSorting.DateAscending);
 
     for (var i = 0; i < transactions.length; i++) {
@@ -19,7 +19,7 @@ class BalanceIntegrityChecker {
       calculationBalance += transaction.amount;
     }
 
-    var offset = calculationBalance - until.balance;
+    int offset = calculationBalance - until.balance;
 
     return (calculationBalance != until.balance)
         ? AccountBalance(offset)

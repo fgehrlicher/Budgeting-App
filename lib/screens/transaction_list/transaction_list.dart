@@ -17,7 +17,7 @@ class TransactionList extends StatelessWidget {
     var balanceSnapshots = balanceRepository.get(DateTime.now());
 
     List<Widget> children = List();
-    double balance;
+    int balance;
     transactions.sortBy(TransactionListSorting.DateAscending);
 
     for (var i = 0; i < balanceSnapshots.length; i++) {

@@ -1,5 +1,5 @@
 class AccountBalance {
-  final double _balance;
+  final int _balance;
 
   AccountBalance(this._balance);
 
@@ -8,5 +8,5 @@ class AccountBalance {
     return this._balance.toString() + " €";
   }
 
-  double get balance => _balance;
+  int get balance => _balance;
 }
