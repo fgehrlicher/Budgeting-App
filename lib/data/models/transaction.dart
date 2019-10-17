@@ -9,9 +9,9 @@ class Transaction {
   final String _bic;
 
   Transaction(
-    this._id,
     this._date,
     this._amount, [
+    this._id,
     this._type,
     this._iban,
     this._bic,
