@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:  appleboy/flutter-docker
+      image:  cirrusci/flutter:v1.10.7
       volumes:
         - ${PWD}/app
       options: --workdir /app
