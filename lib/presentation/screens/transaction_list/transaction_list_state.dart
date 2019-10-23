@@ -1,22 +1,56 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:hunger_preventer/data/database/database_provider.dart';
 import 'package:hunger_preventer/data/integrity/balance_integrity_checker.dart';
-import 'package:hunger_preventer/data/models/shadow_balance.dart';
 import 'package:hunger_preventer/data/models/transaction_list.dart';
 import 'package:hunger_preventer/data/repositories/balance_snapshot_repository.dart';
 import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
+import 'package:hunger_preventer/screens/transaction_list/transaction_list.dart'
+    as screen;
+import 'package:sqflite/sqlite_api.dart';
 
-class TransactionList extends StatelessWidget {
+class TransactionListState extends State<screen.TransactionList> {
+  TransactionList _transactionList;
+
+  @override
+  void initState() {
+    super.initState();
+
+    var databaseProvider = new DatabaseProvider();
+
+    databaseProvider.database.then((Database database) {
+      var transactionRepository = TransactionRepository(database);
+      transactionRepository
+          .get(DateTime.now())
+          .then((TransactionList transactionList) {
+        setState(() {
+          _transactionList = transactionList;
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var transactionRepository = TransactionRepository();
+    if (_transactionList == null) {
+      return new Container();
+    }
+
     var balanceRepository = BalanceSnapshotRepository();
     var balanceIntegrityChecker = BalanceIntegrityChecker();
 
-    var transactions = transactionRepository.get(DateTime.now());
-    var balanceSnapshots = balanceRepository.get(DateTime.now());
+    var transactionRepository = TransactionRepository();
+
 
     List<Widget> children = List();
+    transactionRepository.get(DateTime.now()).then((transactions) {
+
+
+
+    });
+
+
+    var balanceSnapshots = balanceRepository.get(DateTime.now());
+
     int balance;
     transactions.sortBy(TransactionListSorting.DateAscending);
 
@@ -42,7 +76,7 @@ class TransactionList extends StatelessWidget {
       if (!isCurrentSnapshot) {
         var nextSnapshot = balanceSnapshots[i + 1];
         var currentTransactions =
-            transactions.getTransactions(snapshot.date, nextSnapshot.date);
+        transactions.getTransactions(snapshot.date, nextSnapshot.date);
         var offset = balanceIntegrityChecker.calculateOffset(
             snapshot, nextSnapshot, currentTransactions);
 
@@ -56,7 +90,8 @@ class TransactionList extends StatelessWidget {
           ));
           balance += currentTransactions[y].amount;
           children.add(Text(
-            ShadowAccountBalance(balance, currentTransactions[y].date).toString(),
+            ShadowAccountBalance(balance, currentTransactions[y].date)
+                .toString(),
             style: TextStyle(backgroundColor: Colors.grey),
           ));
         }
@@ -81,25 +116,24 @@ class TransactionList extends StatelessWidget {
           ));
           balance += currentTransactions[y].amount;
           children.add(Text(
-            ShadowAccountBalance(balance, currentTransactions[y].date).toString(),
+            ShadowAccountBalance(balance, currentTransactions[y].date)
+                .toString(),
             style: TextStyle(backgroundColor: Colors.grey),
           ));
         }
       }
     }
 
-    children.add(
-        Container(
-          padding: const EdgeInsets.all(3),
-          color: Colors.grey[600],
-          alignment: Alignment.center,
-          child: Text('Current Balance: $balance €',
-              style: Theme.of(context)
-                  .textTheme
-                  .display1
-                  .copyWith(color: Colors.white)),
-        )
-    );
+    children.add(Container(
+      padding: const EdgeInsets.all(3),
+      color: Colors.grey[600],
+      alignment: Alignment.center,
+      child: Text('Current Balance: $balance €',
+          style: Theme.of(context)
+              .textTheme
+              .display1
+              .copyWith(color: Colors.white)),
+    ));
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
@@ -110,4 +144,15 @@ class TransactionList extends StatelessWidget {
       ),
     );
   }
+}
+
+import 'package:equatable/equatable.dart';
+
+abstract class TransactionListState extends Equatable {
+  const TransactionListState();
+}
+
+class InitialTransactionListState extends TransactionListState {
+  @override
+  List<Object> get props => [];
 }
