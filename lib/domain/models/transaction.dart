@@ -1,4 +1,4 @@
-import 'package:hunger_preventer/data/models/transaction_type.dart';
+import 'package:hunger_preventer/domain/models/transaction_type.dart';
 
 class Transaction {
   final int _id;

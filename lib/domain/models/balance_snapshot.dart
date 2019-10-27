@@ -1,4 +1,4 @@
-import 'package:hunger_preventer/data/models/account_balance.dart';
+import 'package:hunger_preventer/domain/models/account_balance.dart';
 
 class AccountBalanceSnapshot extends AccountBalance {
   final DateTime _date;

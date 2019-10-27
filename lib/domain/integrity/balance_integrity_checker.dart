@@ -1,7 +1,8 @@
-import 'package:hunger_preventer/data/models/account_balance.dart';
-import 'package:hunger_preventer/data/models/balance_snapshot.dart';
-import 'package:hunger_preventer/data/models/transaction.dart';
-import 'package:hunger_preventer/data/models/transaction_list.dart';
+import 'package:hunger_preventer/domain/models/account_balance.dart';
+import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
+import 'package:hunger_preventer/domain/models/transaction.dart';
+import 'package:hunger_preventer/domain/models/transaction_list.dart';
+import 'package:hunger_preventer/domain/models/account_balance.dart';
 
 class BalanceIntegrityChecker {
   AccountBalance calculateOffset(

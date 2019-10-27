@@ -1,6 +1,6 @@
-import 'package:hunger_preventer/data/models/transaction.dart' as model;
-import 'package:hunger_preventer/data/models/transaction_list.dart';
+import 'package:hunger_preventer/domain/models/transaction.dart' as model;
 import 'package:hunger_preventer/data/repositories/repository.dart';
+import 'package:hunger_preventer/domain/models/transaction_list.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TransactionRepository extends Repository {

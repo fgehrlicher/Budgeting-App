@@ -1,4 +1,4 @@
-import 'package:hunger_preventer/data/models/balance_snapshot.dart';
+import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
 
 class BalanceSnapshotRepository {
   List<AccountBalanceSnapshot> get(DateTime from, [DateTime until]) {

@@ -1,4 +1,4 @@
-import 'package:hunger_preventer/data/models/transaction.dart';
+import 'package:hunger_preventer/domain/models/transaction.dart';
 import 'package:quiver/collection.dart';
 
 enum TransactionListSorting {

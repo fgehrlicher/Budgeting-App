@@ -1,4 +1,4 @@
-import 'package:hunger_preventer/data/models/balance_snapshot.dart';
+import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
 
 class ShadowAccountBalance extends AccountBalanceSnapshot {
   ShadowAccountBalance(int balance, DateTime date) : super(balance, date);
