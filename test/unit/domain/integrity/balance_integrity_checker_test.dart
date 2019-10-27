@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hunger_preventer/data/integrity/balance_integrity_checker.dart';
-import 'package:hunger_preventer/data/models/balance_snapshot.dart';
-import 'package:hunger_preventer/data/models/transaction.dart';
-import 'package:hunger_preventer/data/models/transaction_list.dart';
+import 'package:hunger_preventer/domain/integrity/balance_integrity_checker.dart';
+import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
+import 'package:hunger_preventer/domain/models/transaction.dart';
+import 'package:hunger_preventer/domain/models/transaction_list.dart';
 import 'package:mockito/mockito.dart';
 
 import '../models/transaction_list_mock.dart';

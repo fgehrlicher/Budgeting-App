@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hunger_preventer/data/models/transaction.dart';
-import 'package:hunger_preventer/data/models/transaction_list.dart';
+import 'package:hunger_preventer/domain/models/transaction.dart';
+import 'package:hunger_preventer/domain/models/transaction_list.dart';
 
 void main() {
   group("Transaction List", () {
