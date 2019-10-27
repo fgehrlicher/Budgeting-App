@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:hunger_preventer/presentation/app.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([
@@ -7,10 +8,5 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(
-    CupertinoApp(
-      debugShowCheckedModeBanner: false,
-      home: Container(),
-    ),
-  );
+  runApp(HungerPreventerApp());
 }
