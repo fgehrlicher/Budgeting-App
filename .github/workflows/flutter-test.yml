@@ -5,14 +5,13 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    container:
-      image:  cirrusci/flutter:v1.10.7
-      volumes:
-        - ${PWD}/app
-      options: --workdir /app
-
     steps:
       - uses: actions/checkout@v1
-      - name: Run tests
-        run: flutter test
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.10.7'
+      - run: flutter pub get
+      - run: flutter test
