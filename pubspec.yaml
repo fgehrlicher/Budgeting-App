@@ -15,7 +15,10 @@ dependencies:
   shared_preferences: ^0.5.3+4
   quiver: ^2.0.5
   sqflite: ^1.1.7
-  path: ^ 1.6.4
+  path: ^1.6.4
+  equatable: ^0.6.1
+  bloc: ^1.0.0
+  flutter_bloc: ^1.0.0
 
 dev_dependencies:
   flutter_test:
