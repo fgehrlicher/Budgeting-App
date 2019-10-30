@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hunger_preventer/presentation/screens/settings/settings.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
