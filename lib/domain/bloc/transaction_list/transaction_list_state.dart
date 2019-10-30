@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hunger_preventer/domain/models/transaction.dart';
+import 'package:hunger_preventer/domain/models/transaction_list.dart';
 
 abstract class TransactionListState extends Equatable {
   const TransactionListState();
@@ -13,11 +13,10 @@ class TransactionsEmpty extends TransactionListState{}
 class TransactionsLoading extends TransactionListState{}
 
 class TransactionsLoaded extends TransactionListState{
-  final List<Transaction> transactions;
+  final TransactionList transactions;
 
   const TransactionsLoaded(this.transactions);
 
   @override
-  List<Object> get props => [transactions];
+  List<Object> get props => transactions;
 }
-
