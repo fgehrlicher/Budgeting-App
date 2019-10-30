@@ -21,4 +21,18 @@ class TransactionRepository extends Repository {
     }));
     return list;
   }
+
+  Future<TransactionList> getAll() async {
+    var list = TransactionList();
+    final List<Map<String, dynamic>> maps =
+        await this.database.query('transaction');
+
+    list.addAll(List.generate(maps.length, (i) {
+      return model.Transaction(
+        DateTime.fromMillisecondsSinceEpoch(maps[i]['date'] * 1000),
+          maps[i]['amount']
+      );
+    }));
+    return list;
+  }
 }
