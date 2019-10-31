@@ -1,4 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
+import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_bloc.dart';
+import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_event.dart';
+import 'package:hunger_preventer/presentation/screens/transaction_list/transaction_list.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -7,39 +12,29 @@ class HomeScreen extends StatelessWidget {
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home),
-            title: Text('Products'),
+            icon: Icon(CupertinoIcons.folder),
+            title: Text('transaction list'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.search),
-            title: Text('Search'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.shopping_cart),
-            title: Text('Cart'),
+            icon: Icon(CupertinoIcons.folder),
+            title: Text('test'),
           ),
         ],
       ),
       tabBuilder: (context, index) {
+
+
         switch (index) {
           case 0:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
-                child: Container(),
+                child: BlocProvider(
+                  builder: (context) => TransactionListBloc(TransactionRepository())..add(FetchTransactions()),
+                  child: TransactionList(),
+                )
               );
             });
-          case 1:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: Container(),
-              );
-            });
-          case 2:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: Container(),
-              );
-            });
+            break;
         }
         return Container();
       },
