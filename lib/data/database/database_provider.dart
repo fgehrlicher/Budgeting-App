@@ -19,6 +19,7 @@ class DatabaseProvider {
   static Future<Database> _openDatabase() async {
     return await openDatabase(
       join(await getDatabasesPath(), DATABASE_FILE_NAME),
+      version: 1,
       onCreate: _initializeDatabase,
     );
   }
