@@ -1,4 +1,5 @@
 import 'package:hunger_preventer/data/database/database_provider.dart';
+import 'package:hunger_preventer/data/database/schema.dart';
 import 'package:hunger_preventer/domain/models/transaction.dart';
 import 'package:hunger_preventer/domain/models/transaction_list.dart';
 
@@ -10,7 +11,7 @@ class TransactionRepository {
     var list = TransactionList();
     var database = await DatabaseProvider.database;
 
-    final List<Map<String, dynamic>> maps = await database.query('transaction');
+    final List<Map<String, dynamic>> maps = await database.query(SchemaProvider.TRANSACTION_TABLE_NAME);
 
     list.addAll(
       List.generate(maps.length, (i) {
@@ -26,7 +27,7 @@ class TransactionRepository {
     var list = TransactionList();
     var database = await DatabaseProvider.database;
 
-    final List<Map<String, dynamic>> maps = await database.query('transaction');
+    final List<Map<String, dynamic>> maps = await database.query(SchemaProvider.TRANSACTION_TABLE_NAME);
 
     list.addAll(
       List.generate(maps.length, (i) {
