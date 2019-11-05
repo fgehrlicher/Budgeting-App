@@ -8,7 +8,7 @@ class TransactionRepository {
 
   TransactionRepository(this.database);
 
-  Future<TransactionList> get(DateTime from, [DateTime until]) async {
+  Future<TransactionList> getAllInRange(DateTime from, [DateTime until]) async {
     until ??= DateTime.now();
     var db = await database;
     var list = TransactionList();
