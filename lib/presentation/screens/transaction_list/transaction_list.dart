@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_state.dart';
@@ -34,7 +33,7 @@ class _TransactionListState extends State<TransactionList> {
         }
         if (state is TransactionsLoading) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CupertinoActivityIndicator(),
           );
         }
         return Container();
