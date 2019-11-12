@@ -42,4 +42,20 @@ class TransactionRepository {
     );
     return list;
   }
+
+  void insert(TransactionList transactions) async {
+    var db = await database;
+    var batch = db.batch();
+
+    for (var i = 0; i < transactions.length; i++) {
+      batch.insert(
+        SchemaProvider.TRANSACTION_TABLE_NAME,
+        transactions[i].toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+
+    await batch.commit(noResult: true);
+  }
+
 }
