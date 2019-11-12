@@ -35,13 +35,16 @@ class Transaction {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    var map = {
       'id': this.id,
-      'date': this.date,
+      'date': this.date.millisecondsSinceEpoch,
       'amount': this.amount,
       'type': this.type,
       'iban': this.iban,
       'bic': this.bic,
     };
+
+    map.removeWhere((key, value) => value == null);
+    return map;
   }
 }
