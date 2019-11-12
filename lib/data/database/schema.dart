@@ -4,7 +4,7 @@ class SchemaProvider {
   static String getDatabaseSchema() {
     return """ 
     CREATE TABLE $TRANSACTION_TABLE_NAME(
-      id INT PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       date INT NOT NULL,
       amount INT NOT NULL,
       transaction_type INT,
