@@ -17,11 +17,8 @@ class TransactionRepository {
         await db.query(SchemaProvider.TRANSACTION_TABLE_NAME);
 
     list.addAll(
-      List.generate(maps.length, (i) {
-        return model.Transaction(
-            DateTime.fromMillisecondsSinceEpoch(maps[i]['date'] * 1000),
-            maps[i]['amount']);
-      }),
+      List.generate(maps.length, (i) => model.Transaction.fromMap(maps[i])),
+
     );
     return list;
   }
@@ -34,11 +31,7 @@ class TransactionRepository {
         await db.query(SchemaProvider.TRANSACTION_TABLE_NAME);
 
     list.addAll(
-      List.generate(maps.length, (i) {
-        return model.Transaction(
-            DateTime.fromMillisecondsSinceEpoch(maps[i]['date'] * 1000),
-            maps[i]['amount']);
-      }),
+      List.generate(maps.length, (i) => model.Transaction.fromMap(maps[i])),
     );
     return list;
   }
