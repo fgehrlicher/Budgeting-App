@@ -1,12 +1,12 @@
 import 'package:hunger_preventer/domain/models/transaction_type.dart';
 
 class Transaction {
-  final int _id;
-  final DateTime _date;
-  final int _amount;
-  final TransactionType _type;
-  final String _iban;
-  final String _bic;
+  int _id;
+  DateTime _date;
+  int _amount;
+  TransactionType _type;
+  String _iban;
+  String _bic;
 
   Transaction(
     this._date,
@@ -16,6 +16,29 @@ class Transaction {
     this._iban,
     this._bic,
   ]);
+
+  Transaction.fromMap(Map<String, dynamic> data) {
+    this._date = data['date'];
+    this._amount = data['amount'];
+    this._id = data['id'];
+    this._type = data['type'];
+    this._iban = data['iban'];
+    this._bic = data['bic'];
+  }
+
+  Map<String, dynamic> toMap() {
+    var map = {
+      'id': this.id,
+      'date': this.date.millisecondsSinceEpoch,
+      'amount': this.amount,
+      'type': this.type,
+      'iban': this.iban,
+      'bic': this.bic,
+    };
+
+    map.removeWhere((key, value) => value == null);
+    return map;
+  }
 
   int get id => _id;
 
@@ -32,19 +55,5 @@ class Transaction {
   @override
   String toString() {
     return '${this.date.day}/${this.date.month}/${this.date.year} ${this.amount} Transaction';
-  }
-
-  Map<String, dynamic> toMap() {
-    var map = {
-      'id': this.id,
-      'date': this.date.millisecondsSinceEpoch,
-      'amount': this.amount,
-      'type': this.type,
-      'iban': this.iban,
-      'bic': this.bic,
-    };
-
-    map.removeWhere((key, value) => value == null);
-    return map;
   }
 }
