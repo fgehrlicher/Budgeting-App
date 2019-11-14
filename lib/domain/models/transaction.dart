@@ -18,7 +18,7 @@ class Transaction {
   ]);
 
   Transaction.fromMap(Map<String, dynamic> data) {
-    this._date = data['date'];
+    this._date = data['date'] * 1000;
     this._amount = data['amount'];
     this._id = data['id'];
     this._type = data['type'];
