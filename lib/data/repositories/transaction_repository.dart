@@ -1,5 +1,4 @@
 import 'package:hunger_preventer/data/database/schema.dart';
-import 'package:hunger_preventer/domain/models/transaction.dart' as model;
 import 'package:hunger_preventer/domain/models/transaction_list.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -11,29 +10,20 @@ class TransactionRepository {
   Future<TransactionList> getAllInRange(DateTime from, [DateTime until]) async {
     until ??= DateTime.now();
     var db = await database;
-    var list = TransactionList();
 
-    final List<Map<String, dynamic>> maps =
+    final List<Map<String, dynamic>> queryResult =
         await db.query(SchemaProvider.TRANSACTION_TABLE_NAME);
 
-    list.addAll(
-      List.generate(maps.length, (i) => model.Transaction.fromMap(maps[i])),
-
-    );
-    return list;
+    return TransactionList.fromQueryResult(queryResult);
   }
 
   Future<TransactionList> getAll() async {
-    var list = TransactionList();
     var db = await database;
 
-    final List<Map<String, dynamic>> maps =
+    final List<Map<String, dynamic>> queryResult =
         await db.query(SchemaProvider.TRANSACTION_TABLE_NAME);
 
-    list.addAll(
-      List.generate(maps.length, (i) => model.Transaction.fromMap(maps[i])),
-    );
-    return list;
+    return TransactionList.fromQueryResult(queryResult);
   }
 
   void insert(TransactionList transactions) async {
@@ -50,5 +40,4 @@ class TransactionRepository {
 
     await batch.commit(noResult: true);
   }
-
 }
