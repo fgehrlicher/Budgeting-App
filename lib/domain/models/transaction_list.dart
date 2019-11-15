@@ -11,6 +11,16 @@ class TransactionList extends DelegatingList<Transaction> {
 
   List<Transaction> get delegate => _transactions;
 
+  TransactionList();
+
+  TransactionList.fromQueryResult(List<Map<String, dynamic>> data) {
+    data.forEach(
+          (transactionValueMap) => this.add(
+        Transaction.fromMap(transactionValueMap),
+      ),
+    );
+  }
+
   void sortBy(TransactionListSorting sorting) {
     int Function(Transaction, Transaction) comparisonMethod;
 
