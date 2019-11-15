@@ -51,9 +51,4 @@ class Transaction {
   String get iban => _iban;
 
   String get bic => _bic;
-
-  @override
-  String toString() {
-    return '${this.date.day}/${this.date.month}/${this.date.year} ${this.amount} Transaction';
-  }
 }
