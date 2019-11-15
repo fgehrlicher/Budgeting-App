@@ -4,17 +4,10 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 class DatabaseProvider {
-  static Database _database;
   static const String DATABASE_FILE_NAME = "hunger-preventer.db";
+  static Future<Database> _database = _openDatabase();
 
-  static Future<Database> get database async {
-    if (_database != null) {
-      return _database;
-    }
-
-    _database = await _openDatabase();
-    return _database;
-  }
+  static Future<Database> get database => _database;
 
   static Future<Database> _openDatabase() async {
     return await openDatabase(
