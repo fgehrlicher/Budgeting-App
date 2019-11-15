@@ -11,8 +11,11 @@ class TransactionRepository {
     until ??= DateTime.now();
     var db = await database;
 
-    final List<Map<String, dynamic>> queryResult =
-        await db.query(SchemaProvider.TRANSACTION_TABLE_NAME);
+    final List<Map<String, dynamic>> queryResult = await db.query(
+      SchemaProvider.TRANSACTION_TABLE_NAME,
+      where: 'date > ? AND date < ?',
+      whereArgs: [from.millisecondsSinceEpoch, until.millisecondsSinceEpoch],
+    );
 
     return TransactionList.fromQueryResult(queryResult);
   }
