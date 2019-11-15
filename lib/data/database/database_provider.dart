@@ -25,8 +25,9 @@ class DatabaseProvider {
   }
 
   static void _initializeDatabase(Database db, int version) async {
-    await db.execute(
-      SchemaProvider.getDatabaseSchema(),
-    );
+    Batch batch = db.batch();
+    batch.execute(SchemaProvider.getTransactionTableSchema());
+    batch.execute(SchemaProvider.getAcountBalanceSnapshotTableSchema());
+    await batch.commit(noResult: true);
   }
 }
