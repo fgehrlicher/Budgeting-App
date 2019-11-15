@@ -1,8 +1,68 @@
+import 'package:hunger_preventer/data/database/schema.dart';
 import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
+import 'package:sqflite/sqflite.dart';
 
 class BalanceSnapshotRepository {
-  List<AccountBalanceSnapshot> get(DateTime from, [DateTime until]) {
+  Future<Database> database;
+
+  String _tableName = SchemaProvider.ACCOUNT_BALANCE_SNAPSHOT_TABLE_NAME;
+
+  BalanceSnapshotRepository(this.database);
+
+  Future<List<AccountBalanceSnapshot>> getAllInRange(DateTime from,
+      [DateTime until]) async {
     until ??= DateTime.now();
-    return null;
+    var db = await database;
+    var list = List();
+
+    final List<Map<String, dynamic>> queryResult = await db.query(
+      _tableName,
+      where: 'date > ? AND date < ?',
+      whereArgs: [from.millisecondsSinceEpoch, until.millisecondsSinceEpoch],
+    );
+
+    queryResult.forEach(
+      (rawMap) => list.add(
+        AccountBalanceSnapshot.fromMap(rawMap),
+      ),
+    );
+
+    return list;
+  }
+
+  Future<List<AccountBalanceSnapshot>> getAll() async {
+    var db = await database;
+    var list = List();
+
+    final List<Map<String, dynamic>> queryResult = await db.query(_tableName);
+
+    queryResult.forEach(
+      (rawMap) => list.add(
+        AccountBalanceSnapshot.fromMap(rawMap),
+      ),
+    );
+
+    return list;
+  }
+
+  void insertMultiple(List<AccountBalanceSnapshot> snapshots) async {
+    var db = await database;
+    var batch = db.batch();
+
+    snapshots.forEach((snapshots) {
+      batch.insert(
+        _tableName,
+        snapshots.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    });
+
+    await batch.commit(noResult: true);
+  }
+
+  void insertOne(AccountBalanceSnapshot snapshots) async {
+    var db = await database;
+
+    await db.insert(_tableName, snapshots.toMap());
   }
 }
