@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_state.dart';
@@ -22,8 +23,19 @@ class _TransactionListState extends State<TransactionList> {
     return BlocBuilder<TransactionListBloc, TransactionListState>(
       builder: (context, state) {
         if (state is TransactionsLoaded) {
-          return Center(
-            child: Text('transactions found'),
+          var childen = List<Widget>();
+          state.transactions.forEach((element) {
+            childen.add(
+              Container(
+                height: 50,
+                color: Colors.amber[100],
+                child: Center(child: Text(element.date.toIso8601String())),
+              ),
+            );
+          });
+          return ListView(
+            padding: const EdgeInsets.all(8),
+            children: childen
           );
         }
         if (state is TransactionsEmpty) {
