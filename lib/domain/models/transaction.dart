@@ -1,4 +1,8 @@
-import 'package:hunger_preventer/domain/models/transaction_type.dart';
+enum TransactionType {
+  CREDIT_CARD,
+  BANK_TRANSFER,
+  DIRECT_DEBIT,
+}
 
 class Transaction {
   int _id;
