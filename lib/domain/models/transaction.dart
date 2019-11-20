@@ -5,6 +5,8 @@ enum TransactionType {
 }
 
 class Transaction {
+  static const String TABLE_NAME = "usertransaction";
+
   int _id;
   DateTime _date;
   int _amount;

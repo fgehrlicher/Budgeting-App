@@ -1,6 +1,8 @@
 import 'package:hunger_preventer/domain/models/account_balance.dart';
 
 class AccountBalanceSnapshot extends AccountBalance {
+  static const String TABLE_NAME = "accountbalancesnapshot";
+
   DateTime _date;
   int _id;
 

@@ -1,4 +1,3 @@
-import 'package:hunger_preventer/data/database/schema.dart';
 import 'package:hunger_preventer/domain/models/transaction_list.dart';
 import 'package:hunger_preventer/domain/models/transaction.dart' as model;
 import 'package:sqflite/sqflite.dart';
@@ -6,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 class TransactionRepository {
   Future<Database> database;
 
-  String _tableName = SchemaProvider.TRANSACTION_TABLE_NAME;
+  String _tableName = model.Transaction.TABLE_NAME;
 
   TransactionRepository(this.database);
 

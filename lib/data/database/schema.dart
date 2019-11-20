@@ -1,10 +1,11 @@
+import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
+import 'package:hunger_preventer/domain/models/transaction.dart';
+
 class SchemaProvider {
-  static const String TRANSACTION_TABLE_NAME = "usertransaction";
-  static const String ACCOUNT_BALANCE_SNAPSHOT_TABLE_NAME = "accountbalancesnapshot";
 
   static String getTransactionTableSchema() {
     return """ 
-    CREATE TABLE $TRANSACTION_TABLE_NAME(
+    CREATE TABLE ${Transaction.TABLE_NAME}(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       date INT NOT NULL,
       amount INT NOT NULL,
@@ -17,7 +18,7 @@ class SchemaProvider {
 
   static String getAcountBalanceSnapshotTableSchema() {
     return """ 
-    CREATE TABLE $ACCOUNT_BALANCE_SNAPSHOT_TABLE_NAME(
+    CREATE TABLE ${AccountBalanceSnapshot.TABLE_NAME}(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       date INT NOT NULL,
       balance INT NOT NULL

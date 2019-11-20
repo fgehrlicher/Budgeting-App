@@ -1,11 +1,10 @@
-import 'package:hunger_preventer/data/database/schema.dart';
 import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BalanceSnapshotRepository {
   Future<Database> database;
 
-  String _tableName = SchemaProvider.ACCOUNT_BALANCE_SNAPSHOT_TABLE_NAME;
+  String _tableName = AccountBalanceSnapshot.TABLE_NAME;
 
   BalanceSnapshotRepository(this.database);
 
