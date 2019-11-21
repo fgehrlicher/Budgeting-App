@@ -1,3 +1,5 @@
+import 'package:hunger_preventer/data/orm/orm_config.dart';
+
 enum TransactionType {
   CREDIT_CARD,
   BANK_TRANSFER,
@@ -7,11 +9,25 @@ enum TransactionType {
 class Transaction {
   static const String TABLE_NAME = "usertransaction";
 
+  @OrmConfig(
+    fieldName: 'id',
+    sqlConfig: 'INTEGER PRIMARY KEY AUTOINCREMENT',
+  )
   int _id;
+
+  @OrmConfig(fieldName: 'id', sqlConfig: 'INT NOT NULL')
   DateTime _date;
+
+  @OrmConfig(fieldName: 'amount', sqlConfig: 'INT NOT NULL')
   int _amount;
+
+  @OrmConfig(fieldName: 'transaction_type', sqlConfig: 'INT')
   TransactionType _type;
+
+  @OrmConfig(fieldName: 'iban', sqlConfig: 'TEXT')
   String _iban;
+
+  @OrmConfig(fieldName: 'bic', sqlConfig: 'TEXT')
   String _bic;
 
   Transaction(
