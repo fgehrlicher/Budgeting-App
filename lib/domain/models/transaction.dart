@@ -52,7 +52,7 @@ class Transaction {
     this._bic = data[BIC_NAME];
   }
 
-  List<FieldConfig> getFieldConf() {
+  static List<FieldConfig> getFieldConf() {
     return [
       FieldConfig(ID_NAME, ID_CONFIG),
       FieldConfig(DATE_NAME, DATE_CONFIG),
