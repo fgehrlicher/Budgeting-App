@@ -29,7 +29,7 @@ class TransactionList extends DelegatingList<Transaction> {
     } else if (sorting == TransactionListSorting.DateDescending) {
       comparisonMethod = this._compareDateDescending;
     } else {
-      throw new Exception("sorting ${sorting.toString()} not implemented yet.");
+      throw Exception("sorting ${sorting.toString()} not implemented yet.");
     }
 
     this.delegate.sort(comparisonMethod);
@@ -37,7 +37,7 @@ class TransactionList extends DelegatingList<Transaction> {
 
   TransactionList getTransactions(DateTime from, DateTime until) {
     this._validateDate(from, until);
-    var subList = new TransactionList();
+    var subList = TransactionList();
     subList.addAll(this._transactions.where((Transaction transaction) {
       return transaction.date.isAtSameMomentAs(until) ||
           (transaction.date.isAfter(from) && transaction.date.isBefore(until));
