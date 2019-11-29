@@ -44,6 +44,8 @@ class Transaction implements PersistentModel {
     this._bic,
   ]);
 
+  Transaction.empty();
+
   Transaction.fromMap(Map<String, dynamic> data) {
     this._date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
     this._amount = data[AMOUNT_NAME];
