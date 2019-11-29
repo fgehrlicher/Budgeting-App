@@ -1,10 +1,10 @@
-import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
-import 'package:hunger_preventer/domain/models/transaction.dart';
+import 'package:hunger_preventer/data/database/persistent_model.dart';
 
 class SchemaProvider {
-  static String getTransactionTableSchema() {
-    var schema = "CREATE TABLE ${Transaction.TABLE_NAME}(";
-    var transactionConf = Transaction.getFieldConf();
+
+  static String getSchema(PersistentModel model) {
+    var schema = "CREATE TABLE ${model.getTableName()}(";
+    var transactionConf = model.getFieldConf();
 
     for (int i = 0; i < transactionConf.length; i++) {
       schema += transactionConf[i].toString();
@@ -15,15 +15,5 @@ class SchemaProvider {
     schema += ")";
 
     return schema;
-  }
-
-  static String getAcountBalanceSnapshotTableSchema() {
-    return """ 
-    CREATE TABLE ${AccountBalanceSnapshot.TABLE_NAME}(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      date INT NOT NULL,
-      balance INT NOT NULL
-    )
-    """;
   }
 }
