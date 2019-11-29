@@ -3,5 +3,7 @@ class AccountBalance {
 
   AccountBalance(this._balance);
 
+  AccountBalance.empty();
+
   int get balance => _balance;
 }
