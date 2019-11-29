@@ -1,4 +1,5 @@
 import 'package:hunger_preventer/data/database/field_config.dart';
+import 'package:hunger_preventer/data/database/persistent_model.dart';
 import 'package:hunger_preventer/data/database/sqlite_types.dart';
 
 enum TransactionType {
@@ -7,7 +8,7 @@ enum TransactionType {
   DIRECT_DEBIT,
 }
 
-class Transaction {
+class Transaction implements PersistentModel {
   static const String TABLE_NAME = "usertransaction";
 
   int _id;
@@ -52,7 +53,8 @@ class Transaction {
     this._bic = data[BIC_NAME];
   }
 
-  static List<FieldConfig> getFieldConf() {
+  @override
+  List<FieldConfig> getFieldConf() {
     return [
       FieldConfig(ID_NAME, ID_CONFIG),
       FieldConfig(DATE_NAME, DATE_CONFIG),
@@ -61,6 +63,11 @@ class Transaction {
       FieldConfig(IBAN_NAME, IBAN_CONFIG),
       FieldConfig(BIC_NAME, BIC_CONFIG),
     ];
+  }
+
+  @override
+  String getTableName() {
+    return TABLE_NAME;
   }
 
   Map<String, dynamic> toMap() {
