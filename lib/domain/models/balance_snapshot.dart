@@ -38,7 +38,6 @@ class AccountBalanceSnapshot extends AccountBalance implements PersistentModel {
 
   }
 
-
   @override
   String getTableName() {
     return TABLE_NAME;
