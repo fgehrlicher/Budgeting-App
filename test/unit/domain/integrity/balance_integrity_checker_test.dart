@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hunger_preventer/domain/integrity/balance_integrity_checker.dart';
-import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
+import 'package:hunger_preventer/domain/models/acount_balance.dart';
 import 'package:hunger_preventer/domain/models/transaction.dart';
 import 'package:hunger_preventer/domain/models/transaction_list.dart';
 import 'package:mockito/mockito.dart';
@@ -12,14 +12,14 @@ void main() {
     BalanceIntegrityChecker subject;
     TransactionListMock dummyTransactions;
 
-    final dummyFrom = AccountBalanceSnapshot(
-      1000,
-      DateTime.parse("2020-01-01 10:00:00"),
+    final dummyFrom = AccountBalance(
+      balance: 1000,
+      date: DateTime.parse("2020-01-01 10:00:00"),
     );
 
-    final dummyUntil = AccountBalanceSnapshot(
-      2000,
-      DateTime.parse("2020-02-01 10:00:00"),
+    final dummyUntil = AccountBalance(
+      balance: 2000,
+      date: DateTime.parse("2020-02-01 10:00:00"),
     );
 
     setUp(() {
@@ -90,7 +90,7 @@ void main() {
 
     test("'check' throws exception dates are identical", () {
       final date = DateTime.parse("2010-01-01 10:00:00");
-      final balanceSnapshot = AccountBalanceSnapshot(0, date);
+      final balanceSnapshot = AccountBalance(balance: 0, date: date);
 
       expect(() {
         subject.calculateOffset(
@@ -104,8 +104,8 @@ void main() {
     test("'check' throws exception if until happens after from", () {
       final fromDate = DateTime.parse("2020-01-01 10:00:00");
       final untilDate = DateTime.parse("2010-01-01 10:00:00");
-      final from = AccountBalanceSnapshot(0, fromDate);
-      final until = AccountBalanceSnapshot(0, untilDate);
+      final from = AccountBalance(balance: 0, date: fromDate);
+      final until = AccountBalance(balance: 0, date: untilDate);
 
       expect(() {
         subject.calculateOffset(from, until, TransactionList());

@@ -1,13 +1,11 @@
-import 'package:hunger_preventer/domain/models/account_balance.dart';
-import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
+import 'package:hunger_preventer/domain/models/acount_balance.dart';
 import 'package:hunger_preventer/domain/models/transaction.dart';
 import 'package:hunger_preventer/domain/models/transaction_list.dart';
-import 'package:hunger_preventer/domain/models/account_balance.dart';
 
 class BalanceIntegrityChecker {
   AccountBalance calculateOffset(
-    AccountBalanceSnapshot from,
-    AccountBalanceSnapshot until,
+    AccountBalance from,
+    AccountBalance until,
     TransactionList transactions,
   ) {
     this._validateDate(from.date, until.date);
@@ -23,7 +21,7 @@ class BalanceIntegrityChecker {
     int offset = calculationBalance - until.balance;
 
     return (calculationBalance != until.balance)
-        ? AccountBalance(offset)
+        ? AccountBalance(balance: offset)
         : null;
   }
 
