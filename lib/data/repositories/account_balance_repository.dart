@@ -1,14 +1,14 @@
-import 'package:hunger_preventer/domain/models/balance_snapshot.dart';
+import 'package:hunger_preventer/domain/models/acount_balance.dart';
 import 'package:sqflite/sqflite.dart';
 
-class BalanceSnapshotRepository {
+class AccountBalanceRepository {
   Future<Database> database;
 
-  String _tableName = AccountBalanceSnapshot.TABLE_NAME;
+  String _tableName = AccountBalance.TABLE_NAME;
 
-  BalanceSnapshotRepository(this.database);
+  AccountBalanceRepository(this.database);
 
-  Future<List<AccountBalanceSnapshot>> getAllInRange(DateTime from,
+  Future<List<AccountBalance>> getAllInRange(DateTime from,
       [DateTime until]) async {
     until ??= DateTime.now();
     var db = await database;
@@ -22,14 +22,14 @@ class BalanceSnapshotRepository {
 
     queryResult.forEach(
       (rawMap) => list.add(
-        AccountBalanceSnapshot.fromMap(rawMap),
+        AccountBalance.fromMap(rawMap),
       ),
     );
 
     return list;
   }
 
-  Future<List<AccountBalanceSnapshot>> getAll() async {
+  Future<List<AccountBalance>> getAll() async {
     var db = await database;
     var list = List();
 
@@ -37,14 +37,14 @@ class BalanceSnapshotRepository {
 
     queryResult.forEach(
       (rawMap) => list.add(
-        AccountBalanceSnapshot.fromMap(rawMap),
+        AccountBalance.fromMap(rawMap),
       ),
     );
 
     return list;
   }
 
-  void insertMultiple(List<AccountBalanceSnapshot> snapshots) async {
+  void insertMultiple(List<AccountBalance> snapshots) async {
     var db = await database;
     var batch = db.batch();
 
@@ -59,7 +59,7 @@ class BalanceSnapshotRepository {
     await batch.commit(noResult: true);
   }
 
-  void insertOne(AccountBalanceSnapshot snapshots) async {
+  void insertOne(AccountBalance snapshots) async {
     var db = await database;
 
     await db.insert(_tableName, snapshots.toMap());
