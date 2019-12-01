@@ -11,48 +11,46 @@ enum TransactionType {
 class Transaction implements PersistentModel {
   static const String TABLE_NAME = "usertransaction";
 
-  int _id;
+  int id;
   static const String ID_NAME = "id";
   static const String ID_CONFIG = SqliteTypes.PRIMARY_KEY;
 
-  DateTime _date;
+  DateTime date;
   static const String DATE_NAME = "date";
   static const String DATE_CONFIG = SqliteTypes.INT + SqliteTypes.NOT_NULL;
 
-  int _amount;
+  int amount;
   static const String AMOUNT_NAME = "amount";
   static const String AMOUNT_CONFIG = SqliteTypes.INT + SqliteTypes.NOT_NULL;
 
-  TransactionType _type;
+  TransactionType type;
   static const String TYPE_NAME = "transaction_type";
   static const String TYPE_CONFIG = SqliteTypes.INT;
 
-  String _iban;
+  String iban;
   static const String IBAN_NAME = "iban";
   static const String IBAN_CONFIG = SqliteTypes.TEXT;
 
-  String _bic;
+  String bic;
   static const String BIC_NAME = "bic";
   static const String BIC_CONFIG = SqliteTypes.TEXT;
 
-  Transaction(
-    this._date,
-    this._amount, [
-    this._id,
-    this._type,
-    this._iban,
-    this._bic,
-  ]);
-
-  Transaction.empty();
+  Transaction({
+    this.date,
+    this.amount,
+    this.id,
+    this.type,
+    this.iban,
+    this.bic,
+  });
 
   Transaction.fromMap(Map<String, dynamic> data) {
-    this._date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
-    this._amount = data[AMOUNT_NAME];
-    this._id = data[ID_NAME];
-    this._type = data[TYPE_NAME];
-    this._iban = data[IBAN_NAME];
-    this._bic = data[BIC_NAME];
+    this.date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
+    this.amount = data[AMOUNT_NAME];
+    this.id = data[ID_NAME];
+    this.type = data[TYPE_NAME];
+    this.iban = data[IBAN_NAME];
+    this.bic = data[BIC_NAME];
   }
 
   @override
@@ -85,16 +83,4 @@ class Transaction implements PersistentModel {
     map.removeWhere((key, value) => value == null);
     return map;
   }
-
-  int get id => _id;
-
-  int get amount => _amount;
-
-  DateTime get date => _date;
-
-  TransactionType get type => _type;
-
-  String get iban => _iban;
-
-  String get bic => _bic;
 }
