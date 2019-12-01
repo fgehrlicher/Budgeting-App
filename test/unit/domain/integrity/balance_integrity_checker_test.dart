@@ -30,16 +30,16 @@ void main() {
     test("'check' returns the correct postive deviating balance", () {
       final transactions = [
         Transaction(
-          dummyFrom.date.add(
+          date: dummyFrom.date.add(
             new Duration(days: 1),
           ),
-          1000,
+          amount: 1000,
         ),
         Transaction(
-          dummyFrom.date.add(
+          date: dummyFrom.date.add(
             new Duration(days: 2),
           ),
-          1000,
+          amount: 1000,
         ),
       ];
       final exceptedOffset = 1000;
@@ -57,22 +57,22 @@ void main() {
     test("'check' returns the correct negative deviating balance", () {
       final transactions = [
         Transaction(
-          dummyFrom.date.add(
+          date: dummyFrom.date.add(
             new Duration(days: 1),
           ),
-          400,
+          amount: 400,
         ),
         Transaction(
-          dummyFrom.date.add(
+          date: dummyFrom.date.add(
             new Duration(days: 1),
           ),
-          600,
+          amount: 600,
         ),
         Transaction(
-          dummyFrom.date.add(
+          date: dummyFrom.date.add(
             new Duration(days: 2),
           ),
-          -4500,
+          amount: -4500,
         ),
       ];
       final exceptedOffset = -4500;
@@ -83,7 +83,7 @@ void main() {
       when(dummyTransactions[2]).thenReturn(transactions[2]);
 
       var result =
-      subject.calculateOffset(dummyFrom, dummyUntil, dummyTransactions);
+          subject.calculateOffset(dummyFrom, dummyUntil, dummyTransactions);
 
       expect(result.balance, exceptedOffset);
     });

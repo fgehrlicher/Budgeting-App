@@ -17,19 +17,19 @@ void main() {
   transactions.insertMultiple(TransactionList()
     ..addAll([
       Transaction(
-        DateTime.parse("2019-11-08 10:00:00"), 1000, 1
+        date: DateTime.parse("2019-01-08 10:00:00"), amount: 1000, id: 1
       ),
       Transaction(
-        DateTime.parse("2019-11-09 10:00:00"), -100, 2
+        date: DateTime.parse("2019-13-08 10:00:00"), amount: -100, id: 2
       ),
       Transaction(
-        DateTime.parse("2019-11-11 10:00:00"), -500, 3
+        date: DateTime.parse("2019-20-08 10:00:00"), amount: -200, id: 3
       ),
       Transaction(
-        DateTime.parse("2019-11-12 10:00:00"), -300, 4
+        date: DateTime.parse("2019-29-08 10:00:00"), amount: -50, id: 4
       ),
       Transaction(
-        DateTime.parse("2019-11-13 10:00:00"), -100, 5
+        date: DateTime.parse("2019-01-09 10:00:00"), amount: 1000, id: 5
       ),
     ]));
 

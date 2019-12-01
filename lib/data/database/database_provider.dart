@@ -22,7 +22,7 @@ class DatabaseProvider {
     Batch batch = db.batch();
     batch.execute(
       SchemaProvider.getSchema(
-        model.Transaction.empty(),
+        model.Transaction(),
       ),
     );
     await batch.commit(noResult: true);
