@@ -40,7 +40,7 @@ class AccountBalance implements PersistentModel {
   List<FieldConfig> getFieldConf() {
     return [
       FieldConfig(ID_NAME, ID_CONFIG),
-      FieldConfig(DATE_NAME, DAT E_CONFIG),
+      FieldConfig(DATE_NAME, DATE_CONFIG),
       FieldConfig(BALANCE_NAME, BALANCE_CONFIG),
     ];
   }
