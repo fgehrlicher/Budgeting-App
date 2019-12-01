@@ -1,21 +1,19 @@
 import 'package:hunger_preventer/data/database/field_config.dart';
 import 'package:hunger_preventer/data/database/persistent_model.dart';
-import 'package:hunger_preventer/domain/models/account_balance.dart';
 
-class AccountBalanceSnapshot extends AccountBalance implements PersistentModel {
+class AccountBalanceSnapshot implements PersistentModel {
   static const String TABLE_NAME = "accountbalancesnapshot";
 
-  DateTime _date;
-  int _id;
+  int id;
+  DateTime date;
+  int balance;
 
-  AccountBalanceSnapshot(int balance, this._date, [this._id]) : super(balance);
+  AccountBalanceSnapshot({this.id, this.date, this.balance});
 
-  AccountBalanceSnapshot.empty(): super.empty();
-
-  AccountBalanceSnapshot.fromMap(Map<String, dynamic> data)
-      : super(data['balance']) {
-    this._id = data['id'];
-    this._date = DateTime.fromMillisecondsSinceEpoch(data['date']);
+  AccountBalanceSnapshot.fromMap(Map<String, dynamic> data){
+    this.id = data['id'];
+    this.balance = data['balance'];
+    this.date = DateTime.fromMillisecondsSinceEpoch(data['date']);
   }
 
   Map<String, dynamic> toMap() {
@@ -28,10 +26,6 @@ class AccountBalanceSnapshot extends AccountBalance implements PersistentModel {
     map.removeWhere((key, value) => value == null);
     return map;
   }
-
-  DateTime get date => _date;
-
-  int get id => _id;
 
   @override
   List<FieldConfig> getFieldConf() {
