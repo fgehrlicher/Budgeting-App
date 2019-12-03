@@ -22,6 +22,17 @@ class _TransactionListState extends State<TransactionList> {
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionListBloc, TransactionListState>(
       builder: (context, state) {
+        if (state is TransactionsEmpty) {
+          return Center(
+            child: Text('no transactions'),
+          );
+        }
+        if (state is TransactionsLoading) {
+          return Center(
+            child: CupertinoActivityIndicator(),
+          );
+        }
+
         if (state is TransactionsLoaded) {
           var childen = List<Widget>();
           state.transactions.forEach((element) {
@@ -38,16 +49,7 @@ class _TransactionListState extends State<TransactionList> {
             children: childen
           );
         }
-        if (state is TransactionsEmpty) {
-          return Center(
-            child: Text('no transactions'),
-          );
-        }
-        if (state is TransactionsLoading) {
-          return Center(
-            child: CupertinoActivityIndicator(),
-          );
-        }
+
         return Container();
       },
     );
