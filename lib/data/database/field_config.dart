@@ -6,7 +6,7 @@ class FieldConfig {
 
   @override
   String toString() {
-    return name + config;
+    return name + " " + config;
   }
 
 }
