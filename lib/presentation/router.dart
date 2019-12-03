@@ -6,12 +6,12 @@ import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_b
 import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_event.dart';
 import 'package:hunger_preventer/presentation/screens/transaction_list/transaction_list.dart';
 
-class HomeScreen extends StatefulWidget {
+class Router extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _RouterState createState() => _RouterState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _RouterState extends State<Router> {
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
