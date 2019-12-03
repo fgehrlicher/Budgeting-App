@@ -4,6 +4,7 @@ import 'package:hunger_preventer/data/database/database_provider.dart';
 import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
 import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_event.dart';
+import 'package:hunger_preventer/presentation/screens/home/home.dart';
 import 'package:hunger_preventer/presentation/screens/transaction_list/transaction_list.dart';
 
 class Router extends StatefulWidget {
@@ -15,6 +16,7 @@ class _RouterState extends State<Router> {
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
+    Home(),
     BlocProvider(
       builder: (context) => TransactionListBloc(
         TransactionRepository(
@@ -37,6 +39,10 @@ class _RouterState extends State<Router> {
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.attach_money),
             title: Text('Transactions'),
