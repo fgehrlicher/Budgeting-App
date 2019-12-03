@@ -1,21 +1,21 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
-import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_event.dart';
-import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_state.dart';
+import 'package:hunger_preventer/domain/bloc/transactions/transactions_event.dart';
+import 'package:hunger_preventer/domain/bloc/transactions/transactions_state.dart';
 
-class TransactionListBloc
-    extends Bloc<TransactionListEvent, TransactionListState> {
+class TransactionsBloc
+    extends Bloc<TransactionsEvent, TransactionsState> {
   final TransactionRepository _transactionRepository;
 
-  TransactionListBloc(this._transactionRepository);
+  TransactionsBloc(this._transactionRepository);
 
   @override
-  TransactionListState get initialState => TransactionsEmpty();
+  TransactionsState get initialState => TransactionsEmpty();
 
   @override
-  Stream<TransactionListState> mapEventToState(
-    TransactionListEvent event,
+  Stream<TransactionsState> mapEventToState(
+    TransactionsEvent event,
   ) async* {
     if (event is FetchTransactions) {
       yield TransactionsLoading();

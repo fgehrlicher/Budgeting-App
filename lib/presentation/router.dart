@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hunger_preventer/data/database/database_provider.dart';
 import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
-import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_event.dart';
+import 'package:hunger_preventer/domain/bloc/transactions/transactions_bloc.dart';
+import 'package:hunger_preventer/domain/bloc/transactions/transactions_event.dart';
 import 'package:hunger_preventer/presentation/screens/home/home.dart';
-import 'package:hunger_preventer/presentation/screens/transaction_list/transaction_list.dart';
+import 'package:hunger_preventer/presentation/screens/transactions/transactions.dart';
 
 class Router extends StatefulWidget {
   @override
@@ -18,12 +18,12 @@ class _RouterState extends State<Router> {
   static List<Widget> _widgetOptions = <Widget>[
     Home(),
     BlocProvider(
-      builder: (context) => TransactionListBloc(
+      builder: (context) => TransactionsBloc(
         TransactionRepository(
           DatabaseProvider.database,
         ),
       )..add(FetchTransactions()),
-      child: TransactionList(),
+      child: Transactions(),
     )
   ];
 

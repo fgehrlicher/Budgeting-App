@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/transaction_list/transaction_list_state.dart';
+import 'package:hunger_preventer/domain/bloc/transactions/transactions_bloc.dart';
+import 'package:hunger_preventer/domain/bloc/transactions/transactions_state.dart';
 
-class TransactionList extends StatefulWidget {
+class Transactions extends StatefulWidget {
   @override
-  _TransactionListState createState() => _TransactionListState();
+  _TransactionsState createState() => _TransactionsState();
 }
 
-class _TransactionListState extends State<TransactionList> {
-  TransactionListBloc _transactionListBloc;
+class _TransactionsState extends State<Transactions> {
+  TransactionsBloc _transactionsBloc;
 
   @override
   void initState() {
     super.initState();
-    this._transactionListBloc = BlocProvider.of<TransactionListBloc>(context);
+    this._transactionsBloc = BlocProvider.of<TransactionsBloc>(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TransactionListBloc, TransactionListState>(
+    return BlocBuilder<TransactionsBloc, TransactionsState>(
       builder: (context, state) {
         if (state is TransactionsEmpty) {
           return Center(
