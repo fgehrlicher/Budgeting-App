@@ -19,7 +19,7 @@ class TransactionRepository {
       whereArgs: [from.millisecondsSinceEpoch, until.millisecondsSinceEpoch],
     );
 
-    return TransactionList.fromQueryResult(queryResult);
+    return TransactionList.fromMap(queryResult);
   }
 
   Future<TransactionList> getAll() async {
@@ -28,7 +28,7 @@ class TransactionRepository {
     final List<Map<String, dynamic>> queryResult =
         await db.query(_tableName);
 
-    return TransactionList.fromQueryResult(queryResult);
+    return TransactionList.fromMap(queryResult);
   }
 
   void insertMultiple(TransactionList transactions) async {
