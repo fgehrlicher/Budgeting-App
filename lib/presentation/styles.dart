@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class Styles {
@@ -32,10 +32,6 @@ abstract class Styles {
   static const TextStyle deliveryTimeLabel = TextStyle(
     color: Color(0xFFC2C2C2),
     fontWeight: FontWeight.w300,
-  );
-
-  static const TextStyle deliveryTime = TextStyle(
-    color: CupertinoColors.inactiveGray,
   );
 
   static const Color productRowDivider = Color(0xFFD9D9D9);
