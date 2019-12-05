@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hunger_preventer/data/database/database_provider.dart';
 import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
+import 'package:hunger_preventer/domain/bloc/home/home_bloc.dart';
+import 'package:hunger_preventer/domain/bloc/home/home_event.dart';
 import 'package:hunger_preventer/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/transactions/transactions_event.dart';
 import 'package:hunger_preventer/presentation/screens/home/home.dart';
@@ -16,7 +18,10 @@ class _RouterState extends State<Router> {
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
-    Home(),
+    BlocProvider(
+      builder: (context) => HomeBloc()..add(FetchCurrentBalance()),
+      child: Home(),
+    ),
     BlocProvider(
       builder: (context) => TransactionsBloc(
         TransactionRepository(
