@@ -1,4 +1,5 @@
 import 'package:hunger_preventer/data/database/schema.dart';
+import 'package:hunger_preventer/domain/models/acount_balance.dart';
 import 'package:hunger_preventer/domain/models/transaction.dart' as model;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -23,6 +24,11 @@ class DatabaseProvider {
     batch.execute(
       SchemaProvider.getSchema(
         model.Transaction(),
+      ),
+    );
+    batch.execute(
+      SchemaProvider.getSchema(
+        AccountBalance(),
       ),
     );
     await batch.commit(noResult: true);
