@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is EmptyBalance) {
-          Center(
+          return Center(
             child: Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
         }
 
         if (state is BalanceCalculated) {
-          Center(
+          return Center(
             child: Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
