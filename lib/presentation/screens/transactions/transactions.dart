@@ -36,17 +36,16 @@ class _TransactionsState extends State<Transactions> {
           var childen = List<Widget>();
           state.transactions.forEach((element) {
             childen.add(
-              Container(
-                height: 50,
-                color: Colors.amber[100],
-                child: Center(child: Text(element.date.toIso8601String())),
+              Card(
+                child: ListTile(
+                  title: const Text("Transaction"),
+                  subtitle: Text(element.amount.toString()),
+                ),
               ),
             );
           });
-          return ListView(
-            padding: const EdgeInsets.all(8),
-            children: childen
-          );
+
+          return ListView(padding: const EdgeInsets.all(8), children: childen, reverse: true,);
         }
 
         return Container();
