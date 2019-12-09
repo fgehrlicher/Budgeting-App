@@ -49,6 +49,10 @@ class TransactionRepository {
   void insertOne(model.Transaction transaction) async {
     var db = await database;
 
-    await db.insert(_tableName, transaction.toMap());
+    await db.insert(
+        _tableName,
+        transaction.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 }

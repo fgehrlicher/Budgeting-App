@@ -62,6 +62,10 @@ class AccountBalanceRepository {
   void insertOne(AccountBalance snapshots) async {
     var db = await database;
 
-    await db.insert(_tableName, snapshots.toMap());
+    await db.insert(
+      _tableName,
+      snapshots.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 }
