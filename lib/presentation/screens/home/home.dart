@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/home/home_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/home/home_state.dart';
+import 'package:hunger_preventer/presentation/screens/home/balance_container.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -22,23 +23,9 @@ class _HomeState extends State<Home> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is EmptyBalance) {
-          return Center(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Error",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.amber[800]),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+          return BalanceContainer(
+            headline: "Available Amount:",
+            body: "0 \$",
           );
         }
         if (state is CalculatingBalance) {
@@ -48,28 +35,9 @@ class _HomeState extends State<Home> {
         }
 
         if (state is BalanceCalculated) {
-          return Center(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Available Amount:",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.amber[800]),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    state.accountBalance.balance.toString() + " \$",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+          return BalanceContainer(
+            headline: "Available Amount:",
+            body: state.accountBalance.balance.toString() + "0 \$",
           );
         }
 
