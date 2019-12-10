@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -14,6 +15,9 @@ class BalanceContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> columnWidgets = List();
+
+    var topSpacerSize = MediaQuery.of(context).size.height * 0.4;
+    columnWidgets.add(Container(height: topSpacerSize));
 
     if (headline != null) {
       columnWidgets.add(
@@ -37,13 +41,10 @@ class BalanceContainer extends StatelessWidget {
       );
     }
 
-    return RefreshIndicator(
-      onRefresh: refreshCallback,
-      child: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+    return Center(
+      child: RefreshIndicator(
+        onRefresh: refreshCallback,
+        child: ListView(
           children: columnWidgets,
         ),
       ),
