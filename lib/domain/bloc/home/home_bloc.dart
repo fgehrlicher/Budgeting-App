@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:hunger_preventer/domain/bloc/home/home_event.dart';
 import 'package:hunger_preventer/domain/bloc/home/home_state.dart';
@@ -14,7 +16,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is FetchCurrentBalance) {
       yield CalculatingBalance();
-      var accountBalance = AccountBalance(balance: 2800);
+      var accountBalance = AccountBalance(balance: Random().nextInt(5000));
+      sleep(Duration(seconds: 3));
       if (accountBalance != null) {
         yield BalanceCalculated(accountBalance);
       } else {
