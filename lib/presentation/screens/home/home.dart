@@ -39,12 +39,7 @@ class _HomeState extends State<Home> {
           return BalanceContainer(
             headline: "Available Amount:",
             body: "${state.accountBalance.balance} \$",
-            refreshCallback: () {
-              _homeBloc.add(
-                FetchCurrentBalance(),
-              );
-              return _refreshCompleter.future;
-            },
+            refreshCallback: _refreshCallback(),
           );
         }
 
@@ -52,4 +47,12 @@ class _HomeState extends State<Home> {
       },
     );
   }
+
+  RefreshCallback _refreshCallback() {
+    return () {
+      _homeBloc.add(FetchCurrentBalance());
+      return _refreshCompleter.future;
+    };
+  }
+
 }
