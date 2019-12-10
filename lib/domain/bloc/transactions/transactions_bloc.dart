@@ -19,7 +19,7 @@ class TransactionsBloc
   ) async* {
     if (event is FetchTransactions) {
       yield TransactionsLoading();
-      var transactions = await this._transactionRepository.getAll();
+      var transactions = await _transactionRepository.getAll();
       if (transactions.length > 0) {
         yield TransactionsLoaded(transactions);
       } else {

@@ -20,16 +20,16 @@ class AccountBalance implements PersistentModel {
   AccountBalance({this.id, this.date, this.balance});
 
   AccountBalance.fromMap(Map<String, dynamic> data) {
-    this.id = data[ID_NAME];
-    this.balance = data[BALANCE_NAME];
-    this.date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
+    id = data[ID_NAME];
+    balance = data[BALANCE_NAME];
+    date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
   }
 
   Map<String, dynamic> toMap() {
     var map = {
-      ID_NAME: this.id,
-      DATE_NAME: this.date.millisecondsSinceEpoch,
-      BALANCE_NAME: this.balance
+      ID_NAME: id,
+      DATE_NAME: date.millisecondsSinceEpoch,
+      BALANCE_NAME: balance
     };
 
     map.removeWhere((key, value) => value == null);

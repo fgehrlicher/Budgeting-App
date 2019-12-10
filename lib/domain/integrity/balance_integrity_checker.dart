@@ -8,13 +8,13 @@ class BalanceIntegrityChecker {
     AccountBalance until,
     TransactionList transactions,
   ) {
-    this._validateDate(from.date, until.date);
+    _validateDate(from.date, until.date);
     int calculationBalance = from.balance;
     transactions.sortBy(TransactionListSorting.DateAscending);
 
     for (var i = 0; i < transactions.length; i++) {
       Transaction transaction = transactions[i];
-      this._validateTransaction(from.date, until.date, transaction);
+      _validateTransaction(from.date, until.date, transaction);
       calculationBalance += transaction.amount;
     }
 

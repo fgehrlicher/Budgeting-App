@@ -45,12 +45,12 @@ class Transaction implements PersistentModel {
   });
 
   Transaction.fromMap(Map<String, dynamic> data) {
-    this.date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
-    this.amount = data[AMOUNT_NAME];
-    this.id = data[ID_NAME];
-    this.type = data[TYPE_NAME];
-    this.iban = data[IBAN_NAME];
-    this.bic = data[BIC_NAME];
+    date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
+    amount = data[AMOUNT_NAME];
+    id = data[ID_NAME];
+    type = data[TYPE_NAME];
+    iban = data[IBAN_NAME];
+    bic = data[BIC_NAME];
   }
 
   @override
@@ -72,12 +72,12 @@ class Transaction implements PersistentModel {
 
   Map<String, dynamic> toMap() {
     var map = {
-      ID_NAME: this.id,
-      DATE_NAME: this.date.millisecondsSinceEpoch,
-      AMOUNT_NAME: this.amount,
-      TYPE_NAME: this.type,
-      IBAN_NAME: this.iban,
-      BIC_NAME: this.bic,
+      ID_NAME: id,
+      DATE_NAME: date.millisecondsSinceEpoch,
+      AMOUNT_NAME: amount,
+      TYPE_NAME: type,
+      IBAN_NAME: iban,
+      BIC_NAME: bic,
     };
 
     map.removeWhere((key, value) => value == null);

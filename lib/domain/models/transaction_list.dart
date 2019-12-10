@@ -15,7 +15,7 @@ class TransactionList extends DelegatingList<Transaction> {
 
   TransactionList.fromMap(List<Map<String, dynamic>> data) {
     data.forEach(
-          (transactionValueMap) => this.add(
+          (transactionValueMap) => add(
         Transaction.fromMap(transactionValueMap),
       ),
     );
@@ -25,20 +25,20 @@ class TransactionList extends DelegatingList<Transaction> {
     int Function(Transaction, Transaction) comparisonMethod;
 
     if (sorting == TransactionListSorting.DateAscending) {
-      comparisonMethod = this._compareDateAscending;
+      comparisonMethod = _compareDateAscending;
     } else if (sorting == TransactionListSorting.DateDescending) {
-      comparisonMethod = this._compareDateDescending;
+      comparisonMethod = _compareDateDescending;
     } else {
       throw Exception("sorting ${sorting.toString()} not implemented yet.");
     }
 
-    this.delegate.sort(comparisonMethod);
+    delegate.sort(comparisonMethod);
   }
 
   TransactionList getTransactions(DateTime from, DateTime until) {
-    this._validateDate(from, until);
+    _validateDate(from, until);
     var subList = TransactionList();
-    subList.addAll(this._transactions.where((Transaction transaction) {
+    subList.addAll(_transactions.where((Transaction transaction) {
       return transaction.date.isAtSameMomentAs(until) ||
           (transaction.date.isAfter(from) && transaction.date.isBefore(until));
     }));

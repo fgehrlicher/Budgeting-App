@@ -18,8 +18,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    this._homeBloc = BlocProvider.of<HomeBloc>(context);
-    this._refreshCompleter = Completer<void>();
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _refreshCompleter = Completer<void>();
   }
 
   @override
