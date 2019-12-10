@@ -17,7 +17,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is FetchCurrentBalance) {
       yield CalculatingBalance();
       var accountBalance = AccountBalance(balance: Random().nextInt(5000));
-      sleep(Duration(seconds: 3));
+      await Future.delayed(Duration(seconds: 3));
+
       if (accountBalance != null) {
         yield BalanceCalculated(accountBalance);
       } else {
