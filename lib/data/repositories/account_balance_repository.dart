@@ -12,7 +12,6 @@ class AccountBalanceRepository {
       [DateTime until]) async {
     until ??= DateTime.now();
     var db = await database;
-    var list = List();
 
     final List<Map<String, dynamic>> queryResult = await db.query(
       _tableName,
@@ -20,28 +19,15 @@ class AccountBalanceRepository {
       whereArgs: [from.millisecondsSinceEpoch, until.millisecondsSinceEpoch],
     );
 
-    queryResult.forEach(
-      (rawMap) => list.add(
-        AccountBalance.fromMap(rawMap),
-      ),
-    );
-
-    return list;
+    return _parseQueryResult(queryResult);
   }
 
   Future<List<AccountBalance>> getAll() async {
     var db = await database;
-    var list = List();
 
     final List<Map<String, dynamic>> queryResult = await db.query(_tableName);
 
-    queryResult.forEach(
-      (rawMap) => list.add(
-        AccountBalance.fromMap(rawMap),
-      ),
-    );
-
-    return list;
+    return _parseQueryResult(queryResult);
   }
 
   void insertMultiple(List<AccountBalance> snapshots) async {
@@ -67,5 +53,17 @@ class AccountBalanceRepository {
       snapshots.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  List<AccountBalance> _parseQueryResult(
+      List<Map<String, dynamic>> queryResult) {
+    var list = List();
+    queryResult.forEach(
+      (rawMap) => list.add(
+        AccountBalance.fromMap(rawMap),
+      ),
+    );
+
+    return list;
   }
 }
