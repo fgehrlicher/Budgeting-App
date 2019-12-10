@@ -27,10 +27,7 @@ class _HomeState extends State<Home> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is EmptyBalance) {
-          return BalanceContainer(
-            headline: "Available Amount:",
-            body: "0 \$",
-          );
+          return Container();
         }
         if (state is CalculatingBalance) {
           return Center(
