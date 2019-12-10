@@ -7,7 +7,7 @@ enum TransactionListSorting {
 }
 
 class TransactionList extends DelegatingList<Transaction> {
-  final List<Transaction> _transactions = [];
+  final List<Transaction> _transactions = List();
 
   List<Transaction> get delegate => _transactions;
 

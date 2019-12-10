@@ -13,7 +13,7 @@ class BalanceContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> columnWidgets = [];
+    List<Widget> columnWidgets = List();
 
     if (headline != null) {
       columnWidgets.add(

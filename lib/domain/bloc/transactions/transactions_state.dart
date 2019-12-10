@@ -5,7 +5,7 @@ abstract class TransactionsState extends Equatable {
   const TransactionsState();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => List();
 }
 
 class TransactionsEmpty extends TransactionsState{}
