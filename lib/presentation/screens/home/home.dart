@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hunger_preventer/domain/bloc/home/home_bloc.dart';
+import 'package:hunger_preventer/domain/bloc/home/home_event.dart';
 import 'package:hunger_preventer/domain/bloc/home/home_state.dart';
 import 'package:hunger_preventer/presentation/screens/home/balance_container.dart';
 
@@ -11,11 +13,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   HomeBloc _homeBloc;
+  Completer<void> _refreshCompleter;
 
   @override
   void initState() {
     super.initState();
     this._homeBloc = BlocProvider.of<HomeBloc>(context);
+    this._refreshCompleter = Completer<void>();
   }
 
   @override
@@ -37,7 +41,13 @@ class _HomeState extends State<Home> {
         if (state is BalanceCalculated) {
           return BalanceContainer(
             headline: "Available Amount:",
-            body: state.accountBalance.balance.toString() + "0 \$",
+            body: "${state.accountBalance.balance} \$",
+            refreshCallback: () {
+              _homeBloc.add(
+                FetchCurrentBalance(),
+              );
+              return _refreshCompleter.future;
+            },
           );
         }
 
