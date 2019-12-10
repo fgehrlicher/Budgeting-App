@@ -1,11 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BalanceContainer extends StatelessWidget {
   final String headline;
   final String body;
+  final RefreshCallback refreshCallback;
 
-  BalanceContainer({this.headline, this.body});
+  BalanceContainer(
+      {@required this.headline,
+      @required this.body,
+      @required this.refreshCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +36,10 @@ class BalanceContainer extends StatelessWidget {
       );
     }
 
-    return Center(
-      child: Container(
+    return RefreshIndicator(
+      onRefresh: refreshCallback,
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
