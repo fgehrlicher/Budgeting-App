@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
         if (state is BalanceCalculated) {
           return BalanceContainer(
             headline: "Available Amount:",
-            body: "${state.accountBalance.balance} \$",
+            body: state.accountBalance.getBalanceString(),
             refreshCallback: _refreshCallback(),
           );
         }

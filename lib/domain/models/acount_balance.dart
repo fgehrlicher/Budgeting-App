@@ -49,4 +49,18 @@ class AccountBalance implements PersistentModel {
   String getTableName() {
     return TABLE_NAME;
   }
+
+  String getBalanceString() {
+    var minimalLength = 3;
+    var postDecimalPointChars = 2;
+
+    var rawBalance = balance != null ? balance.toString() : "";
+    rawBalance = rawBalance.padLeft(minimalLength, "0");
+    var balanceLength = rawBalance.length;
+
+    var preDecimalPoint = rawBalance.substring(0, balanceLength - postDecimalPointChars);
+    var postDecimalPoint = rawBalance.substring(balanceLength - postDecimalPointChars);
+
+    return "$preDecimalPoint.$postDecimalPoint \€";
+  }
 }
