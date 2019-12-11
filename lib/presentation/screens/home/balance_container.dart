@@ -17,7 +17,6 @@ class BalanceContainer extends StatelessWidget {
     List<Widget> columnWidgets = List();
 
     var topSpacerSize = MediaQuery.of(context).size.height * 0.4;
-    columnWidgets.add(Container(height: topSpacerSize));
 
     if (headline != null) {
       columnWidgets.add(
@@ -41,12 +40,11 @@ class BalanceContainer extends StatelessWidget {
       );
     }
 
-    return Center(
-      child: RefreshIndicator(
-        onRefresh: refreshCallback,
-        child: ListView(
-          children: columnWidgets,
-        ),
+    return RefreshIndicator(
+      onRefresh: refreshCallback,
+      child: ListView(
+        padding: EdgeInsets.only(top: topSpacerSize),
+        children: columnWidgets,
       ),
     );
   }
