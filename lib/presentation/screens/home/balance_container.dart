@@ -16,8 +16,6 @@ class BalanceContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> columnWidgets = List();
 
-    var topSpacerSize = MediaQuery.of(context).size.height * 0.4;
-
     if (headline != null) {
       columnWidgets.add(
         Text(
@@ -40,12 +38,26 @@ class BalanceContainer extends StatelessWidget {
       );
     }
 
-    return RefreshIndicator(
-      onRefresh: refreshCallback,
-      child: ListView(
-        padding: EdgeInsets.only(top: topSpacerSize),
-        children: columnWidgets,
-      ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return RefreshIndicator(
+          onRefresh: refreshCallback,
+          child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+                minWidth: constraints.maxWidth,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: columnWidgets,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
