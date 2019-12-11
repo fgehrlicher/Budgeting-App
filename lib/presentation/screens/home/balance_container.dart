@@ -23,7 +23,7 @@ class BalanceContainer extends StatelessWidget {
           style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: Colors.amber[800]),
+              color: Color(0xff0089BA)),
           textAlign: TextAlign.center,
         ),
       );
