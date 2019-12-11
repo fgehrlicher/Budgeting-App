@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hunger_preventer/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 
 void main() {
   group("Account Balance", () {
