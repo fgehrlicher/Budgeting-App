@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 class DatabaseProvider {
-  static const String DATABASE_FILE_NAME = "hunger-preventer.db";
+  static const String DATABASE_FILE_NAME = "unnamed-budgeting-app.db";
   static Future<Database> _database = _openDatabase();
 
   static Future<Database> get database => _database;

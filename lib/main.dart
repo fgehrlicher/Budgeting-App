@@ -37,5 +37,5 @@ void main() {
     AccountBalance(id: 1, date: DateTime.parse("2019-01-08 10:00:00"), balance: 10),
   );
 
-  runApp(HungerPreventerApp());
+  runApp(UnnamedBudgetingApp());
 }
