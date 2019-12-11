@@ -1,4 +1,4 @@
-import 'package:hunger_preventer/data/database/persistent_model.dart';
+import 'package:unnamed_budgeting_app/data/database/persistent_model.dart';
 
 class SchemaProvider {
 

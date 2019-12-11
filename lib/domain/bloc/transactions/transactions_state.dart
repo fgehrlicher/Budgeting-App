@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hunger_preventer/domain/models/transaction_list.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 
 abstract class TransactionsState extends Equatable {
   const TransactionsState();

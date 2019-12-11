@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:bloc/bloc.dart';
-import 'package:hunger_preventer/domain/bloc/home/home_event.dart';
-import 'package:hunger_preventer/domain/bloc/home/home_state.dart';
-import 'package:hunger_preventer/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/home/home_state.dart';
+import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc();

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/home/home_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/home/home_event.dart';
-import 'package:hunger_preventer/domain/bloc/home/home_state.dart';
-import 'package:hunger_preventer/presentation/screens/home/balance_container.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/home/home_state.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/home/balance_container.dart';
 
 class Home extends StatefulWidget {
   @override

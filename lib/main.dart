@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hunger_preventer/data/database/database_provider.dart';
-import 'package:hunger_preventer/data/repositories/account_balance_repository.dart';
-import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
-import 'package:hunger_preventer/domain/models/acount_balance.dart';
-import 'package:hunger_preventer/domain/models/transaction.dart';
-import 'package:hunger_preventer/domain/models/transaction_list.dart';
-import 'package:hunger_preventer/presentation/app.dart';
+import 'package:unnamed_budgeting_app/data/database/database_provider.dart';
+import 'package:unnamed_budgeting_app/data/repositories/account_balance_repository.dart';
+import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
+import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
+import 'package:unnamed_budgeting_app/presentation/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

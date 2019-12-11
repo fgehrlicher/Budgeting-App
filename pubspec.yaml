@@ -1,5 +1,5 @@
-name: hunger_preventer
-description: An App that prevents hunger by monitoring expenses
+name: unnamed_budgeting_app
+description: TODO
 version: 0.1.0+1
 
 environment:

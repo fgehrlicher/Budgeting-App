@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hunger_preventer/data/database/database_provider.dart';
-import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
-import 'package:hunger_preventer/domain/bloc/home/home_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/home/home_event.dart';
-import 'package:hunger_preventer/domain/bloc/transactions/transactions_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/transactions/transactions_event.dart';
-import 'package:hunger_preventer/presentation/screens/home/home.dart';
-import 'package:hunger_preventer/presentation/screens/transactions/transactions.dart';
+import 'package:unnamed_budgeting_app/data/database/database_provider.dart';
+import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/home/home.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/transactions.dart';
 
 class Router extends StatefulWidget {
   @override

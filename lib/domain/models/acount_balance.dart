@@ -1,6 +1,6 @@
-import 'package:hunger_preventer/data/database/field_config.dart';
-import 'package:hunger_preventer/data/database/persistent_model.dart';
-import 'package:hunger_preventer/data/database/sqlite_types.dart';
+import 'package:unnamed_budgeting_app/data/database/field_config.dart';
+import 'package:unnamed_budgeting_app/data/database/persistent_model.dart';
+import 'package:unnamed_budgeting_app/data/database/sqlite_types.dart';
 
 class AccountBalance implements PersistentModel {
   static const String TABLE_NAME = "accountbalance";

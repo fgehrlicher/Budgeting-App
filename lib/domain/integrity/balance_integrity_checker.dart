@@ -1,6 +1,6 @@
-import 'package:hunger_preventer/domain/models/acount_balance.dart';
-import 'package:hunger_preventer/domain/models/transaction.dart';
-import 'package:hunger_preventer/domain/models/transaction_list.dart';
+import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 
 class BalanceIntegrityChecker {
   AccountBalance calculateOffset(

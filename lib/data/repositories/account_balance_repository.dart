@@ -1,4 +1,4 @@
-import 'package:hunger_preventer/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AccountBalanceRepository {

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:hunger_preventer/data/repositories/transaction_repository.dart';
-import 'package:hunger_preventer/domain/bloc/transactions/transactions_event.dart';
-import 'package:hunger_preventer/domain/bloc/transactions/transactions_state.dart';
+import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 
 class TransactionsBloc
     extends Bloc<TransactionsEvent, TransactionsState> {

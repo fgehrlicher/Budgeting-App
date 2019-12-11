@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hunger_preventer/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();

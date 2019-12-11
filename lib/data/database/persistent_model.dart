@@ -1,4 +1,4 @@
-import 'package:hunger_preventer/data/database/field_config.dart';
+import 'package:unnamed_budgeting_app/data/database/field_config.dart';
 
 abstract class PersistentModel {
   String getTableName();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/transactions/transactions_bloc.dart';
-import 'package:hunger_preventer/domain/bloc/transactions/transactions_state.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 
 class Transactions extends StatefulWidget {
   @override
