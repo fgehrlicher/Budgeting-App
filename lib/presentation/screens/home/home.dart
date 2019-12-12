@@ -22,6 +22,13 @@ class _HomeState extends State<Home> {
     _refreshCompleter = Completer<void>();
   }
 
+  RefreshCallback _getRefreshCallback() {
+    return () {
+      _homeBloc.add(FetchCurrentBalance());
+      return _refreshCompleter.future;
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -36,23 +43,30 @@ class _HomeState extends State<Home> {
         }
 
         if (state is BalanceCalculated) {
-          return BalanceContainer(
-            headline: "Available Amount:",
-            body: state.accountBalance.getBalanceString(),
-            refreshCallback: _refreshCallback(),
+          return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return RefreshIndicator(
+                onRefresh: _getRefreshCallback(),
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                      minWidth: constraints.maxWidth,
+                    ),
+                    child: BalanceContainer(
+                      state.accountBalance.getBalanceString(),
+                    ),
+                  ),
+                ),
+              );
+            },
           );
         }
 
         return Container();
       },
     );
-  }
-
-  RefreshCallback _refreshCallback() {
-    return () {
-      _homeBloc.add(FetchCurrentBalance());
-      return _refreshCompleter.future;
-    };
   }
 
 }
