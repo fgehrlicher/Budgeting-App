@@ -4,13 +4,13 @@ import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 void main() {
   group("Account Balance", () {
 
-    test('getBalanceString returns the correct Balance String', () {
+    test('getFormattedBalance returns the correct Balance String', () {
       var cents = 10000;
       var euroString = "100.00 €";
       var subject = AccountBalance(balance: cents);
 
       expect(
-        subject.getBalanceString(),
+        subject.getFormattedBalance(),
         euroString,
       );
     });
@@ -22,7 +22,7 @@ void main() {
       var subject = AccountBalance(balance: cents);
 
       expect(
-        subject.getBalanceString(),
+        subject.getFormattedBalance(),
         euroString,
       );
     });
@@ -32,7 +32,7 @@ void main() {
       var subject = AccountBalance();
 
       expect(
-        subject.getBalanceString(),
+        subject.getFormattedBalance(),
         euroString,
       );
     });

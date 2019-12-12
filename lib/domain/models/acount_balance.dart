@@ -50,7 +50,7 @@ class AccountBalance implements PersistentModel {
     return TABLE_NAME;
   }
 
-  String getBalanceString() {
+  String getFormattedBalance() {
     var minimalLength = 3;
     var postDecimalPointChars = 2;
 
