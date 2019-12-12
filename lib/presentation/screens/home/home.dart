@@ -31,42 +31,44 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        if (state is EmptyBalance) {
-          return Container();
-        }
-        if (state is CalculatingBalance) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
+    return BlocListener<HomeBloc, HomeState>(
+      listener: (context, state) {
         if (state is BalanceCalculated) {
-          return LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return RefreshIndicator(
-                onRefresh: _getRefreshCallback(),
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                      minWidth: constraints.maxWidth,
-                    ),
-                    child: BalanceContainer(
-                      state.accountBalance.getBalanceString(),
+          _refreshCompleter?.complete();
+          _refreshCompleter = Completer();
+        }
+      },
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          if (state is EmptyBalance) {
+            return Container();
+          }
+
+          if (state is BalanceCalculated) {
+            return LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return RefreshIndicator(
+                  onRefresh: _getRefreshCallback(),
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                        minWidth: constraints.maxWidth,
+                      ),
+                      child: BalanceContainer(
+                        state.accountBalance.getBalanceString(),
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
-        }
+                );
+              },
+            );
+          }
 
-        return Container();
-      },
+          return Container();
+        },
+      ),
     );
   }
-
 }
