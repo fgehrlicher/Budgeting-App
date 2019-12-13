@@ -15,7 +15,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is FetchCurrentBalance) {
-      //yield CalculatingBalance();
+      yield CalculatingBalance();
       var accountBalance = AccountBalance(balance: Random().nextInt(50000));
       await Future.delayed(Duration(milliseconds: 500));
 
