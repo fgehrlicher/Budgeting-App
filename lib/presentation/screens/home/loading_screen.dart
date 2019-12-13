@@ -16,13 +16,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
   );
 
   int _dotCount;
+  Timer _timer;
 
   @override
   void initState() {
     super.initState();
 
     _dotCount = 0;
-    Timer.periodic(Duration(milliseconds: 100), (Timer t) => _tick());
+    _timer = Timer.periodic(Duration(milliseconds: 100), (Timer t) => _tick());
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   void _tick() {
