@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/test.dart';
 
 class Transactions extends StatefulWidget {
   @override
@@ -38,17 +39,28 @@ class _TransactionsState extends State<Transactions> {
             childen.add(
               Card(
                 child: ListTile(
-                  title: const Text("Transaction"),
+                  title: Text("Transaction"),
                   subtitle: Text(element.amount.toString()),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => SecondRoute()),
+                    );
+                  },
                 ),
               ),
             );
           });
 
-          return ListView(padding: const EdgeInsets.all(8), children: childen, reverse: true,);
+          return ListView(
+            padding: const EdgeInsets.all(8),
+            children: childen,
+          );
         }
 
-        return Container();
+        return Center(
+          child: Text('no transactions'),
+        );
       },
     );
   }
