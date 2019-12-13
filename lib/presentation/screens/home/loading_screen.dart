@@ -8,13 +8,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  static const String HEADLINE = "Available ";
-  static const Text loadingBalance = Text(
-    " --.-- €",
-    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-    textAlign: TextAlign.center,
-  );
-
+  static const int _maxDots = 3;
   int _dotCount;
   Timer _timer;
 
@@ -23,7 +17,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
 
     _dotCount = 0;
-    _timer = Timer.periodic(Duration(milliseconds: 100), (Timer t) => _tick());
+    _timer = Timer.periodic(Duration(milliseconds: 150), (Timer t) => _tick());
   }
 
   @override
@@ -34,24 +28,26 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void _tick() {
     setState(() {
-      _dotCount = _dotCount >= 3 ? 0 : _dotCount + 1;
+      _dotCount = _dotCount >= _maxDots ? 0 : _dotCount + 1;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var dots = "." * _dotCount;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("Loading " + ("." * _dotCount),
-            textAlign: TextAlign.center,
-            style: TextStyle(
+        Text(
+          "Calculating " + dots,
+          textAlign: TextAlign.center,
+          style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: Color(0xff0089BA),
-            )),
-        loadingBalance,
+              color: Color(0xff0089BA)),
+        ),
       ],
     );
   }
