@@ -38,15 +38,15 @@ class _HomeState extends State<Home> {
           _refreshCompleter = Completer();
         }
       },
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          if (state is EmptyBalance) {
-            return Container();
-          }
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is EmptyBalance) {
+                return Container();
+              }
 
-          if (state is BalanceCalculated) {
-            return LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
+              if (state is BalanceCalculated) {
                 return RefreshIndicator(
                   onRefresh: _getRefreshCallback(),
                   child: SingleChildScrollView(
@@ -62,13 +62,14 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 );
-              },
-            );
-          }
+              }
 
-          return Container();
+              return Container();
+            },
+          );
         },
       ),
     );
   }
+
 }
