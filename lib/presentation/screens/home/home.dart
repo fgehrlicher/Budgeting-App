@@ -5,6 +5,7 @@ import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_state.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/balance_container.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/home/loading_screen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -44,6 +45,16 @@ class _HomeState extends State<Home> {
             builder: (context, state) {
               if (state is EmptyBalance) {
                 return Container();
+              }
+
+              if (state is CalculatingBalance) {
+                return ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                    minWidth: constraints.maxWidth,
+                  ),
+                  child: LoadingScreen()
+                );
               }
 
               if (state is BalanceCalculated) {
