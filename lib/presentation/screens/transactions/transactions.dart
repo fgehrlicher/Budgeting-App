@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
-import 'package:unnamed_budgeting_app/presentation/screens/transactions/test.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 
 class Transactions extends StatefulWidget {
   @override
@@ -44,7 +44,7 @@ class _TransactionsState extends State<Transactions> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (BuildContext context) => SecondRoute()),
+                      MaterialPageRoute(builder: (BuildContext context) => EditTransaction()),
                     );
                   },
                 ),
