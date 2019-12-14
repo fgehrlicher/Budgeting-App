@@ -91,4 +91,18 @@ class Transaction implements PersistentModel {
     map.removeWhere((key, value) => value == null);
     return map;
   }
+
+  String getFormattedBalance() {
+    var minimalLength = 3;
+    var postDecimalPointChars = 2;
+
+    var rawBalance = amount != null ? amount.toString() : "";
+    rawBalance = rawBalance.padLeft(minimalLength, "0");
+    var balanceLength = rawBalance.length;
+
+    var preDecimalPoint = rawBalance.substring(0, balanceLength - postDecimalPointChars);
+    var postDecimalPoint = rawBalance.substring(balanceLength - postDecimalPointChars);
+
+    return "$preDecimalPoint.$postDecimalPoint \€";
+  }
 }
