@@ -63,6 +63,7 @@ class _TransactionsState extends State<Transactions> {
                         leading: element.category != null
                             ? Icon(
                                 element.category.iconData,
+                                color: Color(0xff0089BA),
                                 size: 30,
                               )
                             : Container(
