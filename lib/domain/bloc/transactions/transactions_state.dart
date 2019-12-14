@@ -10,6 +10,8 @@ abstract class TransactionsState extends Equatable {
 
 class TransactionsEmpty extends TransactionsState{}
 
+class TransactionsInitialLoading extends TransactionsState{}
+
 class TransactionsLoading extends TransactionsState{}
 
 class TransactionsLoaded extends TransactionsState{

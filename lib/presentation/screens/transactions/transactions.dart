@@ -42,6 +42,12 @@ class _TransactionsState extends State<Transactions> {
         builder: (BuildContext context, BoxConstraints constraints) {
           return BlocBuilder<TransactionsBloc, TransactionsState>(
             builder: (context, state) {
+              if (state is TransactionsInitialLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
               if (state is TransactionsEmpty) {
                 return Center(
                   child: Text('no transactions'),
@@ -54,8 +60,8 @@ class _TransactionsState extends State<Transactions> {
                   childen.add(
                     Card(
                       child: ListTile(
-                        title: Text("Transaction"),
-                        subtitle: Text(element.amount.toString()),
+                        title: Text(element.title),
+                        subtitle: Text(element.getFormattedBalance()),
                         onTap: () {
                           Navigator.push(
                             context,

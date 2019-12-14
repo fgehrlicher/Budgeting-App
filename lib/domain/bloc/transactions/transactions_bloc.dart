@@ -11,7 +11,7 @@ class TransactionsBloc
   TransactionsBloc(this._transactionRepository);
 
   @override
-  TransactionsState get initialState => TransactionsEmpty();
+  TransactionsState get initialState => TransactionsInitialLoading();
 
   @override
   Stream<TransactionsState> mapEventToState(
