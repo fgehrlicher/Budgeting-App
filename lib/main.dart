@@ -20,21 +20,66 @@ void main() {
       ..addAll(
         [
           Transaction(
-              date: DateTime.parse("2019-10-08 10:00:00"), amount: 1000, id: 1),
+            title: "Salary payment",
+            date: DateTime.parse("2019-01-12 10:00:00"),
+            amount: 280000,
+            id: 1,
+          ),
           Transaction(
-              date: DateTime.parse("2019-13-08 10:00:00"), amount: -100, id: 2),
+            title: "Rent",
+            date: DateTime.parse("2019-02-12 09:00:00"),
+            amount: -120000,
+            id: 2,
+          ),
           Transaction(
-              date: DateTime.parse("2019-20-08 10:00:00"), amount: -200, id: 3),
+            title: "Cash withdrawal",
+            date: DateTime.parse("2019-05-12 15:00:00"),
+            amount: -20000,
+            id: 3,
+          ),
           Transaction(
-              date: DateTime.parse("2019-29-08 10:00:00"), amount: -50, id: 4),
+            title: "Netflix",
+            date: DateTime.parse("2019-12-12 15:00:00"),
+            amount: -1000,
+            id: 4,
+          ),
           Transaction(
-              date: DateTime.parse("2019-01-09 10:00:00"), amount: 1000, id: 5),
+            title: "Spotify",
+            date: DateTime.parse("2019-12-12 23:00:00"),
+            amount: -1000,
+            id: 5,
+          ),
+          Transaction(
+            title: "Bar",
+            date: DateTime.parse("2019-13-12 02:32:00"),
+            amount: -7000,
+            id: 6,
+          ),
+          Transaction(
+            title: "Grocery Shopping",
+            date: DateTime.parse("2019-20-12 12:00:00"),
+            amount: -15000,
+            id: 7,
+          ),
+          Transaction(
+            title: "Water and Electricity",
+            date: DateTime.parse("2019-23-12 12:00:00"),
+            amount: -20000,
+            id: 8,
+          ),
+          Transaction(
+            title: "loan",
+            date: DateTime.parse("2019-23-12 12:00:00"),
+            amount: -12310,
+            id: 9,
+          ),
         ],
       ),
   );
 
   AccountBalanceRepository(DatabaseProvider.database).insertOne(
-    AccountBalance(id: 1, date: DateTime.parse("2019-01-08 10:00:00"), balance: 10),
+    AccountBalance(
+        id: 1, date: DateTime.parse("2019-28-11 10:00:00"), balance: 23200),
   );
 
   runApp(UnnamedBudgetingApp());
