@@ -23,6 +23,10 @@ class Transaction implements PersistentModel {
   static const String AMOUNT_NAME = "amount";
   static const String AMOUNT_CONFIG = SqliteTypes.INT + SqliteTypes.NOT_NULL;
 
+  String title;
+  static const String TITLE_NAME = "title";
+  static const String TITLE_CONFIG = SqliteTypes.TEXT;
+
   TransactionType type;
   static const String TYPE_NAME = "transaction_type";
   static const String TYPE_CONFIG = SqliteTypes.INT;
@@ -39,6 +43,7 @@ class Transaction implements PersistentModel {
     this.date,
     this.amount,
     this.id,
+    this.title,
     this.type,
     this.iban,
     this.bic,
@@ -48,6 +53,7 @@ class Transaction implements PersistentModel {
     date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
     amount = data[AMOUNT_NAME];
     id = data[ID_NAME];
+    title = data[TITLE_NAME];
     type = data[TYPE_NAME];
     iban = data[IBAN_NAME];
     bic = data[BIC_NAME];
@@ -59,6 +65,7 @@ class Transaction implements PersistentModel {
       FieldConfig(ID_NAME, ID_CONFIG),
       FieldConfig(DATE_NAME, DATE_CONFIG),
       FieldConfig(AMOUNT_NAME, AMOUNT_CONFIG),
+      FieldConfig(TITLE_NAME, TITLE_CONFIG),
       FieldConfig(TYPE_NAME, TYPE_CONFIG),
       FieldConfig(IBAN_NAME, IBAN_CONFIG),
       FieldConfig(BIC_NAME, BIC_CONFIG),
@@ -75,6 +82,7 @@ class Transaction implements PersistentModel {
       ID_NAME: id,
       DATE_NAME: date.millisecondsSinceEpoch,
       AMOUNT_NAME: amount,
+      TITLE_NAME: title,
       TYPE_NAME: type,
       IBAN_NAME: iban,
       BIC_NAME: bic,
