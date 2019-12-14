@@ -5,6 +5,7 @@ import 'package:unnamed_budgeting_app/data/repositories/account_balance_reposito
 import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_categories.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 import 'package:unnamed_budgeting_app/presentation/app.dart';
 
@@ -21,6 +22,7 @@ void main() {
         [
           Transaction(
             title: "Salary payment",
+            category: transactionCategories[0],
             date: DateTime.parse("2019-01-12 10:00:00"),
             amount: 280000,
             id: 1,
@@ -33,18 +35,21 @@ void main() {
           ),
           Transaction(
             title: "Cash withdrawal",
+            category: transactionCategories[3],
             date: DateTime.parse("2019-05-12 15:00:00"),
             amount: -20000,
             id: 3,
           ),
           Transaction(
             title: "Netflix",
+            category: transactionCategories[5],
             date: DateTime.parse("2019-12-12 15:00:00"),
             amount: -1000,
             id: 4,
           ),
           Transaction(
             title: "Spotify",
+            category: transactionCategories[5],
             date: DateTime.parse("2019-12-12 23:00:00"),
             amount: -1000,
             id: 5,
@@ -57,6 +62,7 @@ void main() {
           ),
           Transaction(
             title: "Grocery Shopping",
+            category: transactionCategories[1],
             date: DateTime.parse("2019-20-12 12:00:00"),
             amount: -15000,
             id: 7,
@@ -68,7 +74,7 @@ void main() {
             id: 8,
           ),
           Transaction(
-            title: "loan",
+            title: "Loan",
             date: DateTime.parse("2019-23-12 12:00:00"),
             amount: -12310,
             id: 9,

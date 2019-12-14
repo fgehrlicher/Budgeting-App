@@ -1,6 +1,7 @@
 import 'package:unnamed_budgeting_app/data/database/field_config.dart';
 import 'package:unnamed_budgeting_app/data/database/persistent_model.dart';
 import 'package:unnamed_budgeting_app/data/database/sqlite_types.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_category.dart';
 
 enum TransactionType {
   CREDIT_CARD,
@@ -31,6 +32,10 @@ class Transaction implements PersistentModel {
   static const String TYPE_NAME = "transaction_type";
   static const String TYPE_CONFIG = SqliteTypes.INT;
 
+  TransactionCategory category;
+  static const String CATEGORY_NAME = "transaction_category";
+  static const String CATEGORY_CONFIG = SqliteTypes.INT;
+
   String iban;
   static const String IBAN_NAME = "iban";
   static const String IBAN_CONFIG = SqliteTypes.TEXT;
@@ -45,6 +50,7 @@ class Transaction implements PersistentModel {
     this.id,
     this.title,
     this.type,
+    this.category,
     this.iban,
     this.bic,
   });
@@ -57,6 +63,11 @@ class Transaction implements PersistentModel {
     type = data[TYPE_NAME];
     iban = data[IBAN_NAME];
     bic = data[BIC_NAME];
+
+    int categoryId = data[CATEGORY_NAME];
+    if (categoryId != null) {
+      category = TransactionCategory.fromId(categoryId);
+    }
   }
 
   @override
@@ -67,6 +78,7 @@ class Transaction implements PersistentModel {
       FieldConfig(AMOUNT_NAME, AMOUNT_CONFIG),
       FieldConfig(TITLE_NAME, TITLE_CONFIG),
       FieldConfig(TYPE_NAME, TYPE_CONFIG),
+      FieldConfig(CATEGORY_NAME, CATEGORY_CONFIG),
       FieldConfig(IBAN_NAME, IBAN_CONFIG),
       FieldConfig(BIC_NAME, BIC_CONFIG),
     ];
@@ -84,6 +96,7 @@ class Transaction implements PersistentModel {
       AMOUNT_NAME: amount,
       TITLE_NAME: title,
       TYPE_NAME: type,
+      CATEGORY_NAME: category?.id,
       IBAN_NAME: iban,
       BIC_NAME: bic,
     };

@@ -60,12 +60,24 @@ class _TransactionsState extends State<Transactions> {
                   childen.add(
                     Card(
                       child: ListTile(
-                        title: Text(element.title),
+                        leading: element.category != null
+                            ? Icon(
+                                element.category.iconData,
+                                size: 30,
+                              )
+                            : Container(
+                                height: 30,
+                                width: 30,
+                              ),
+                        title: Text(element.title,
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold)),
                         subtitle: Text(
                           element.getFormattedBalance(),
                           style: TextStyle(
                             color:
                                 element.amount > 0 ? Colors.green : Colors.red,
+                            fontSize: 15,
                           ),
                         ),
                         onTap: () {
