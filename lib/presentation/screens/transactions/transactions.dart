@@ -61,7 +61,13 @@ class _TransactionsState extends State<Transactions> {
                     Card(
                       child: ListTile(
                         title: Text(element.title),
-                        subtitle: Text(element.getFormattedBalance()),
+                        subtitle: Text(
+                          element.getFormattedBalance(),
+                          style: TextStyle(
+                            color:
+                                element.amount > 0 ? Colors.green : Colors.red,
+                          ),
+                        ),
                         onTap: () {
                           Navigator.push(
                             context,
