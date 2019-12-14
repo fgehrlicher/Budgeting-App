@@ -44,7 +44,10 @@ class _TransactionsState extends State<Transactions> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (BuildContext context) => EditTransaction()),
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) => EditTransaction(),
+                      ),
                     );
                   },
                 ),
