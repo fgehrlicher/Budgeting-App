@@ -98,7 +98,7 @@ class _TransactionsState extends State<Transactions> {
                 return RefreshIndicator(
                   onRefresh: _getRefreshCallback(),
                   child: ListView(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
                     children: childen,
                   ),
                 );
