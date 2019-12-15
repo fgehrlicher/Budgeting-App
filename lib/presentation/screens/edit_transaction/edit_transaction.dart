@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 
 class EditTransaction extends StatelessWidget {
-  Transaction _transaction;
+  final Transaction _transaction;
   final _formKey = GlobalKey<FormState>();
 
   EditTransaction(this._transaction);
