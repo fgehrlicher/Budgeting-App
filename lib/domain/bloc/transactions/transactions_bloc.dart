@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 
 class TransactionsBloc
     extends Bloc<TransactionsEvent, TransactionsState> {
@@ -18,8 +19,9 @@ class TransactionsBloc
     TransactionsEvent event,
   ) async* {
     if (event is FetchTransactions) {
-      var transactions = await _transactionRepository.getAll();
       await Future.delayed(Duration(milliseconds: 500));
+      var transactions = await _transactionRepository.getAll();
+      transactions.sortBy(TransactionListSorting.DateDescending);
 
       if (transactions.length > 0) {
         yield TransactionsLoaded(transactions);
