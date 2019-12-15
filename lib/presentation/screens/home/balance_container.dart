@@ -16,7 +16,6 @@ class BalanceContainer extends StatelessWidget {
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Color(0xff0089BA),
         ),
       )
     ];

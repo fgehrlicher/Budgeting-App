@@ -54,7 +54,7 @@ class _RouterState extends State<Router> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xff0089BA),
+        selectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),
     );

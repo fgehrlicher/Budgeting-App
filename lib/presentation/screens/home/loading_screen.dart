@@ -44,9 +44,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
           "Calculating " + dots,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Color(0xff0089BA)),
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );
