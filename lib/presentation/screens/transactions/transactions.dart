@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
+import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 
 class Transactions extends StatefulWidget {
@@ -95,11 +96,35 @@ class _TransactionsState extends State<Transactions> {
                   );
                 });
 
-                return RefreshIndicator(
-                  onRefresh: _getRefreshCallback(),
-                  child: ListView(
-                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
-                    children: childen,
+                return SafeArea(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text(
+                              (AccountBalance(balance: 10000)).getFormattedBalance(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 9,
+                        child: RefreshIndicator(
+                          onRefresh: _getRefreshCallback(),
+                          child: ListView(
+                            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                            children: childen,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
