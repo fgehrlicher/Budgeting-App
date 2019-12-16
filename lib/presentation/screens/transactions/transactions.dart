@@ -103,13 +103,27 @@ class _TransactionsState extends State<Transactions> {
                         flex: 1,
                         child: Container(
                           padding: EdgeInsets.only(top: 20),
-                          child: Text(
-                              (AccountBalance(balance: 10000)).getFormattedBalance(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2.0,
+                                color: Color(0xFFFF7F7F7F),
+                              ),
+                            ),
+                          ),
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minWidth: constraints.maxWidth
+                            ),
+                            child: Text(
+                              (AccountBalance(balance: 10000))
+                                  .getFormattedBalance(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
