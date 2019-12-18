@@ -57,27 +57,29 @@ class _TransactionsState extends State<Transactions> {
 
               if (state is TransactionsLoaded) {
                 var childen = List<Widget>();
-                state.transactions.forEach((element) {
+                state.transactions.forEach((transaction) {
                   childen.add(
                     Card(
                       child: ListTile(
-                        leading: element.category != null
+                        leading: transaction.category != null
                             ? Icon(
-                                element.category.iconData,
+                                transaction.category.iconData,
                                 size: 30,
                               )
                             : Container(
                                 height: 30,
                                 width: 30,
                               ),
-                        title: Text(element.title,
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
+                        title: Text(
+                          transaction.title,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Text(
-                          element.getFormattedBalance(),
+                          transaction.getFormattedBalance(),
                           style: TextStyle(
                             color:
-                                element.amount > 0 ? Colors.green : Colors.red,
+                                transaction.amount > 0 ? Colors.green : Colors.red,
                             fontSize: 15,
                           ),
                         ),
@@ -87,7 +89,7 @@ class _TransactionsState extends State<Transactions> {
                             MaterialPageRoute(
                               fullscreenDialog: true,
                               builder: (BuildContext context) =>
-                                  EditTransaction(element),
+                                  EditTransaction(transaction),
                             ),
                           );
                         },
@@ -105,7 +107,7 @@ class _TransactionsState extends State<Transactions> {
                           padding: EdgeInsets.only(top: 20),
                           decoration: BoxDecoration(
                             boxShadow: <BoxShadow>[
-                               BoxShadow(
+                              BoxShadow(
                                 offset: Offset(0.0, 6.0),
                                 color: Color(0xffEDEDED),
                                 blurRadius: 4.0,
@@ -114,11 +116,10 @@ class _TransactionsState extends State<Transactions> {
                             color: Colors.white,
                           ),
                           child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minWidth: constraints.maxWidth
-                            ),
+                            constraints:
+                                BoxConstraints(minWidth: constraints.maxWidth),
                             child: Text(
-                              (AccountBalance(balance: 10000))
+                              AccountBalance(balance: 10000)
                                   .getFormattedBalance(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
