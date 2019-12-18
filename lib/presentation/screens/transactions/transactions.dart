@@ -104,12 +104,14 @@ class _TransactionsState extends State<Transactions> {
                         child: Container(
                           padding: EdgeInsets.only(top: 20),
                           decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                width: 2.0,
-                                color: Color(0xFFFF7F7F7F),
+                            boxShadow: <BoxShadow>[
+                               BoxShadow(
+                                offset: Offset(0.0, 6.0),
+                                color: Color(0xffEDEDED),
+                                blurRadius: 4.0,
                               ),
-                            ),
+                            ],
+                            color: Colors.white,
                           ),
                           child: ConstrainedBox(
                             constraints: BoxConstraints(
