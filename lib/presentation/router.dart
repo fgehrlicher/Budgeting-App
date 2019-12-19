@@ -42,20 +42,32 @@ class _RouterState extends State<Router> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money),
-            title: Text('Transactions'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              offset: Offset(0.0, -6.0),
+              color: Color(0xffEDEDED),
+              blurRadius: 8.0,
+            ),
+          ],
+          color: Colors.white,
+        ),
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.attach_money),
+              title: Text('Transactions'),
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.black,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
