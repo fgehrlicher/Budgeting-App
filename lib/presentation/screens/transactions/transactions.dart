@@ -100,7 +100,18 @@ class _TransactionsState extends State<Transactions> {
 
                 return SafeArea(
                   child: Column(
+                    verticalDirection: VerticalDirection.up,
                     children: <Widget>[
+                      Expanded(
+                        flex: 9,
+                        child: RefreshIndicator(
+                          onRefresh: _getRefreshCallback(),
+                          child: ListView(
+                            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                            children: childen,
+                          ),
+                        ),
+                      ),
                       Expanded(
                         flex: 1,
                         child: Container(
@@ -110,10 +121,10 @@ class _TransactionsState extends State<Transactions> {
                               BoxShadow(
                                 offset: Offset(0.0, 6.0),
                                 color: Color(0xffEDEDED),
-                                blurRadius: 4.0,
+                                blurRadius: 8.0,
                               ),
                             ],
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                           child: ConstrainedBox(
                             constraints:
@@ -128,16 +139,6 @@ class _TransactionsState extends State<Transactions> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 9,
-                        child: RefreshIndicator(
-                          onRefresh: _getRefreshCallback(),
-                          child: ListView(
-                            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                            children: childen,
                           ),
                         ),
                       ),
