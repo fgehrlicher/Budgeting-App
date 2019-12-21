@@ -30,13 +30,18 @@ class _HomeState extends State<Home> {
     };
   }
 
+  void _completeRefresh() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    _refreshCompleter?.complete();
+    _refreshCompleter = Completer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state is BalanceCalculated) {
-          _refreshCompleter?.complete();
-          _refreshCompleter = Completer();
+          _completeRefresh();
         }
       },
       child: LayoutBuilder(
@@ -49,12 +54,11 @@ class _HomeState extends State<Home> {
 
               if (state is CalculatingBalance) {
                 return ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: constraints.maxHeight,
-                    minWidth: constraints.maxWidth,
-                  ),
-                  child: LoadingScreen()
-                );
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                      minWidth: constraints.maxWidth,
+                    ),
+                    child: LoadingScreen());
               }
 
               if (state is BalanceCalculated) {
@@ -82,5 +86,4 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
 }

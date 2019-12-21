@@ -31,12 +31,17 @@ class _TransactionsState extends State<Transactions> {
     };
   }
 
+  void _completeRefresh() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    _refreshCompleter?.complete();
+    _refreshCompleter = Completer();
+  }
+
   Widget build(BuildContext context) {
     return BlocListener<TransactionsBloc, TransactionsState>(
       listener: (context, state) {
         if (state is TransactionsLoaded) {
-          _refreshCompleter?.complete();
-          _refreshCompleter = Completer();
+          _completeRefresh();
         }
       },
       child: LayoutBuilder(

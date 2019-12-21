@@ -19,7 +19,6 @@ class TransactionsBloc
     TransactionsEvent event,
   ) async* {
     if (event is FetchTransactions) {
-      await Future.delayed(Duration(milliseconds: 500));
       var transactions = await _transactionRepository.getAll();
       transactions.sortBy(TransactionListSorting.DateDescending);
 
