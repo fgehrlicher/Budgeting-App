@@ -5,8 +5,7 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_even
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 
-class TransactionsBloc
-    extends Bloc<TransactionsEvent, TransactionsState> {
+class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final TransactionRepository _transactionRepository;
 
   TransactionsBloc(this._transactionRepository);
@@ -19,14 +18,18 @@ class TransactionsBloc
     TransactionsEvent event,
   ) async* {
     if (event is FetchTransactions) {
-      var transactions = await _transactionRepository.getAll();
-      transactions.sortBy(TransactionListSorting.DateDescending);
+      yield* _mapFetchTransactionsToState();
+    }
+  }
 
-      if (transactions.length > 0) {
-        yield TransactionsLoaded(transactions);
-      } else {
-        yield TransactionsEmpty();
-      }
+  Stream<TransactionsState> _mapFetchTransactionsToState() async* {
+    var transactions = await _transactionRepository.getAll();
+    transactions.sortBy(TransactionListSorting.DateDescending);
+
+    if (transactions.length > 0) {
+      yield TransactionsLoaded(transactions);
+    } else {
+      yield TransactionsEmpty();
     }
   }
 }

@@ -14,13 +14,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is FetchBalance) {
-      yield BalanceCalculating();
-      var accountBalance = AccountBalance(balance: Random().nextInt(50000));
-      if (accountBalance != null) {
-        yield BalanceCalculated(accountBalance);
-      } else {
-        yield BalanceEmpty();
-      }
+      yield* _mapFetchBalanceToState();
+    }
+  }
+
+  Stream<HomeState> _mapFetchBalanceToState() async* {
+    yield BalanceCalculating();
+    var accountBalance = AccountBalance(balance: Random().nextInt(50000));
+    if (accountBalance != null) {
+      yield BalanceCalculated(accountBalance);
+    } else {
+      yield BalanceEmpty();
     }
   }
 }
