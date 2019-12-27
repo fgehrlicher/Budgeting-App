@@ -7,4 +7,4 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => List();
 }
 
-class FetchCurrentBalance extends HomeEvent {}
+class FetchBalance extends HomeEvent {}

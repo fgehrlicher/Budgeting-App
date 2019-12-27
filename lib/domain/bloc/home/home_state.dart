@@ -8,9 +8,9 @@ abstract class HomeState extends Equatable {
   List<Object> get props => List();
 }
 
-class EmptyBalance extends HomeState {}
+class BalanceEmpty extends HomeState {}
 
-class CalculatingBalance extends HomeState {}
+class BalanceCalculating extends HomeState {}
 
 class BalanceCalculated extends HomeState {
   final AccountBalance accountBalance;

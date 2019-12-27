@@ -19,7 +19,7 @@ class _RouterState extends State<Router> {
 
   static List<Widget> _widgetOptions = <Widget>[
     BlocProvider(
-      builder: (context) => HomeBloc()..add(FetchCurrentBalance()),
+      builder: (context) => HomeBloc()..add(FetchBalance()),
       child: Home(),
     ),
     BlocProvider(

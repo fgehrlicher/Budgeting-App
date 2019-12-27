@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
 
   RefreshCallback _getRefreshCallback() {
     return () {
-      _homeBloc.add(FetchCurrentBalance());
+      _homeBloc.add(FetchBalance());
       return _refreshCompleter.future;
     };
   }
@@ -48,11 +48,11 @@ class _HomeState extends State<Home> {
         builder: (BuildContext context, BoxConstraints constraints) {
           return BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
-              if (state is EmptyBalance) {
+              if (state is BalanceEmpty) {
                 return Container();
               }
 
-              if (state is CalculatingBalance) {
+              if (state is BalanceCalculating) {
                 return ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: constraints.maxHeight,

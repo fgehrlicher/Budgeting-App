@@ -9,17 +9,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc();
 
   @override
-  HomeState get initialState => EmptyBalance();
+  HomeState get initialState => BalanceEmpty();
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    if (event is FetchCurrentBalance) {
-      yield CalculatingBalance();
+    if (event is FetchBalance) {
+      yield BalanceCalculating();
       var accountBalance = AccountBalance(balance: Random().nextInt(50000));
       if (accountBalance != null) {
         yield BalanceCalculated(accountBalance);
       } else {
-        yield EmptyBalance();
+        yield BalanceEmpty();
       }
     }
   }
