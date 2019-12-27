@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_categories.dart';
 

@@ -8,5 +8,4 @@ class FieldConfig {
   String toString() {
     return name + " " + config;
   }
-
 }
