@@ -13,75 +13,88 @@ class EditTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          _transaction.title,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.chevron_left,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          IconButton(
-            tooltip: "Delete Transaction",
-            icon: Icon(
-              Icons.delete,
-              color: Colors.black,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.keyboard_arrow_down,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-            onPressed: () {
-              _transactionsBloc.add(DeleteTransaction(_transaction));
-              Navigator.pop(context);
-            },
-          )
-        ],
-      ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Center(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 4,
-                          child: Text("Transaction Title"),
-                        ),
-                        Expanded(
-                          flex: 7,
-                          child: TextFormField(
-                            initialValue: _transaction.title,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+            actions: <Widget>[
+              IconButton(
+                tooltip: "Delete Transaction",
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.black,
                 ),
+                onPressed: () {
+                  _transactionsBloc.add(DeleteTransaction(_transaction));
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+            expandedHeight: 200.0,
+            floating: true,
+            pinned: true,
+            snap: true,
+            elevation: 10,
+            backgroundColor: Colors.white,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              background: Image(
+                image: _transaction.category.image,
+                fit: BoxFit.cover,
               ),
             ),
-          );
-        },
+          ),
+          new SliverList(
+            delegate: SliverChildListDelegate(
+              <Widget>[
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: TextFormField(
+                              initialValue: _transaction.title,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                  hintText: 'Transaction Title'
+                              ),
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
