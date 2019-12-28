@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 
 class EditTransaction extends StatelessWidget {
   final Transaction _transaction;
+  final TransactionsBloc _transactionsBloc;
   final _formKey = GlobalKey<FormState>();
 
-  EditTransaction(this._transaction);
+  EditTransaction(this._transaction, this._transactionsBloc);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,19 @@ class EditTransaction extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+            tooltip: "Delete Transaction",
+            icon: Icon(
+              Icons.delete,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              _transactionsBloc.add(DeleteTransaction(_transaction));
+              Navigator.pop(context);
+            },
+          )
+        ],
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -59,58 +75,6 @@ class EditTransaction extends StatelessWidget {
                           ),
                         )
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: RaisedButton.icon(
-                              color: Colors.red[400],
-                              icon: Icon(
-                                Icons.delete_forever,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                if (_formKey.currentState.validate()) {
-                                  Navigator.pop(context);
-                                }
-                              },
-                              label: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: RaisedButton.icon(
-                              color: Colors.green[400],
-                              icon: Icon(
-                                Icons.save,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                if (_formKey.currentState.validate()) {
-                                  Navigator.pop(context);
-                                }
-                              },
-                              label: Text(
-                                'Save',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),

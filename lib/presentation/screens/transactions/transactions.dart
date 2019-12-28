@@ -94,7 +94,7 @@ class _TransactionsState extends State<Transactions> {
                             MaterialPageRoute(
                               fullscreenDialog: true,
                               builder: (BuildContext context) =>
-                                  EditTransaction(transaction),
+                                  EditTransaction(transaction, _transactionsBloc),
                             ),
                           );
                         },
