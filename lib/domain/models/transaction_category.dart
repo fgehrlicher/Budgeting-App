@@ -5,9 +5,10 @@ class TransactionCategory {
   final int id;
   final String title;
   final IconData iconData;
-  final AssetImage image;
+  final Color backgroundColor;
+  final Color textColor;
 
-  const TransactionCategory(this.id, this.title, this.iconData, this.image);
+  const TransactionCategory({this.id, this.title, this.iconData, this.backgroundColor, this.textColor});
 
   factory TransactionCategory.fromId(int id) {
     return transactionCategories.firstWhere((element) => element.id == id);
