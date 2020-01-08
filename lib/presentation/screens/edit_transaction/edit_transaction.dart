@@ -38,22 +38,16 @@ class EditTransaction extends StatelessWidget {
                 },
               ),
             ],
-            expandedHeight: 200.0,
+            expandedHeight: 150.0,
             floating: true,
             pinned: true,
             snap: true,
-            elevation: 10,
-            backgroundColor: Colors.white,
+            backgroundColor: _transaction.category?.backgroundColor ?? Colors.grey,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              background: _transaction.category?.image != null
-                  ? Image(
-                      image: _transaction.category.image,
-                      fit: BoxFit.cover,
-                    )
-                  : Container(
-                      color: Colors.green,
-                    ),
+              background: Container(
+                color: _transaction.category?.backgroundColor ?? Colors.grey,
+              ),
             ),
           ),
           new SliverList(
