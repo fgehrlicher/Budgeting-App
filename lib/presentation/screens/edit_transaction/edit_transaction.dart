@@ -46,10 +46,14 @@ class EditTransaction extends StatelessWidget {
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              background: Image(
-                image: _transaction.category.image,
-                fit: BoxFit.cover,
-              ),
+              background: _transaction.category?.image != null
+                  ? Image(
+                      image: _transaction.category.image,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(
+                      color: Colors.green,
+                    ),
             ),
           ),
           new SliverList(
@@ -75,9 +79,9 @@ class EditTransaction extends StatelessWidget {
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   focusedBorder: InputBorder.none,
-                                  contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
-                                  hintText: 'Transaction Title'
-                              ),
+                                  contentPadding: EdgeInsets.only(
+                                      left: 15, bottom: 11, top: 11, right: 15),
+                                  hintText: 'Transaction Title'),
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'Please enter some text';
