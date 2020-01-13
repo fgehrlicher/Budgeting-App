@@ -97,6 +97,28 @@ class EditTransaction extends StatelessWidget {
                           ),
                         ],
                       ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: TextFormField(
+                              initialValue: _transaction.getFormattedBalance(),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: TextFormField(
+                              initialValue: _transaction.date.toIso8601String(),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
