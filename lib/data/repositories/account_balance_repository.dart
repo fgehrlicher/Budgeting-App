@@ -66,4 +66,14 @@ class AccountBalanceRepository {
 
     return list;
   }
+
+  void delete(AccountBalance accountBalance) async {
+    var db = await database;
+
+    await db.delete(
+      _tableName,
+      where: "${AccountBalance.ID_NAME} = ?",
+      whereArgs: [accountBalance.id],
+    );
+  }
 }

@@ -25,8 +25,7 @@ class TransactionRepository {
   Future<TransactionList> getAll() async {
     var db = await database;
 
-    final List<Map<String, dynamic>> queryResult =
-        await db.query(_tableName);
+    final List<Map<String, dynamic>> queryResult = await db.query(_tableName);
 
     return TransactionList.fromMap(queryResult);
   }
@@ -50,9 +49,19 @@ class TransactionRepository {
     var db = await database;
 
     await db.insert(
-        _tableName,
-        transaction.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
+      _tableName,
+      transaction.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  void delete(model.Transaction transaction) async {
+    var db = await database;
+
+    await db.delete(
+      _tableName,
+      where: "${model.Transaction.ID_NAME} = ?",
+      whereArgs: [transaction.id],
     );
   }
 }
