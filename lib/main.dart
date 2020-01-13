@@ -83,7 +83,7 @@ void main() {
       ),
   );
 
-  AccountBalanceRepository(DatabaseProvider.database).insertOne(
+  AccountBalanceRepository(DatabaseProvider.database).insert(
     AccountBalance(
         id: 1, date: DateTime.parse("2019-28-11 10:00:00"), balance: 23200),
   );
