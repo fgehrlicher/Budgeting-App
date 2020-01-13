@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
@@ -20,6 +21,9 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     if (event is FetchTransactions) {
       yield* _mapFetchTransactionsToState();
     }
+    if (event is DeleteTransaction) {
+      yield* _mapDeleteTransactionToState(event.transaction);
+    }
   }
 
   Stream<TransactionsState> _mapFetchTransactionsToState() async* {
@@ -31,5 +35,10 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     } else {
       yield TransactionsEmpty();
     }
+  }
+
+  Stream<TransactionsState> _mapDeleteTransactionToState(Transaction transaction) async* {
+    _transactionRepository.delete(transaction);
+    yield TransactionsDeleted(transaction);
   }
 }
