@@ -86,6 +86,17 @@ class EditTransaction extends StatelessWidget {
                           ),
                         ],
                       ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: TextFormField(
+                              initialValue: _transaction.category?.title ?? "No Category",
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
