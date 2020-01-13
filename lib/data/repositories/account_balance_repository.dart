@@ -45,7 +45,7 @@ class AccountBalanceRepository {
     await batch.commit(noResult: true);
   }
 
-  void insertOne(AccountBalance snapshots) async {
+  void insert(AccountBalance snapshots) async {
     var db = await database;
 
     await db.insert(

@@ -46,7 +46,7 @@ class TransactionRepository {
     await batch.commit(noResult: true);
   }
 
-  void insertOne(model.Transaction transaction) async {
+  void insert(model.Transaction transaction) async {
     var db = await database;
 
     await db.insert(
