@@ -17,11 +17,14 @@ class _TransactionsState extends State<Transactions> {
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
 
+  _TransactionsState() {
+    _refreshCompleter = Completer<void>();
+  }
+
   @override
   void initState() {
     super.initState();
     this._transactionsBloc = BlocProvider.of<TransactionsBloc>(context);
-    _refreshCompleter = Completer<void>();
   }
 
   RefreshCallback _getRefreshCallback() {
