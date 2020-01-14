@@ -30,6 +30,15 @@ class _TransactionsState extends State<Transactions> {
     _transactionsBloc.listen(_handleStateUpdate);
   }
 
+  void _handleStateUpdate(TransactionsState state) {
+    if (state is TransactionsLoaded) {
+      _completeFetchTransactions();
+      setState(() {
+        _transactionList = state.transactions;
+      });
+    }
+  }
+
   RefreshCallback _fetchTransactions() {
     return () {
       _transactionsBloc.add(FetchTransactions());
@@ -37,24 +46,12 @@ class _TransactionsState extends State<Transactions> {
     };
   }
 
-  _handleStateUpdate(TransactionsState state) {
-    if (state is TransactionsLoaded) {
-      _completeRefresh();
-      setState(() {
-        _transactionList = state.transactions;
-      });
-    }
-    if (state is TransactionsInitialLoading) {
-      Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-    if (state is TransactionsEmpty) {
-      Center(
-        child: Text('no transactions'),
-      );
-    }
+  void _completeFetchTransactions() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    _refreshCompleter?.complete();
+    _refreshCompleter = Completer();
   }
+
 
   @override
   void dispose() {
@@ -62,104 +59,105 @@ class _TransactionsState extends State<Transactions> {
     super.dispose();
   }
 
-  void _completeRefresh() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    _refreshCompleter?.complete();
-    _refreshCompleter = Completer();
-  }
 
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         var childen = List<Widget>();
-        if (_transactionList != null) {
-          _transactionList.forEach((transaction) {
-            childen.add(
-              Card(
-                child: ListTile(
-                  leading: transaction.category != null
-                      ? Icon(
-                          transaction.category.iconData,
-                          size: 30,
-                        )
-                      : Container(
-                          height: 30,
-                          width: 30,
-                        ),
-                  title: Text(
-                    transaction.title,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    transaction.getFormattedBalance(),
-                    style: TextStyle(
-                      color: transaction.amount > 0 ? Colors.green : Colors.red,
-                      fontSize: 15,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (BuildContext context) =>
-                            EditTransaction(transaction, _transactionsBloc),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            );
-          });
-
-          return SafeArea(
-            child: Column(
-              verticalDirection: VerticalDirection.up,
-              children: <Widget>[
-                Expanded(
-                  flex: 9,
-                  child: RefreshIndicator(
-                    onRefresh: _fetchTransactions(),
-                    child: ListView(
-                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                      children: childen,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.only(top: 20),
-                    decoration: BoxDecoration(
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          offset: Offset(0.0, 6.0),
-                          color: Color(0xffEDEDED),
-                          blurRadius: 8.0,
-                        ),
-                      ],
-                      color: Colors.white70,
-                    ),
-                    child: ConstrainedBox(
-                      constraints:
-                          BoxConstraints(minWidth: constraints.maxWidth),
-                      child: Text(
-                        AccountBalance(balance: 10000).getFormattedBalance(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+        if (_transactionList == null) {
+          return Center(
+            child: CircularProgressIndicator(),
           );
         }
-        return Container();
+        if (_transactionList.length == 0) {
+          return Center(
+            child: Text('no transactions'),
+          );
+        }
+        _transactionList.forEach((transaction) {
+          childen.add(
+            Card(
+              child: ListTile(
+                leading: transaction.category != null
+                    ? Icon(
+                        transaction.category.iconData,
+                        size: 30,
+                      )
+                    : Container(
+                        height: 30,
+                        width: 30,
+                      ),
+                title: Text(
+                  transaction.title,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  transaction.getFormattedBalance(),
+                  style: TextStyle(
+                    color: transaction.amount > 0 ? Colors.green : Colors.red,
+                    fontSize: 15,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (BuildContext context) =>
+                          EditTransaction(transaction, _transactionsBloc),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        });
+
+        return SafeArea(
+          child: Column(
+            verticalDirection: VerticalDirection.up,
+            children: <Widget>[
+              Expanded(
+                flex: 9,
+                child: RefreshIndicator(
+                  onRefresh: _fetchTransactions(),
+                  child: ListView(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    children: childen,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.only(top: 20),
+                  decoration: BoxDecoration(
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        offset: Offset(0.0, 6.0),
+                        color: Color(0xffEDEDED),
+                        blurRadius: 8.0,
+                      ),
+                    ],
+                    color: Colors.white70,
+                  ),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                    child: Text(
+                      AccountBalance(balance: 10000).getFormattedBalance(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
