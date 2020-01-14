@@ -38,7 +38,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   }
 
   Stream<TransactionsState> _mapDeleteTransactionToState(Transaction transaction) async* {
-    _transactionRepository.delete(transaction);
+    //_transactionRepository.delete(transaction);
     yield TransactionDeleted(transaction);
   }
 }

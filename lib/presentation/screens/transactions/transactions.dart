@@ -7,7 +7,6 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_even
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/card_item.dart';
 import 'package:unnamed_budgeting_app/presentation/widgets/list_model.dart';
@@ -19,11 +18,9 @@ class Transactions extends StatefulWidget {
 
 class _TransactionsState extends State<Transactions> {
   TransactionsBloc _transactionsBloc;
-  TransactionList _transactionList;
   Completer<void> _refreshCompleter;
-
-  ListModel<Transaction> _list;
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  ListModel<Transaction> _transactions;
+  final GlobalKey<AnimatedListState> _transactionsKey = GlobalKey<AnimatedListState>();
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
@@ -40,15 +37,15 @@ class _TransactionsState extends State<Transactions> {
     if (state is TransactionsLoaded) {
       _completeFetchTransactions();
       setState(() {
-        _list = ListModel<Transaction>(
-          listKey: _listKey,
+        _transactions = ListModel<Transaction>(
+          listKey: _transactionsKey,
           initialItems: state.transactions,
           removedItemBuilder: _buildRemovedItem,
         );
       });
     }
     if (state is TransactionDeleted) {
-      _list.removeAt(_list.indexOf(state.transaction));
+      _transactions.removeAt(_transactions.indexOf(state.transaction));
     }
   }
 
@@ -73,7 +70,7 @@ class _TransactionsState extends State<Transactions> {
 
   Widget _buildItem(
       BuildContext context, int index, Animation<double> animation) {
-    var transaction = _list[index];
+    var transaction = _transactions[index];
     return CardItem(
       transaction,
       () {
@@ -102,12 +99,12 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (_list == null) {
+        if (_transactions == null) {
           return Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (_list.length == 0) {
+        if (_transactions.length == 0) {
           return Center(
             child: Text('no transactions'),
           );
@@ -122,9 +119,9 @@ class _TransactionsState extends State<Transactions> {
                 child: RefreshIndicator(
                   onRefresh: _fetchTransactions(),
                   child: AnimatedList(
-                    key: _listKey,
+                    key: _transactionsKey,
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    initialItemCount: _list.length,
+                    initialItemCount: _transactions.length,
                     itemBuilder: _buildItem,
                   ),
                 ),
