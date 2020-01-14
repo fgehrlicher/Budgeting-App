@@ -39,7 +39,7 @@ class _TransactionsState extends State<Transactions> {
       _handleTransactionsLoaded(state);
     }
     if (state is TransactionDeleted) {
-      _handleTransactionDeleted(state)
+      _handleTransactionDeleted(state);
     }
   }
 
