@@ -10,7 +10,7 @@ import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/card_item.dart';
-import 'package:unnamed_budgeting_app/presentation/screens/transactions/list_model.dart';
+import 'package:unnamed_budgeting_app/presentation/widgets/list_model.dart';
 
 class Transactions extends StatefulWidget {
   @override
