@@ -8,6 +8,7 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_stat
 import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/card_item.dart';
 
 class Transactions extends StatefulWidget {
   @override
@@ -37,9 +38,7 @@ class _TransactionsState extends State<Transactions> {
         _transactionList = state.transactions;
       });
     }
-    if (state is TransactionDeleted) {
-
-    }
+    if (state is TransactionDeleted) {}
   }
 
   RefreshCallback _fetchTransactions() {
@@ -55,13 +54,11 @@ class _TransactionsState extends State<Transactions> {
     _refreshCompleter = Completer();
   }
 
-
   @override
   void dispose() {
     _refreshCompleter?.complete();
     super.dispose();
   }
-
 
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -78,42 +75,19 @@ class _TransactionsState extends State<Transactions> {
           );
         }
         _transactionList.forEach((transaction) {
-          children.add(
-            Card(
-              child: ListTile(
-                leading: transaction.category != null
-                    ? Icon(
-                        transaction.category.iconData,
-                        size: 30,
-                      )
-                    : Container(
-                        height: 30,
-                        width: 30,
-                      ),
-                title: Text(
-                  transaction.title,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          children.add(CardItem(
+            transaction,
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (BuildContext context) =>
+                      EditTransaction(transaction, _transactionsBloc),
                 ),
-                subtitle: Text(
-                  transaction.getFormattedBalance(),
-                  style: TextStyle(
-                    color: transaction.amount > 0 ? Colors.green : Colors.red,
-                    fontSize: 15,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (BuildContext context) =>
-                          EditTransaction(transaction, _transactionsBloc),
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
+              );
+            },
+          ));
         });
 
         return SafeArea(
