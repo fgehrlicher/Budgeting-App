@@ -4,12 +4,14 @@ import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 class CardItem extends StatelessWidget {
   final Transaction _transaction;
   final VoidCallback _onTap;
-  final Animation<double> animation;
+  final Animation<double> _animation;
+  final Color _color;
 
   const CardItem(
     this._transaction,
     this._onTap,
-    this.animation,
+    this._animation,
+    this._color,
   );
 
   @override
@@ -18,11 +20,12 @@ class CardItem extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       child: SizeTransition(
         axis: Axis.vertical,
-        sizeFactor: animation,
+        sizeFactor: _animation,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: _onTap,
           child: Card(
+            color: _color,
             child: ListTile(
               leading: _transaction.category != null
                   ? Icon(

@@ -85,6 +85,7 @@ class _TransactionsState extends State<Transactions> {
         );
       },
       animation,
+      null
     );
   }
 
@@ -94,6 +95,7 @@ class _TransactionsState extends State<Transactions> {
       transaction,
       null,
       animation,
+      Colors.red,
     );
   }
 
