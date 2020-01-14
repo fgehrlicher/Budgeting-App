@@ -6,9 +6,11 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/card_item.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/list_model.dart';
 
 class Transactions extends StatefulWidget {
   @override
@@ -19,6 +21,9 @@ class _TransactionsState extends State<Transactions> {
   TransactionsBloc _transactionsBloc;
   TransactionList _transactionList;
   Completer<void> _refreshCompleter;
+
+  ListModel<Transaction> _list;
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
@@ -35,10 +40,16 @@ class _TransactionsState extends State<Transactions> {
     if (state is TransactionsLoaded) {
       _completeFetchTransactions();
       setState(() {
-        _transactionList = state.transactions;
+        _list = ListModel<Transaction>(
+          listKey: _listKey,
+          initialItems: state.transactions,
+          removedItemBuilder: _buildRemovedItem,
+        );
       });
     }
-    if (state is TransactionDeleted) {}
+    if (state is TransactionDeleted) {
+      _list.removeAt(_list.indexOf(state.transaction));
+    }
   }
 
   RefreshCallback _fetchTransactions() {
@@ -60,35 +71,53 @@ class _TransactionsState extends State<Transactions> {
     super.dispose();
   }
 
+  Widget _buildItem(
+      BuildContext context, int index, Animation<double> animation) {
+    var transaction = _list[index];
+    return CardItem(
+      transaction,
+      () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (BuildContext context) =>
+                EditTransaction(transaction, _transactionsBloc),
+          ),
+        );
+      },
+      animation,
+    );
+  }
+
+  Widget _buildRemovedItem(
+      Transaction transaction, BuildContext context, Animation<double> animation) {
+    return CardItem(
+      transaction,
+      null,
+      animation,
+    );
+  }
+
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         var children = List<Widget>();
-        if (_transactionList == null) {
+        if (_list == null) {
           return Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (_transactionList.length == 0) {
+        if (_list.length == 0) {
           return Center(
             child: Text('no transactions'),
           );
         }
-        _transactionList.forEach((transaction) {
-          children.add(CardItem(
-            transaction,
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (BuildContext context) =>
-                      EditTransaction(transaction, _transactionsBloc),
-                ),
-              );
-            },
-          ));
-        });
+        return AnimatedList(
+          key: _listKey,
+          initialItemCount: _list.length,
+          itemBuilder: _buildItem,
+        );
 
         return SafeArea(
           child: Column(
