@@ -27,6 +27,7 @@ class _TransactionsState extends State<Transactions> {
   void initState() {
     super.initState();
     _transactionsBloc = BlocProvider.of<TransactionsBloc>(context);
+    _transactionsBloc.listen(_handleStateUpdate);
   }
 
   RefreshCallback _fetchTransactions() {
@@ -34,6 +35,25 @@ class _TransactionsState extends State<Transactions> {
       _transactionsBloc.add(FetchTransactions());
       return _refreshCompleter.future;
     };
+  }
+
+  _handleStateUpdate(TransactionsState state) {
+    if (state is TransactionsLoaded) {
+      _completeRefresh();
+      setState(() {
+        _transactionList = state.transactions;
+      });
+    }
+    if (state is TransactionsInitialLoading) {
+      Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    if (state is TransactionsEmpty) {
+      Center(
+        child: Text('no transactions'),
+      );
+    }
   }
 
   @override
@@ -49,126 +69,98 @@ class _TransactionsState extends State<Transactions> {
   }
 
   Widget build(BuildContext context) {
-    return BlocListener<TransactionsBloc, TransactionsState>(
-      listener: (context, state) {
-        if (state is TransactionsLoaded) {
-          _completeRefresh();
-          _transactionList = state.transactions;
-        }
-      },
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return BlocBuilder<TransactionsBloc, TransactionsState>(
-            builder: (context, state) {
-              if (state is TransactionsInitialLoading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-
-              if (state is TransactionsEmpty) {
-                return Center(
-                  child: Text('no transactions'),
-                );
-              }
-
-              if (state is TransactionsLoaded) {
-                var childen = List<Widget>();
-                _transactionList.forEach((transaction) {
-                  childen.add(
-                    Card(
-                      child: ListTile(
-                        leading: transaction.category != null
-                            ? Icon(
-                                transaction.category.iconData,
-                                size: 30,
-                              )
-                            : Container(
-                                height: 30,
-                                width: 30,
-                              ),
-                        title: Text(
-                          transaction.title,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        var childen = List<Widget>();
+        if (_transactionList != null) {
+          _transactionList.forEach((transaction) {
+            childen.add(
+              Card(
+                child: ListTile(
+                  leading: transaction.category != null
+                      ? Icon(
+                          transaction.category.iconData,
+                          size: 30,
+                        )
+                      : Container(
+                          height: 30,
+                          width: 30,
                         ),
-                        subtitle: Text(
-                          transaction.getFormattedBalance(),
-                          style: TextStyle(
-                            color:
-                                transaction.amount > 0 ? Colors.green : Colors.red,
-                            fontSize: 15,
-                          ),
+                  title: Text(
+                    transaction.title,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    transaction.getFormattedBalance(),
+                    style: TextStyle(
+                      color: transaction.amount > 0 ? Colors.green : Colors.red,
+                      fontSize: 15,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) =>
+                            EditTransaction(transaction, _transactionsBloc),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          });
+
+          return SafeArea(
+            child: Column(
+              verticalDirection: VerticalDirection.up,
+              children: <Widget>[
+                Expanded(
+                  flex: 9,
+                  child: RefreshIndicator(
+                    onRefresh: _fetchTransactions(),
+                    child: ListView(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      children: childen,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          offset: Offset(0.0, 6.0),
+                          color: Color(0xffEDEDED),
+                          blurRadius: 8.0,
                         ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              fullscreenDialog: true,
-                              builder: (BuildContext context) =>
-                                  EditTransaction(transaction, _transactionsBloc),
-                            ),
-                          );
-                        },
+                      ],
+                      color: Colors.white70,
+                    ),
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints(minWidth: constraints.maxWidth),
+                      child: Text(
+                        AccountBalance(balance: 10000).getFormattedBalance(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  );
-                });
-
-                return SafeArea(
-                  child: Column(
-                    verticalDirection: VerticalDirection.up,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 9,
-                        child: RefreshIndicator(
-                          onRefresh: _fetchTransactions(),
-                          child: ListView(
-                            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                            children: childen,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: EdgeInsets.only(top: 20),
-                          decoration: BoxDecoration(
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                offset: Offset(0.0, 6.0),
-                                color: Color(0xffEDEDED),
-                                blurRadius: 8.0,
-                              ),
-                            ],
-                            color: Colors.white70,
-                          ),
-                          child: ConstrainedBox(
-                            constraints:
-                                BoxConstraints(minWidth: constraints.maxWidth),
-                            child: Text(
-                              AccountBalance(balance: 10000)
-                                  .getFormattedBalance(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
-                );
-              }
-
-              return Container();
-            },
+                ),
+              ],
+            ),
           );
-        },
-      ),
+        }
+        return Container();
+      },
     );
   }
 }
