@@ -20,7 +20,7 @@ class _TransactionsState extends State<Transactions> {
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
   ListModel<Transaction> _transactions;
-  final GlobalKey<AnimatedListState> _transactionsKey = GlobalKey<AnimatedListState>();
+  GlobalKey<AnimatedListState> _transactionsKey = GlobalKey<AnimatedListState>();
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
@@ -35,14 +35,15 @@ class _TransactionsState extends State<Transactions> {
 
   void _handleStateUpdate(TransactionsState state) {
     if (state is TransactionsLoaded) {
-      _completeFetchTransactions();
       setState(() {
+        _transactionsKey = GlobalKey<AnimatedListState>();
         _transactions = ListModel<Transaction>(
           listKey: _transactionsKey,
           initialItems: state.transactions,
           removedItemBuilder: _buildRemovedItem,
         );
       });
+      _completeFetchTransactions();
     }
     if (state is TransactionDeleted) {
       _transactions.removeAt(_transactions.indexOf(state.transaction));
