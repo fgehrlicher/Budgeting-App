@@ -55,6 +55,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
 
   Stream<TransactionsState> _mapRestoreTransactionToState(Transaction transaction) async* {
     //_transactionRepository.add(transaction);
-    yield TransactionAdded(transaction);
+    yield TransactionRestored(transaction);
   }
 }

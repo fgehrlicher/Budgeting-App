@@ -78,7 +78,7 @@ class _TransactionsState extends State<Transactions> {
           label: 'Undo',
           onPressed: () {
             _transactionsBloc.add(
-              AddTransaction(transaction),
+              RestoreTransaction(transaction),
             );
           },
         ),
