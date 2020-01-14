@@ -20,7 +20,8 @@ class _TransactionsState extends State<Transactions> {
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
   ListModel<Transaction> _transactions;
-  GlobalKey<AnimatedListState> _transactionsKey = GlobalKey<AnimatedListState>();
+  GlobalKey<AnimatedListState> _transactionsKey =
+      GlobalKey<AnimatedListState>();
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
@@ -45,8 +46,26 @@ class _TransactionsState extends State<Transactions> {
       });
       _completeFetchTransactions();
     }
+
     if (state is TransactionDeleted) {
-      _transactions.removeAt(_transactions.indexOf(state.transaction));
+      var transaction = state.transaction;
+      _transactions.removeAt(_transactions.indexOf(transaction));
+
+      final snackBar = SnackBar(
+        content: Text(
+          "Deleted Transaction",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
     }
   }
 
@@ -72,21 +91,16 @@ class _TransactionsState extends State<Transactions> {
   Widget _buildItem(
       BuildContext context, int index, Animation<double> animation) {
     var transaction = _transactions[index];
-    return CardItem(
-      transaction,
-      () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (BuildContext context) =>
-                EditTransaction(transaction, _transactionsBloc),
-          ),
-        );
-      },
-      animation,
-      null
-    );
+    return CardItem(transaction, () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          fullscreenDialog: true,
+          builder: (BuildContext context) =>
+              EditTransaction(transaction, _transactionsBloc),
+        ),
+      );
+    }, animation, null);
   }
 
   Widget _buildRemovedItem(Transaction transaction, BuildContext context,
