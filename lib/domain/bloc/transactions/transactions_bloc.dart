@@ -24,6 +24,9 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     if (event is DeleteTransaction) {
       yield* _mapDeleteTransactionToState(event.transaction);
     }
+    if (event is RestoreTransaction) {
+      yield* _mapRestoreTransactionToState(event.transaction);
+    }
     if (event is AddTransaction) {
       yield* _mapAddTransactionToState(event.transaction);
     }
@@ -46,7 +49,12 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   }
 
   Stream<TransactionsState> _mapAddTransactionToState(Transaction transaction) async* {
-    //_transactionRepository.delete(transaction);
+    //_transactionRepository.add(transaction);
+    yield TransactionAdded(transaction);
+  }
+
+  Stream<TransactionsState> _mapRestoreTransactionToState(Transaction transaction) async* {
+    //_transactionRepository.add(transaction);
     yield TransactionAdded(transaction);
   }
 }

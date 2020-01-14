@@ -23,6 +23,12 @@ class TransactionDeleted extends TransactionsState {
   const TransactionDeleted(this.transaction);
 }
 
+class TransactionRestored extends TransactionsState {
+  final Transaction transaction;
+
+  const TransactionRestored(this.transaction);
+}
+
 class TransactionAdded extends TransactionsState {
   final Transaction transaction;
 

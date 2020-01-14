@@ -22,6 +22,7 @@ class _TransactionsState extends State<Transactions> {
   ListModel<Transaction> _transactions;
   GlobalKey<AnimatedListState> _transactionsKey =
       GlobalKey<AnimatedListState>();
+  int _lastDeletedIndex;
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
@@ -41,6 +42,9 @@ class _TransactionsState extends State<Transactions> {
     if (state is TransactionDeleted) {
       _handleTransactionDeleted(state);
     }
+    if (state is TransactionRestored) {
+      _handleTransactionRestored(state);
+    }
   }
 
   void _handleTransactionsLoaded(TransactionsLoaded state) {
@@ -57,21 +61,48 @@ class _TransactionsState extends State<Transactions> {
 
   void _handleTransactionDeleted(TransactionDeleted state) {
     var transaction = state.transaction;
-    _transactions.removeAt(_transactions.indexOf(transaction));
+    var currentScaffold = Scaffold.of(context);
+    _lastDeletedIndex = _transactions.indexOf(transaction);
+    _transactions.removeAt(_lastDeletedIndex);
 
-    final snackBar = SnackBar(
-      content: Text(
-        "Deleted Transaction",
-        style: TextStyle(
-          fontSize: 15,
+    currentScaffold.removeCurrentSnackBar();
+    currentScaffold.showSnackBar(
+      SnackBar(
+        content: Text(
+          "Deleted Transaction",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            _transactionsBloc.add(
+              AddTransaction(transaction),
+            );
+          },
         ),
       ),
-      action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {},
+    );
+  }
+
+  void _handleTransactionRestored(TransactionRestored state) {
+    var transaction = state.transaction;
+    var currentScaffold = Scaffold.of(context);
+    _transactions.insert(_lastDeletedIndex, transaction);
+
+    currentScaffold.removeCurrentSnackBar();
+    currentScaffold.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text(
+          "Added Transaction",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
       ),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   RefreshCallback _fetchTransactions() {

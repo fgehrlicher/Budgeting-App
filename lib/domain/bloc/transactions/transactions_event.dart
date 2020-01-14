@@ -21,3 +21,9 @@ class DeleteTransaction extends TransactionsEvent {
 
   DeleteTransaction(this.transaction);
 }
+
+class RestoreTransaction extends TransactionsEvent {
+  final Transaction transaction;
+
+  RestoreTransaction(this.transaction);
+}
