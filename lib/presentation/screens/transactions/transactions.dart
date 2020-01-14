@@ -69,7 +69,7 @@ class _TransactionsState extends State<Transactions> {
     currentScaffold.showSnackBar(
       SnackBar(
         content: Text(
-          "Deleted Transaction",
+          "Deleted Transaction '${transaction.title}'",
           style: TextStyle(
             fontSize: 15,
           ),
@@ -96,7 +96,7 @@ class _TransactionsState extends State<Transactions> {
       SnackBar(
         duration: Duration(seconds: 2),
         content: Text(
-          "Added Transaction",
+          "Restored Transaction '${transaction.title}'",
           style: TextStyle(
             fontSize: 15,
           ),
