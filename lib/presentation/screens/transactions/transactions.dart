@@ -90,8 +90,8 @@ class _TransactionsState extends State<Transactions> {
     );
   }
 
-  Widget _buildRemovedItem(
-      Transaction transaction, BuildContext context, Animation<double> animation) {
+  Widget _buildRemovedItem(Transaction transaction, BuildContext context,
+      Animation<double> animation) {
     return CardItem(
       transaction,
       null,
@@ -102,7 +102,6 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        var children = List<Widget>();
         if (_list == null) {
           return Center(
             child: CircularProgressIndicator(),
@@ -113,11 +112,6 @@ class _TransactionsState extends State<Transactions> {
             child: Text('no transactions'),
           );
         }
-        return AnimatedList(
-          key: _listKey,
-          initialItemCount: _list.length,
-          itemBuilder: _buildItem,
-        );
 
         return SafeArea(
           child: Column(
@@ -127,9 +121,11 @@ class _TransactionsState extends State<Transactions> {
                 flex: 9,
                 child: RefreshIndicator(
                   onRefresh: _fetchTransactions(),
-                  child: ListView(
+                  child: AnimatedList(
+                    key: _listKey,
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    children: children,
+                    initialItemCount: _list.length,
+                    itemBuilder: _buildItem,
                   ),
                 ),
               ),
