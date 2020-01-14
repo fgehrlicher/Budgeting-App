@@ -63,7 +63,7 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        var childen = List<Widget>();
+        var children = List<Widget>();
         if (_transactionList == null) {
           return Center(
             child: CircularProgressIndicator(),
@@ -75,7 +75,7 @@ class _TransactionsState extends State<Transactions> {
           );
         }
         _transactionList.forEach((transaction) {
-          childen.add(
+          children.add(
             Card(
               child: ListTile(
                 leading: transaction.category != null
@@ -123,7 +123,7 @@ class _TransactionsState extends State<Transactions> {
                   onRefresh: _fetchTransactions(),
                   child: ListView(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    children: childen,
+                    children: children,
                   ),
                 ),
               ),
