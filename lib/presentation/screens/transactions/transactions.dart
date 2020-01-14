@@ -6,6 +6,7 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 
 class Transactions extends StatefulWidget {
@@ -15,6 +16,7 @@ class Transactions extends StatefulWidget {
 
 class _TransactionsState extends State<Transactions> {
   TransactionsBloc _transactionsBloc;
+  TransactionList _transactionList;
   Completer<void> _refreshCompleter;
 
   _TransactionsState() {
@@ -27,11 +29,17 @@ class _TransactionsState extends State<Transactions> {
     this._transactionsBloc = BlocProvider.of<TransactionsBloc>(context);
   }
 
-  RefreshCallback _getRefreshCallback() {
+  RefreshCallback _fetchTransactions() {
     return () {
       _transactionsBloc.add(FetchTransactions());
       return _refreshCompleter.future;
     };
+  }
+
+  @override
+  void dispose() {
+    _refreshCompleter?.complete();
+    super.dispose();
   }
 
   void _completeRefresh() async {
@@ -45,6 +53,7 @@ class _TransactionsState extends State<Transactions> {
       listener: (context, state) {
         if (state is TransactionsLoaded) {
           _completeRefresh();
+          _transactionList = state.transactions;
         }
       },
       child: LayoutBuilder(
@@ -65,7 +74,7 @@ class _TransactionsState extends State<Transactions> {
 
               if (state is TransactionsLoaded) {
                 var childen = List<Widget>();
-                state.transactions.forEach((transaction) {
+                _transactionList.forEach((transaction) {
                   childen.add(
                     Card(
                       child: ListTile(
@@ -113,7 +122,7 @@ class _TransactionsState extends State<Transactions> {
                       Expanded(
                         flex: 9,
                         child: RefreshIndicator(
-                          onRefresh: _getRefreshCallback(),
+                          onRefresh: _fetchTransactions(),
                           child: ListView(
                             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                             children: childen,
