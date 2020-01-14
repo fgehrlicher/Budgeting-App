@@ -21,7 +21,7 @@ class _TransactionsState extends State<Transactions> {
   Completer<void> _refreshCompleter;
   ListModel<Transaction> _transactions;
   GlobalKey<AnimatedListState> _transactionsKey =
-      GlobalKey<AnimatedListState>();
+  GlobalKey<AnimatedListState>();
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
@@ -36,37 +36,42 @@ class _TransactionsState extends State<Transactions> {
 
   void _handleStateUpdate(TransactionsState state) {
     if (state is TransactionsLoaded) {
-      setState(() {
-        _transactionsKey = GlobalKey<AnimatedListState>();
-        _transactions = ListModel<Transaction>(
-          listKey: _transactionsKey,
-          initialItems: state.transactions,
-          removedItemBuilder: _buildRemovedItem,
-        );
-      });
-      _completeFetchTransactions();
+      _handleTransactionsLoaded(state);
     }
-
     if (state is TransactionDeleted) {
-      var transaction = state.transaction;
-      _transactions.removeAt(_transactions.indexOf(transaction));
-
-      final snackBar = SnackBar(
-        content: Text(
-          "Deleted Transaction",
-          style: TextStyle(
-            fontSize: 15,
-          ),
-        ),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            // Some code to undo the change.
-          },
-        ),
-      );
-      Scaffold.of(context).showSnackBar(snackBar);
+      _handleTransactionDeleted(state)
     }
+  }
+
+  void _handleTransactionsLoaded(TransactionsLoaded state) {
+    setState(() {
+      _transactionsKey = GlobalKey<AnimatedListState>();
+      _transactions = ListModel<Transaction>(
+        listKey: _transactionsKey,
+        initialItems: state.transactions,
+        removedItemBuilder: _buildRemovedItem,
+      );
+    });
+    _completeFetchTransactions();
+  }
+
+  void _handleTransactionDeleted(TransactionDeleted state) {
+    var transaction = state.transaction;
+    _transactions.removeAt(_transactions.indexOf(transaction));
+
+    final snackBar = SnackBar(
+      content: Text(
+        "Deleted Transaction",
+        style: TextStyle(
+          fontSize: 15,
+        ),
+      ),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {},
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   RefreshCallback _fetchTransactions() {
@@ -88,8 +93,8 @@ class _TransactionsState extends State<Transactions> {
     super.dispose();
   }
 
-  Widget _buildItem(
-      BuildContext context, int index, Animation<double> animation) {
+  Widget _buildItem(BuildContext context, int index,
+      Animation<double> animation) {
     var transaction = _transactions[index];
     return CardItem(transaction, () {
       Navigator.push(
