@@ -37,6 +37,9 @@ class _TransactionsState extends State<Transactions> {
         _transactionList = state.transactions;
       });
     }
+    if (state is TransactionDeleted) {
+
+    }
   }
 
   RefreshCallback _fetchTransactions() {

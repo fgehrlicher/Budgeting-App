@@ -17,8 +17,8 @@ class TransactionsLoaded extends TransactionsState {
   const TransactionsLoaded(this.transactions);
 }
 
-class TransactionsDeleted extends TransactionsState {
+class TransactionDeleted extends TransactionsState {
   final Transaction transaction;
 
-  const TransactionsDeleted(this.transaction);
+  const TransactionDeleted(this.transaction);
 }
