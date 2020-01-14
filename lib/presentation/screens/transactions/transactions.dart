@@ -21,7 +21,7 @@ class _TransactionsState extends State<Transactions> {
   Completer<void> _refreshCompleter;
   ListModel<Transaction> _transactions;
   GlobalKey<AnimatedListState> _transactionsKey =
-  GlobalKey<AnimatedListState>();
+      GlobalKey<AnimatedListState>();
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
@@ -93,8 +93,11 @@ class _TransactionsState extends State<Transactions> {
     super.dispose();
   }
 
-  Widget _buildItem(BuildContext context, int index,
-      Animation<double> animation) {
+  Widget _buildItem(
+    BuildContext context,
+    int index,
+    Animation<double> animation,
+  ) {
     var transaction = _transactions[index];
     return CardItem(transaction, () {
       Navigator.push(
