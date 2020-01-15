@@ -107,7 +107,7 @@ class _TransactionsState extends State<Transactions> {
     );
   }
 
-  void _fetchTransactions() async {
+  Future<void> _fetchTransactions() {
       _transactionsBloc.add(FetchTransactions());
       return _refreshCompleter.future;
   }
