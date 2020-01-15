@@ -42,31 +42,43 @@ class _RouterState extends State<Router> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              offset: Offset(0.0, -6.0),
-              color: Color(0xffEDEDED),
-              blurRadius: 8.0,
-            ),
-          ],
-          color: Colors.white,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
         ),
-        child: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
+        onPressed: () {},
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 4.0,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              iconSize: 30.0,
+              padding: EdgeInsets.only(left: 28.0),
               icon: Icon(Icons.home),
-              title: Text('Home'),
+              onPressed: () {
+                setState(() {
+                  _onItemTapped(0);
+                });
+              },
             ),
-            BottomNavigationBarItem(
+            IconButton(
+              iconSize: 30.0,
+              padding: EdgeInsets.only(right: 28.0),
               icon: Icon(Icons.attach_money),
-              title: Text('Transactions'),
+              onPressed: () {
+                setState(() {
+                  _onItemTapped(1);
+                });
+              },
             ),
           ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.black,
-          onTap: _onItemTapped,
         ),
       ),
     );
