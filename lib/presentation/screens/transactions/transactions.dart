@@ -51,7 +51,6 @@ class _TransactionsState extends State<Transactions> {
   }
 
   void _handleTransactionsLoaded(TransactionsLoaded state) {
-
     setState(() {
       _transactionsKey = GlobalKey<AnimatedListState>();
       _transactions = ListModel<Transaction>(
@@ -60,6 +59,7 @@ class _TransactionsState extends State<Transactions> {
         removedItemBuilder: _buildRemovedItem,
       );
     });
+
     _completeFetchTransactions();
   }
 
@@ -107,11 +107,9 @@ class _TransactionsState extends State<Transactions> {
     );
   }
 
-  RefreshCallback _fetchTransactions() {
-    return () {
+  void _fetchTransactions() async {
       _transactionsBloc.add(FetchTransactions());
       return _refreshCompleter.future;
-    };
   }
 
   void _completeFetchTransactions() async {
@@ -176,7 +174,7 @@ class _TransactionsState extends State<Transactions> {
               Expanded(
                 flex: 9,
                 child: RefreshIndicator(
-                  onRefresh: _fetchTransactions(),
+                  onRefresh: _fetchTransactions,
                   child: AnimatedList(
                     key: _transactionsKey,
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
