@@ -51,7 +51,6 @@ class _TransactionsState extends State<Transactions> {
   }
 
   void _handleTransactionsLoaded(TransactionsLoaded state) {
-    _mainScaffold.removeCurrentSnackBar();
 
     setState(() {
       _transactionsKey = GlobalKey<AnimatedListState>();
@@ -117,6 +116,7 @@ class _TransactionsState extends State<Transactions> {
 
   void _completeFetchTransactions() async {
     await Future.delayed(Duration(milliseconds: 500));
+    _mainScaffold.removeCurrentSnackBar();
     _refreshCompleter?.complete();
     _refreshCompleter = Completer();
   }
