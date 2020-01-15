@@ -23,6 +23,7 @@ class _TransactionsState extends State<Transactions> {
   GlobalKey<AnimatedListState> _transactionsKey =
       GlobalKey<AnimatedListState>();
   int _lastDeletedIndex;
+  ScaffoldState _mainScaffold;
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
@@ -32,6 +33,8 @@ class _TransactionsState extends State<Transactions> {
   void initState() {
     super.initState();
     _transactionsBloc = BlocProvider.of<TransactionsBloc>(context);
+    _mainScaffold = Scaffold.of(context);
+
     _transactionsBloc.listen(_handleStateUpdate);
   }
 
@@ -48,6 +51,8 @@ class _TransactionsState extends State<Transactions> {
   }
 
   void _handleTransactionsLoaded(TransactionsLoaded state) {
+    _mainScaffold.removeCurrentSnackBar();
+
     setState(() {
       _transactionsKey = GlobalKey<AnimatedListState>();
       _transactions = ListModel<Transaction>(
@@ -61,12 +66,11 @@ class _TransactionsState extends State<Transactions> {
 
   void _handleTransactionDeleted(TransactionDeleted state) {
     var transaction = state.transaction;
-    var currentScaffold = Scaffold.of(context);
     _lastDeletedIndex = _transactions.indexOf(transaction);
     _transactions.removeAt(_lastDeletedIndex);
 
-    currentScaffold.removeCurrentSnackBar();
-    currentScaffold.showSnackBar(
+    _mainScaffold.removeCurrentSnackBar();
+    _mainScaffold.showSnackBar(
       SnackBar(
         content: Text(
           "Deleted Transaction '${transaction.title}'",
@@ -88,11 +92,10 @@ class _TransactionsState extends State<Transactions> {
 
   void _handleTransactionRestored(TransactionRestored state) {
     var transaction = state.transaction;
-    var currentScaffold = Scaffold.of(context);
     _transactions.insert(_lastDeletedIndex, transaction);
 
-    currentScaffold.removeCurrentSnackBar();
-    currentScaffold.showSnackBar(
+    _mainScaffold.removeCurrentSnackBar();
+    _mainScaffold.showSnackBar(
       SnackBar(
         duration: Duration(seconds: 2),
         content: Text(
