@@ -15,33 +15,11 @@ class Router extends StatefulWidget {
 }
 
 class _RouterState extends State<Router> {
-  int _selectedIndex = 0;
-
-  static List<Widget> _widgetOptions = <Widget>[
-    BlocProvider(
-      builder: (context) => HomeBloc()..add(FetchBalance()),
-      child: Home(),
-    ),
-    BlocProvider(
-      builder: (context) => TransactionsBloc(
-        TransactionRepository(
-          DatabaseProvider.database,
-        ),
-      )..add(FetchTransactions()),
-      child: Transactions(),
-    )
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
@@ -64,7 +42,7 @@ class _RouterState extends State<Router> {
               icon: Icon(Icons.home),
               onPressed: () {
                 setState(() {
-                  _onItemTapped(0);
+                  _pageController.jumpToPage(0);
                 });
               },
             ),
@@ -74,12 +52,29 @@ class _RouterState extends State<Router> {
               icon: Icon(Icons.attach_money),
               onPressed: () {
                 setState(() {
-                  _onItemTapped(1);
+                  _pageController.jumpToPage(1);
                 });
               },
             ),
           ],
         ),
+      ),
+      body: PageView(
+        controller: _pageController,
+        children: <Widget>[
+          BlocProvider(
+            builder: (context) => HomeBloc()..add(FetchBalance()),
+            child: Home(),
+          ),
+          BlocProvider(
+            builder: (context) => TransactionsBloc(
+              TransactionRepository(
+                DatabaseProvider.database,
+              ),
+            )..add(FetchTransactions()),
+            child: Transactions(),
+          )
+        ],
       ),
     );
   }
