@@ -36,25 +36,29 @@ class _RouterState extends State<Router> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            IconButton(
-              iconSize: 30.0,
-              padding: EdgeInsets.only(left: 28.0),
-              icon: Icon(Icons.home),
-              onPressed: () {
-                setState(() {
-                  _pageController.jumpToPage(0);
-                });
-              },
+            Expanded(
+              flex: 2,
+              child: IconButton(
+                iconSize: 30.0,
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  setState(() {
+                    _pageController.jumpToPage(0);
+                  });
+                },
+              ),
             ),
-            IconButton(
-              iconSize: 30.0,
-              padding: EdgeInsets.only(right: 28.0),
-              icon: Icon(Icons.attach_money),
-              onPressed: () {
-                setState(() {
-                  _pageController.jumpToPage(1);
-                });
-              },
+            Expanded(
+              flex: 2,
+              child: IconButton(
+                iconSize: 30.0,
+                icon: Icon(Icons.attach_money),
+                onPressed: () {
+                  setState(() {
+                    _pageController.jumpToPage(1);
+                  });
+                },
+              ),
             ),
           ],
         ),
