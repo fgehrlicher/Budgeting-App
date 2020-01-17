@@ -27,15 +27,20 @@ class CardItem extends StatelessWidget {
           child: Card(
             color: _color,
             child: ListTile(
-              leading: _transaction.category != null
-                  ? Icon(
-                      _transaction.category.iconData,
-                      size: 30,
-                    )
-                  : Container(
-                      height: 30,
-                      width: 30,
-                    ),
+              leading: Container(
+                color: _transaction.category?.backgroundColor ?? Colors.grey,
+                width: 50,
+                height: 50,
+                child: _transaction.category != null
+                    ? Icon(
+                        _transaction.category.iconData,
+                        size: 30,
+                      )
+                    : Container(
+                        height: 30,
+                        width: 30,
+                      ),
+              ),
               title: Text(
                 _transaction.title,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -47,7 +52,8 @@ class CardItem extends StatelessWidget {
                   Text(
                     _transaction.formattedBalance,
                     style: TextStyle(
-                      color: _transaction.amount > 0 ? Colors.green : Colors.red,
+                      color:
+                          _transaction.amount > 0 ? Colors.green : Colors.red,
                       fontSize: 15,
                     ),
                   ),
