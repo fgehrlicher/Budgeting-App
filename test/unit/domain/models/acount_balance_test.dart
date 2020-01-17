@@ -10,7 +10,7 @@ void main() {
       var subject = AccountBalance(balance: cents);
 
       expect(
-        subject.getFormattedBalance(),
+        subject.formattedBalance,
         euroString,
       );
     });
@@ -22,7 +22,7 @@ void main() {
       var subject = AccountBalance(balance: cents);
 
       expect(
-        subject.getFormattedBalance(),
+        subject.formattedBalance,
         euroString,
       );
     });
@@ -32,7 +32,7 @@ void main() {
       var subject = AccountBalance();
 
       expect(
-        subject.getFormattedBalance(),
+        subject.formattedBalance,
         euroString,
       );
     });
