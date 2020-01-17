@@ -40,12 +40,24 @@ class CardItem extends StatelessWidget {
                 _transaction.title,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              subtitle: Text(
-                _transaction.getFormattedBalance(),
-                style: TextStyle(
-                  color: _transaction.amount > 0 ? Colors.green : Colors.red,
-                  fontSize: 15,
-                ),
+              isThreeLine: true,
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    _transaction.formattedBalance,
+                    style: TextStyle(
+                      color: _transaction.amount > 0 ? Colors.green : Colors.red,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Text(
+                    _transaction.date.toIso8601String(),
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
               ),
               onTap: _onTap,
             ),
