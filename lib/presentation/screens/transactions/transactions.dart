@@ -218,7 +218,7 @@ class _TransactionsState extends State<Transactions> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    AccountBalance(balance: 10000).getFormattedBalance(),
+                    AccountBalance(balance: 10000).formattedBalance,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,

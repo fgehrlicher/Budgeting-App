@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                         minWidth: constraints.maxWidth,
                       ),
                       child: BalanceContainer(
-                        state.accountBalance.getFormattedBalance(),
+                        state.accountBalance.formattedBalance,
                       ),
                     ),
                   ),

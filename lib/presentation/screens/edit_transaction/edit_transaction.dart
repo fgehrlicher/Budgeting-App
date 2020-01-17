@@ -102,7 +102,7 @@ class EditTransaction extends StatelessWidget {
                         children: <Widget>[
                           Expanded(
                             child: TextFormField(
-                              initialValue: _transaction.getFormattedBalance(),
+                              initialValue: _transaction.formattedBalance,
                               textAlign: TextAlign.center,
                             ),
                           ),
