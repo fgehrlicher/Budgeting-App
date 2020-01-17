@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:unnamed_budgeting_app/data/database/field_config.dart';
 import 'package:unnamed_budgeting_app/data/database/persistent_model.dart';
 import 'package:unnamed_budgeting_app/data/database/sqlite_types.dart';
@@ -104,6 +105,11 @@ class Transaction implements PersistentModel {
         rawBalance.substring(balanceLength - postDecimalPointChars);
 
     return "$preDecimalPoint.$postDecimalPoint \€";
+  }
+
+  String get formattedDate {
+    var formatter = DateFormat(DateFormat.ABBR_MONTH);
+    return formatter.format(date);
   }
 
   Map<String, dynamic> toMap() {
