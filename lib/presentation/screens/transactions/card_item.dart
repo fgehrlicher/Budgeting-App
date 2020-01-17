@@ -52,7 +52,7 @@ class CardItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    _transaction.date.toIso8601String(),
+                    _transaction.formattedDate,
                     style: TextStyle(
                       fontSize: 15,
                     ),
