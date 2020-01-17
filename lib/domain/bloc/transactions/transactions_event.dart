@@ -27,3 +27,10 @@ class RestoreTransaction extends TransactionsEvent {
 
   RestoreTransaction(this.transaction);
 }
+
+class FetchTransactions extends TransactionsEvent {
+  final int fetchCount;
+  final Transaction lastTransaction;
+
+  FetchTransactions(this.fetchCount, this.lastTransaction);
+}

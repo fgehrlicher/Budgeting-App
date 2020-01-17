@@ -30,6 +30,9 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     if (event is AddTransaction) {
       yield* _mapAddTransactionToState(event.transaction);
     }
+    if (event is FetchTransactions) {
+      yield* _mapFetchTransactionsToState(event);
+    }
   }
 
   Stream<TransactionsState> _mapLoadTransactionsToState() async* {
@@ -56,5 +59,10 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   Stream<TransactionsState> _mapRestoreTransactionToState(Transaction transaction) async* {
     //_transactionRepository.add(transaction);
     yield TransactionRestored(transaction);
+  }
+
+  Stream<TransactionsState> _mapFetchTransactionsToState(FetchTransactions event) async* {
+    //_transactionRepository.add(transaction);
+    yield TransactionsEmpty();
   }
 }

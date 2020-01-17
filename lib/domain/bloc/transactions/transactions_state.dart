@@ -34,3 +34,9 @@ class TransactionAdded extends TransactionsState {
 
   const TransactionAdded(this.transaction);
 }
+
+class TransactionFetched extends TransactionsState {
+  final TransactionList transactions;
+
+  const TransactionFetched(this.transactions);
+}
