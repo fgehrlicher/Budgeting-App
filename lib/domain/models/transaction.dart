@@ -71,7 +71,7 @@ class Transaction implements PersistentModel {
   }
 
   @override
-  List<FieldConfig> getFieldConf() {
+  List<FieldConfig> get fieldConf {
     return [
       FieldConfig(ID_NAME, ID_CONFIG),
       FieldConfig(DATE_NAME, DATE_CONFIG),
@@ -85,8 +85,25 @@ class Transaction implements PersistentModel {
   }
 
   @override
-  String getTableName() {
+  String get tableName {
     return TABLE_NAME;
+  }
+
+  String get formattedBalance {
+    //@TODO Move magic numbers somewhere else
+    var minimalLength = 3;
+    var postDecimalPointChars = 2;
+
+    var rawBalance = amount != null ? amount.toString() : "";
+    rawBalance = rawBalance.padLeft(minimalLength, "0");
+    var balanceLength = rawBalance.length;
+
+    var preDecimalPoint =
+        rawBalance.substring(0, balanceLength - postDecimalPointChars);
+    var postDecimalPoint =
+        rawBalance.substring(balanceLength - postDecimalPointChars);
+
+    return "$preDecimalPoint.$postDecimalPoint \€";
   }
 
   Map<String, dynamic> toMap() {
@@ -103,19 +120,5 @@ class Transaction implements PersistentModel {
 
     map.removeWhere((key, value) => value == null);
     return map;
-  }
-
-  String getFormattedBalance() {
-    var minimalLength = 3;
-    var postDecimalPointChars = 2;
-
-    var rawBalance = amount != null ? amount.toString() : "";
-    rawBalance = rawBalance.padLeft(minimalLength, "0");
-    var balanceLength = rawBalance.length;
-
-    var preDecimalPoint = rawBalance.substring(0, balanceLength - postDecimalPointChars);
-    var postDecimalPoint = rawBalance.substring(balanceLength - postDecimalPointChars);
-
-    return "$preDecimalPoint.$postDecimalPoint \€";
   }
 }

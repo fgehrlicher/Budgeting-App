@@ -25,6 +25,36 @@ class AccountBalance implements PersistentModel {
     date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
   }
 
+  @override
+  String get tableName {
+    return TABLE_NAME;
+  }
+
+  @override
+  List<FieldConfig> get fieldConf {
+    return [
+      FieldConfig(ID_NAME, ID_CONFIG),
+      FieldConfig(DATE_NAME, DATE_CONFIG),
+      FieldConfig(BALANCE_NAME, BALANCE_CONFIG),
+    ];
+  }
+
+  String get formattedBalance {
+    var minimalLength = 3;
+    var postDecimalPointChars = 2;
+
+    var rawBalance = balance != null ? balance.toString() : "";
+    rawBalance = rawBalance.padLeft(minimalLength, "0");
+    var balanceLength = rawBalance.length;
+
+    var preDecimalPoint =
+    rawBalance.substring(0, balanceLength - postDecimalPointChars);
+    var postDecimalPoint =
+    rawBalance.substring(balanceLength - postDecimalPointChars);
+
+    return "$preDecimalPoint.$postDecimalPoint \€";
+  }
+
   Map<String, dynamic> toMap() {
     var map = {
       ID_NAME: id,
@@ -36,31 +66,4 @@ class AccountBalance implements PersistentModel {
     return map;
   }
 
-  @override
-  List<FieldConfig> getFieldConf() {
-    return [
-      FieldConfig(ID_NAME, ID_CONFIG),
-      FieldConfig(DATE_NAME, DATE_CONFIG),
-      FieldConfig(BALANCE_NAME, BALANCE_CONFIG),
-    ];
-  }
-
-  @override
-  String getTableName() {
-    return TABLE_NAME;
-  }
-
-  String getFormattedBalance() {
-    var minimalLength = 3;
-    var postDecimalPointChars = 2;
-
-    var rawBalance = balance != null ? balance.toString() : "";
-    rawBalance = rawBalance.padLeft(minimalLength, "0");
-    var balanceLength = rawBalance.length;
-
-    var preDecimalPoint = rawBalance.substring(0, balanceLength - postDecimalPointChars);
-    var postDecimalPoint = rawBalance.substring(balanceLength - postDecimalPointChars);
-
-    return "$preDecimalPoint.$postDecimalPoint \€";
-  }
 }
