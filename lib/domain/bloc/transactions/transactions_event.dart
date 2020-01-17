@@ -2,7 +2,7 @@ import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 
 abstract class TransactionsEvent {}
 
-class FetchTransactions extends TransactionsEvent {}
+class LoadTransactions extends TransactionsEvent {}
 
 class AddTransaction extends TransactionsEvent {
   final Transaction transaction;

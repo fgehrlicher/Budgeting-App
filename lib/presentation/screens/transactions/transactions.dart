@@ -51,17 +51,17 @@ class _TransactionsState extends State<Transactions> {
 
   void _handleStateUpdate(TransactionsState state) {
     if (state is TransactionsLoaded) {
-      _handleTransactionsLoaded(state);
+      _handleTransactionsLoadedState(state);
     }
     if (state is TransactionDeleted) {
-      _handleTransactionDeleted(state);
+      _handleTransactionDeletedState(state);
     }
     if (state is TransactionRestored) {
-      _handleTransactionRestored(state);
+      _handleTransactionRestoredState(state);
     }
   }
 
-  void _handleTransactionsLoaded(TransactionsLoaded state) {
+  void _handleTransactionsLoadedState(TransactionsLoaded state) {
     setState(() {
       _transactionsKey = GlobalKey<AnimatedListState>();
       _transactions = ListModel<Transaction>(
@@ -74,7 +74,7 @@ class _TransactionsState extends State<Transactions> {
     _completeFetchTransactions();
   }
 
-  void _handleTransactionDeleted(TransactionDeleted state) {
+  void _handleTransactionDeletedState(TransactionDeleted state) {
     var transaction = state.transaction;
     _lastDeletedIndex = _transactions.indexOf(transaction);
     _transactions.remove(_lastDeletedIndex);
@@ -100,7 +100,7 @@ class _TransactionsState extends State<Transactions> {
     );
   }
 
-  void _handleTransactionRestored(TransactionRestored state) {
+  void _handleTransactionRestoredState(TransactionRestored state) {
     var transaction = state.transaction;
     _transactions.insert(_lastDeletedIndex, transaction);
 
@@ -118,8 +118,8 @@ class _TransactionsState extends State<Transactions> {
     );
   }
 
-  Future<void> _fetchTransactions() {
-    _transactionsBloc.add(FetchTransactions());
+  Future<void> _loadTransactions() {
+    _transactionsBloc.add(LoadTransactions());
     return _refreshCompleter.future;
   }
 
@@ -187,7 +187,7 @@ class _TransactionsState extends State<Transactions> {
           Expanded(
             flex: 9,
             child: RefreshIndicator(
-              onRefresh: _fetchTransactions,
+              onRefresh: _loadTransactions,
               child: AnimatedList(
                 key: _transactionsKey,
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 20),

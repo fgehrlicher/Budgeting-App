@@ -18,8 +18,8 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   Stream<TransactionsState> mapEventToState(
     TransactionsEvent event,
   ) async* {
-    if (event is FetchTransactions) {
-      yield* _mapFetchTransactionsToState();
+    if (event is LoadTransactions) {
+      yield* _mapLoadTransactionsToState();
     }
     if (event is DeleteTransaction) {
       yield* _mapDeleteTransactionToState(event.transaction);
@@ -32,7 +32,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     }
   }
 
-  Stream<TransactionsState> _mapFetchTransactionsToState() async* {
+  Stream<TransactionsState> _mapLoadTransactionsToState() async* {
     var transactions = await _transactionRepository.getAll();
     transactions.sortBy(TransactionListSorting.DateDescending);
 

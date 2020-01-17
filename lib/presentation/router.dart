@@ -75,7 +75,7 @@ class _RouterState extends State<Router> {
               TransactionRepository(
                 DatabaseProvider.database,
               ),
-            )..add(FetchTransactions()),
+            )..add(LoadTransactions()),
             child: Transactions(),
           )
         ],
