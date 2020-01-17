@@ -108,8 +108,8 @@ class _TransactionsState extends State<Transactions> {
   }
 
   Future<void> _fetchTransactions() {
-      _transactionsBloc.add(FetchTransactions());
-      return _refreshCompleter.future;
+    _transactionsBloc.add(FetchTransactions());
+    return _refreshCompleter.future;
   }
 
   void _completeFetchTransactions() async {
@@ -154,67 +154,65 @@ class _TransactionsState extends State<Transactions> {
   }
 
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        if (_transactions == null) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (_transactions.length == 0) {
-          return Center(
-            child: Text('no transactions'),
-          );
-        }
+    if (_transactions == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    if (_transactions.length == 0) {
+      return Center(
+        child: Text('no transactions'),
+      );
+    }
 
-        return SafeArea(
-          child: Column(
-            verticalDirection: VerticalDirection.up,
-            children: <Widget>[
-              Expanded(
-                flex: 9,
-                child: RefreshIndicator(
-                  onRefresh: _fetchTransactions,
-                  child: AnimatedList(
-                    key: _transactionsKey,
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    initialItemCount: _transactions.length,
-                    itemBuilder: _buildItem,
-                  ),
-                ),
+    return SafeArea(
+      child: Column(
+        verticalDirection: VerticalDirection.up,
+        children: <Widget>[
+          Expanded(
+            flex: 9,
+            child: RefreshIndicator(
+              onRefresh: _fetchTransactions,
+              child: AnimatedList(
+                key: _transactionsKey,
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                initialItemCount: _transactions.length,
+                itemBuilder: _buildItem,
               ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        offset: Offset(0.0, 6.0),
-                        color: Color(0xffEDEDED),
-                        blurRadius: 8.0,
-                      ),
-                    ],
-                    color: Colors.white70,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              padding: EdgeInsets.only(top: 20),
+              decoration: BoxDecoration(
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    offset: Offset(0.0, 6.0),
+                    color: Color(0xffEDEDED),
+                    blurRadius: 8.0,
                   ),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(minWidth: constraints.maxWidth),
-                    child: Text(
-                      AccountBalance(balance: 10000).getFormattedBalance(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+                ],
+                color: Colors.white70,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    AccountBalance(balance: 10000).getFormattedBalance(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
