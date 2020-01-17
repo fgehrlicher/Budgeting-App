@@ -108,7 +108,7 @@ class Transaction implements PersistentModel {
   }
 
   String get formattedDate {
-    var formatter = DateFormat(DateFormat.ABBR_MONTH);
+    var formatter = DateFormat(DateFormat.YEAR_MONTH_DAY);
     return formatter.format(date);
   }
 
