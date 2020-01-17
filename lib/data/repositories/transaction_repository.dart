@@ -22,10 +22,16 @@ class TransactionRepository {
     return TransactionList.fromMap(queryResult);
   }
 
-  Future<TransactionList> getAll() async {
+  Future<TransactionList> getAll({
+    model.Transaction after,
+    int limit = 20,
+  }) async {
     var db = await database;
-
-    final List<Map<String, dynamic>> queryResult = await db.query(_tableName);
+    final List<Map<String, dynamic>> queryResult = await db.query(
+      _tableName,
+      limit: limit,
+      offset: after?.id,
+    );
 
     return TransactionList.fromMap(queryResult);
   }
