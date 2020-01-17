@@ -19,6 +19,8 @@ class Transactions extends StatefulWidget {
 class _TransactionsState extends State<Transactions> {
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
+  ScrollController _scrollController;
+
   ListModel<Transaction> _transactions;
   GlobalKey<AnimatedListState> _transactionsKey =
       GlobalKey<AnimatedListState>();
@@ -27,6 +29,9 @@ class _TransactionsState extends State<Transactions> {
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(_handleScrollEvent);
   }
 
   @override
@@ -125,6 +130,13 @@ class _TransactionsState extends State<Transactions> {
     _refreshCompleter = Completer();
   }
 
+  void _handleScrollEvent() async {
+    var fetchMoreThreshold = 0.9 * _scrollController.position.maxScrollExtent;
+    if (_scrollController.position.pixels > fetchMoreThreshold) {
+
+    }
+  }
+
   Widget _buildItem(
     BuildContext context,
     int index,
@@ -143,8 +155,11 @@ class _TransactionsState extends State<Transactions> {
     }, animation, null);
   }
 
-  Widget _buildRemovedItem(Transaction transaction, BuildContext context,
-      Animation<double> animation) {
+  Widget _buildRemovedItem(
+    Transaction transaction,
+    BuildContext context,
+    Animation<double> animation,
+  ) {
     return CardItem(
       transaction,
       null,
@@ -175,9 +190,10 @@ class _TransactionsState extends State<Transactions> {
               onRefresh: _fetchTransactions,
               child: AnimatedList(
                 key: _transactionsKey,
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                 initialItemCount: _transactions.length,
                 itemBuilder: _buildItem,
+                controller: _scrollController,
               ),
             ),
           ),
