@@ -38,6 +38,12 @@ class _TransactionsState extends State<Transactions> {
     _transactionsBloc.listen(_handleStateUpdate);
   }
 
+  @override
+  void dispose() {
+    _refreshCompleter?.complete();
+    super.dispose();
+  }
+
   void _handleStateUpdate(TransactionsState state) {
     if (state is TransactionsLoaded) {
       _handleTransactionsLoaded(state);
@@ -54,9 +60,9 @@ class _TransactionsState extends State<Transactions> {
     setState(() {
       _transactionsKey = GlobalKey<AnimatedListState>();
       _transactions = ListModel<Transaction>(
-        listKey: _transactionsKey,
-        initialItems: state.transactions,
-        removedItemBuilder: _buildRemovedItem,
+        _transactionsKey,
+        _buildRemovedItem,
+        state.transactions,
       );
     });
 
@@ -66,7 +72,7 @@ class _TransactionsState extends State<Transactions> {
   void _handleTransactionDeleted(TransactionDeleted state) {
     var transaction = state.transaction;
     _lastDeletedIndex = _transactions.indexOf(transaction);
-    _transactions.removeAt(_lastDeletedIndex);
+    _transactions.remove(_lastDeletedIndex);
 
     _mainScaffold.removeCurrentSnackBar();
     _mainScaffold.showSnackBar(
@@ -115,14 +121,8 @@ class _TransactionsState extends State<Transactions> {
   void _completeFetchTransactions() async {
     await Future.delayed(Duration(milliseconds: 500));
     _mainScaffold.removeCurrentSnackBar();
-    _refreshCompleter?.complete();
+    _refreshCompleter.complete();
     _refreshCompleter = Completer();
-  }
-
-  @override
-  void dispose() {
-    _refreshCompleter?.complete();
-    super.dispose();
   }
 
   Widget _buildItem(
