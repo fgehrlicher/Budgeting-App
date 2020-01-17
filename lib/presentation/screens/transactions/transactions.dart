@@ -186,14 +186,16 @@ class _TransactionsState extends State<Transactions> {
         children: <Widget>[
           Expanded(
             flex: 9,
-            child: RefreshIndicator(
-              onRefresh: _loadTransactions,
-              child: AnimatedList(
-                key: _transactionsKey,
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                initialItemCount: _transactions.length,
-                itemBuilder: _buildItem,
-                controller: _scrollController,
+            child: Scrollbar(
+              child: RefreshIndicator(
+                onRefresh: _loadTransactions,
+                child: AnimatedList(
+                  key: _transactionsKey,
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  initialItemCount: _transactions.length,
+                  itemBuilder: _buildItem,
+                  controller: _scrollController,
+                ),
               ),
             ),
           ),
