@@ -61,8 +61,13 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     yield TransactionRestored(transaction);
   }
 
-  Stream<TransactionsState> _mapFetchTransactionsToState(FetchTransactions event) async* {
-    //_transactionRepository.add(transaction);
-    yield TransactionsEmpty();
+  Stream<TransactionsState> _mapFetchTransactionsToState(
+    FetchTransactions event,
+  ) async* {
+    var transactions = await _transactionRepository.getAll(
+      limit: 20,
+      after: event.lastTransaction,
+    );
+    yield TransactionFetched(transactions);
   }
 }
