@@ -17,7 +17,8 @@ class Transactions extends StatefulWidget {
   _TransactionsState createState() => _TransactionsState();
 }
 
-class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClientMixin {
+class _TransactionsState extends State<Transactions>
+    with AutomaticKeepAliveClientMixin {
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
   ScrollController _scrollController;
@@ -151,7 +152,8 @@ class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClie
 
   void _handleScrollEvent() async {
     var fetchMoreThreshold = 0.9 * _scrollController.position.maxScrollExtent;
-    if (scrollController.position.pixels > fetchMoreThreshold) {
+    if (!_fetchIndicator.isFetching() &&
+        _scrollController.position.pixels > fetchMoreThreshold) {
       _fetchTransactions();
     }
   }
