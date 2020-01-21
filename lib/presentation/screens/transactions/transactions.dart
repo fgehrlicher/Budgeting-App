@@ -7,7 +7,6 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_even
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_categories.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/card_item.dart';
 import 'package:unnamed_budgeting_app/presentation/widgets/list_model.dart';
@@ -20,6 +19,7 @@ class Transactions extends StatefulWidget {
 class _TransactionsState extends State<Transactions> {
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
+  bool _fetchOngoing;
   ScrollController _scrollController;
 
   ListModel<Transaction> _transactions;
@@ -30,6 +30,7 @@ class _TransactionsState extends State<Transactions> {
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
+    _fetchOngoing = false;
     _scrollController = ScrollController();
 
     _scrollController.addListener(_handleScrollEvent);
@@ -59,6 +60,9 @@ class _TransactionsState extends State<Transactions> {
     }
     if (state is TransactionRestored) {
       _handleTransactionRestoredState(state);
+    }
+    if (state is TransactionFetched) {
+      _handleTransactionFetched(state);
     }
   }
 
@@ -119,6 +123,16 @@ class _TransactionsState extends State<Transactions> {
     );
   }
 
+  void _handleTransactionFetched(TransactionFetched state) async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    setState(() {
+      _fetchOngoing = false;
+    });
+    state.transactions.forEach((Transaction transaction) {
+      _transactions.insert(transaction);
+    });
+  }
+
   Future<void> _loadTransactions() {
     _transactionsBloc.add(LoadTransactions());
     return _refreshCompleter.future;
@@ -133,9 +147,21 @@ class _TransactionsState extends State<Transactions> {
 
   void _handleScrollEvent() async {
     var fetchMoreThreshold = 0.9 * _scrollController.position.maxScrollExtent;
-    if (_scrollController.position.pixels > fetchMoreThreshold) {
-
+    if (!_fetchOngoing && _scrollController.position.pixels > fetchMoreThreshold) {
+      _fetchTransactions();
     }
+  }
+
+  void _fetchTransactions() {
+    _transactionsBloc.add(
+      FetchTransactions(
+        20,
+        _transactions[_transactions.length - 1],
+      ),
+    );
+    setState(() {
+      _fetchOngoing = true;
+    });
   }
 
   Widget _buildItem(
@@ -190,12 +216,21 @@ class _TransactionsState extends State<Transactions> {
             child: Scrollbar(
               child: RefreshIndicator(
                 onRefresh: _loadTransactions,
-                child: AnimatedList(
-                  key: _transactionsKey,
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  initialItemCount: _transactions.length,
-                  itemBuilder: _buildItem,
+                child: SingleChildScrollView(
                   controller: _scrollController,
+                  child: Column(
+                    children: <Widget>[
+                      AnimatedList(
+                        shrinkWrap: true,
+                        key: _transactionsKey,
+                        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                        initialItemCount: _transactions.length,
+                        itemBuilder: _buildItem,
+                        physics: NeverScrollableScrollPhysics(),
+                      ),
+                      _fetchOngoing ? CircularProgressIndicator() : Container(),
+                    ],
+                  ),
                 ),
               ),
             ),
