@@ -21,12 +21,16 @@ class FetchIndicator extends StatefulWidget {
     _fetchIndicatorState.setMode(FetchIndicatorMode.NoTransactionsLeft);
   }
 
+  bool isFetching() => _fetchIndicatorState.isFetching();
+
   @override
   _FetchIndicatorState createState() => _fetchIndicatorState;
 }
 
 class _FetchIndicatorState extends State<FetchIndicator> {
   FetchIndicatorMode _fetchIndicatorMode;
+
+  bool isFetching() => _fetchIndicatorMode == FetchIndicatorMode.Fetching;
 
   void setMode(FetchIndicatorMode _mode) {
     setState(() {
