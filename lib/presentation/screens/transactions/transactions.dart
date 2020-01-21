@@ -9,6 +9,7 @@ import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/card_item.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/fetch_indicator.dart';
 import 'package:unnamed_budgeting_app/presentation/widgets/list_model.dart';
 
 class Transactions extends StatefulWidget {
@@ -19,7 +20,6 @@ class Transactions extends StatefulWidget {
 class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClientMixin {
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
-  bool _fetchOngoing;
   ScrollController _scrollController;
 
   ListModel<Transaction> _transactions;
@@ -27,11 +27,12 @@ class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClie
       GlobalKey<AnimatedListState>();
   int _lastDeletedIndex;
   ScaffoldState _mainScaffold;
+  FetchIndicator _fetchIndicator;
 
   _TransactionsState() {
     _refreshCompleter = Completer<void>();
-    _fetchOngoing = false;
     _scrollController = ScrollController();
+    _fetchIndicator = FetchIndicator();
 
     _scrollController.addListener(_handleScrollEvent);
   }
@@ -129,7 +130,7 @@ class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClie
   void _handleTransactionFetched(TransactionFetched state) async {
     await Future.delayed(Duration(milliseconds: 1000));
     setState(() {
-      _fetchOngoing = false;
+      _fetchIndicator.setSleeping();
     });
     state.transactions.forEach((Transaction transaction) {
       _transactions.insert(transaction);
@@ -150,7 +151,7 @@ class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClie
 
   void _handleScrollEvent() async {
     var fetchMoreThreshold = 0.9 * _scrollController.position.maxScrollExtent;
-    if (!_fetchOngoing && _scrollController.position.pixels > fetchMoreThreshold) {
+    if (scrollController.position.pixels > fetchMoreThreshold) {
       _fetchTransactions();
     }
   }
@@ -163,7 +164,7 @@ class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClie
       ),
     );
     setState(() {
-      _fetchOngoing = true;
+      _fetchIndicator.setFetching();
     });
   }
 
@@ -231,7 +232,7 @@ class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClie
                         itemBuilder: _buildItem,
                         physics: NeverScrollableScrollPhysics(),
                       ),
-                      _fetchOngoing ? CircularProgressIndicator() : Container(),
+                      _fetchIndicator,
                     ],
                   ),
                 ),
