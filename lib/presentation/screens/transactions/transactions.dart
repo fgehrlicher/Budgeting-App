@@ -22,6 +22,7 @@ class _TransactionsState extends State<Transactions>
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
   ScrollController _scrollController;
+  bool _transactionsLeft;
 
   ListModel<Transaction> _transactions;
   GlobalKey<AnimatedListState> _transactionsKey =
@@ -34,6 +35,7 @@ class _TransactionsState extends State<Transactions>
     _refreshCompleter = Completer<void>();
     _scrollController = ScrollController();
     _fetchIndicator = FetchIndicator();
+    _transactionsLeft = true;
 
     _scrollController.addListener(_handleScrollEvent);
   }
@@ -129,10 +131,17 @@ class _TransactionsState extends State<Transactions>
   }
 
   void _handleTransactionFetched(TransactionFetched state) async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(Duration(milliseconds: 500));
     setState(() {
       _fetchIndicator.setSleeping();
     });
+
+    if (state.transactions.length == 0) {
+      _transactionsLeft = false;
+      _fetchIndicator.setNoTransactionsLeft();
+      return;
+    }
+
     state.transactions.forEach((Transaction transaction) {
       _transactions.insert(transaction);
     });
@@ -152,7 +161,7 @@ class _TransactionsState extends State<Transactions>
 
   void _handleScrollEvent() async {
     var fetchMoreThreshold = 0.9 * _scrollController.position.maxScrollExtent;
-    if (!_fetchIndicator.isFetching() &&
+    if (_transactionsLeft && !_fetchIndicator.isFetching() &&
         _scrollController.position.pixels > fetchMoreThreshold) {
       _fetchTransactions();
     }
