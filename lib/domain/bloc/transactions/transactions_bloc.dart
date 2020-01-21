@@ -65,7 +65,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     FetchTransactions event,
   ) async* {
     var transactions = await _transactionRepository.getAll(
-      limit: 20,
+      limit: event.fetchCount,
       after: event.lastTransaction,
     );
     yield TransactionFetched(transactions);
