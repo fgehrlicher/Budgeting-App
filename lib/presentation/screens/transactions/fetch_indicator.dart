@@ -68,3 +68,4 @@ class _FetchIndicatorState extends State<FetchIndicator> {
       break;
     }
   }
+}
