@@ -107,7 +107,7 @@ class _TransactionsState extends State<Transactions> {
 
   void _handleTransactionRestoredState(TransactionRestored state) {
     var transaction = state.transaction;
-    _transactions.insert(_lastDeletedIndex, transaction);
+    _transactions.insert(transaction, _lastDeletedIndex);
 
     _mainScaffold.removeCurrentSnackBar();
     _mainScaffold.showSnackBar(

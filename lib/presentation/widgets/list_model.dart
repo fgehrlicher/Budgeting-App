@@ -17,7 +17,8 @@ class ListModel<E> {
 
   E operator [](int index) => _items[index];
 
-  void insert(int index, E item) {
+  void insert(E item, [int index]) {
+    index ??= _items.length;
     _items.insert(index, item);
     _animatedList.insertItem(index);
   }
