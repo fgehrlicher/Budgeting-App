@@ -16,7 +16,7 @@ class Transactions extends StatefulWidget {
   _TransactionsState createState() => _TransactionsState();
 }
 
-class _TransactionsState extends State<Transactions> {
+class _TransactionsState extends State<Transactions> with AutomaticKeepAliveClientMixin {
   TransactionsBloc _transactionsBloc;
   Completer<void> _refreshCompleter;
   bool _fetchOngoing;
@@ -50,6 +50,9 @@ class _TransactionsState extends State<Transactions> {
     _refreshCompleter?.complete();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   void _handleStateUpdate(TransactionsState state) {
     if (state is TransactionsLoaded) {
