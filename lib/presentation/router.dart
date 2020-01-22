@@ -4,6 +4,7 @@ import 'package:unnamed_budgeting_app/data/database/database_provider.dart';
 import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/home.dart';
@@ -16,6 +17,19 @@ class Router extends StatefulWidget {
 
 class _RouterState extends State<Router> {
   PageController _pageController = PageController(initialPage: 0);
+  NavigationBloc _navigationBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _navigationBloc = NavigationBloc();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _navigationBloc = NavigationBloc();
+  }
 
   @override
   Widget build(BuildContext context) {
