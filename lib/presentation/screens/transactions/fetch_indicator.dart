@@ -33,6 +33,10 @@ class _FetchIndicatorState extends State<FetchIndicator> {
   bool isFetching() => _fetchIndicatorMode == FetchIndicatorMode.Fetching;
 
   void setMode(FetchIndicatorMode _mode) {
+    if (!this.mounted) {
+      return;
+    }
+
     setState(() {
       _fetchIndicatorMode = _mode;
     });
