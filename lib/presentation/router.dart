@@ -5,6 +5,7 @@ import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.d
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/home.dart';
@@ -16,12 +17,17 @@ class Router extends StatefulWidget {
 }
 
 class _RouterState extends State<Router> {
-  PageController _pageController = PageController(initialPage: 0);
+  static const INITIAL_PAGE = 1;
+
+  PageController _pageController;
   NavigationBloc _navigationBloc;
+  int _currentPage;
 
   @override
   void initState() {
     super.initState();
+    _currentPage = INITIAL_PAGE;
+    _pageController = PageController(initialPage: INITIAL_PAGE);
     _navigationBloc = NavigationBloc();
   }
 
@@ -56,8 +62,16 @@ class _RouterState extends State<Router> {
                 iconSize: 30.0,
                 icon: Icon(Icons.home),
                 onPressed: () {
+                  var newIndex = 0;
+                  _navigationBloc.add(
+                    NavigateToPageEvent(
+                      lastIndex: _currentPage,
+                      targetIndex: newIndex,
+                    ),
+                  );
+
                   setState(() {
-                    _pageController.jumpToPage(0);
+                    _pageController.jumpToPage(newIndex);
                   });
                 },
               ),
@@ -68,8 +82,16 @@ class _RouterState extends State<Router> {
                 iconSize: 30.0,
                 icon: Icon(Icons.attach_money),
                 onPressed: () {
+                  var newIndex = 1;
+                  _navigationBloc.add(
+                    NavigateToPageEvent(
+                      lastIndex: _currentPage,
+                      targetIndex: newIndex,
+                    ),
+                  );
+
                   setState(() {
-                    _pageController.jumpToPage(1);
+                    _pageController.jumpToPage(newIndex);
                   });
                 },
               ),
