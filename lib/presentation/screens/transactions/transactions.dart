@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_state.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
@@ -20,13 +22,19 @@ class Transactions extends StatefulWidget {
 class _TransactionsState extends State<Transactions>
     with AutomaticKeepAliveClientMixin {
   TransactionsBloc _transactionsBloc;
+  NavigationBloc _navigationBloc;
   Completer<void> _refreshCompleter;
   ScrollController _scrollController;
   bool _transactionsLeft;
+  bool _isScrollingUp;
+  bool _isUpdating;
 
   ListModel<Transaction> _transactions;
   GlobalKey<AnimatedListState> _transactionsKey =
       GlobalKey<AnimatedListState>();
+  GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   int _lastDeletedIndex;
   ScaffoldState _mainScaffold;
   FetchIndicator _fetchIndicator;
@@ -36,6 +44,8 @@ class _TransactionsState extends State<Transactions>
     _scrollController = ScrollController();
     _fetchIndicator = FetchIndicator();
     _transactionsLeft = true;
+    _isScrollingUp = false;
+    _isUpdating = false;
 
     _scrollController.addListener(_handleScrollEvent);
   }
@@ -44,9 +54,11 @@ class _TransactionsState extends State<Transactions>
   void initState() {
     super.initState();
     _transactionsBloc = BlocProvider.of<TransactionsBloc>(context);
+    _navigationBloc = BlocProvider.of<NavigationBloc>(context);
     _mainScaffold = Scaffold.of(context);
 
     _transactionsBloc.listen(_handleStateUpdate);
+    _navigationBloc.listen(_handleNavigationStateUpdate);
   }
 
   @override
@@ -131,6 +143,42 @@ class _TransactionsState extends State<Transactions>
     );
   }
 
+  void _handleNavigationStateUpdate(NavigationState state) {
+    if (state is SamePage) {
+      _handleSamePageState(state);
+    }
+  }
+
+  void _handleSamePageState(SamePage state) {
+    if (_isScrollingUp || _isUpdating) {
+      return;
+    }
+
+    if (_scrollController.position.pixels ==
+        _scrollController.position.minScrollExtent) {
+      _loadTransactions();
+      _refreshIndicatorKey.currentState.show();
+      return;
+    }
+
+    setState(() {
+      _isScrollingUp = true;
+    });
+
+    var duration = Duration(milliseconds: 500);
+    _scrollController.animateTo(
+      0.0,
+      curve: Curves.easeOut,
+      duration: duration,
+    );
+
+    Timer(duration, () {
+      setState(() {
+        _isScrollingUp = false;
+      });
+    });
+  }
+
   void _handleTransactionFetched(TransactionFetched state) async {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
@@ -149,6 +197,7 @@ class _TransactionsState extends State<Transactions>
   }
 
   Future<void> _loadTransactions() {
+    _isUpdating = true;
     _transactionsBloc.add(LoadTransactions());
     return _refreshCompleter.future;
   }
@@ -157,12 +206,14 @@ class _TransactionsState extends State<Transactions>
     await Future.delayed(Duration(milliseconds: 500));
     _mainScaffold.removeCurrentSnackBar();
     _refreshCompleter.complete();
+    _isUpdating = false;
     _refreshCompleter = Completer();
   }
 
   void _handleScrollEvent() async {
     var fetchMoreThreshold = 0.9 * _scrollController.position.maxScrollExtent;
-    if (_transactionsLeft && !_fetchIndicator.isFetching() &&
+    if (_transactionsLeft &&
+        !_fetchIndicator.isFetching() &&
         _scrollController.position.pixels > fetchMoreThreshold) {
       _fetchTransactions();
     }
@@ -231,6 +282,7 @@ class _TransactionsState extends State<Transactions>
             flex: 9,
             child: Scrollbar(
               child: RefreshIndicator(
+                key: _refreshIndicatorKey,
                 onRefresh: _loadTransactions,
                 child: SingleChildScrollView(
                   controller: _scrollController,
