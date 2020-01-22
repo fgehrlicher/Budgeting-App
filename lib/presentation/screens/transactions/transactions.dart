@@ -83,7 +83,7 @@ class _TransactionsState extends State<Transactions>
       );
     });
 
-    _completeFetchTransactions();
+    _completeLoadTransactions();
   }
 
   void _handleTransactionDeletedState(TransactionDeleted state) {
@@ -152,7 +152,7 @@ class _TransactionsState extends State<Transactions>
     return _refreshCompleter.future;
   }
 
-  void _completeFetchTransactions() async {
+  void _completeLoadTransactions() async {
     await Future.delayed(Duration(milliseconds: 500));
     _mainScaffold.removeCurrentSnackBar();
     _refreshCompleter.complete();
