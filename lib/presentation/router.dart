@@ -20,7 +20,6 @@ class _RouterState extends State<Router> {
   static const INITIAL_PAGE = 0;
 
   PageController _pageController;
-  NavigationBloc _navigationBloc;
   int _currentPage;
 
   @override
@@ -28,110 +27,110 @@ class _RouterState extends State<Router> {
     super.initState();
     _currentPage = INITIAL_PAGE;
     _pageController = PageController(initialPage: INITIAL_PAGE);
-    _navigationBloc = NavigationBloc();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _navigationBloc = NavigationBloc();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        child: Icon(
-          Icons.add,
-          color: Colors.black,
-        ),
-        onPressed: () {},
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 4.0,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: IconButton(
-                iconSize: 30.0,
-                icon: Icon(Icons.home),
-                onPressed: () {
-                  var newIndex = 0;
-                  _navigationBloc.add(
-                    NavigateToPage(
-                      lastIndex: _currentPage,
-                      targetIndex: newIndex,
-                    ),
-                  );
-
-                  setState(() {
-                    _pageController.jumpToPage(newIndex);
-                    _currentPage = newIndex;
-                  });
-                },
+    return BlocProvider(
+      builder: (BuildContext context) => NavigationBloc(),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Scaffold(
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.add,
+                color: Colors.black,
               ),
+              onPressed: () {},
             ),
-            Expanded(
-              flex: 2,
-              child: IconButton(
-                iconSize: 30.0,
-                icon: Icon(Icons.attach_money),
-                onPressed: () {
-                  var newIndex = 1;
-                  _navigationBloc.add(
-                    NavigateToPage(
-                      lastIndex: _currentPage,
-                      targetIndex: newIndex,
-                    ),
-                  );
+            bottomNavigationBar: BottomAppBar(
+              shape: CircularNotchedRectangle(),
+              notchMargin: 4.0,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: IconButton(
+                      iconSize: 30.0,
+                      icon: Icon(Icons.home),
+                      onPressed: () {
+                        var newIndex = 0;
+                        BlocProvider.of<NavigationBloc>(context).add(
+                          NavigateToPage(
+                            lastIndex: _currentPage,
+                            targetIndex: newIndex,
+                          ),
+                        );
 
-                  setState(() {
-                    _pageController.jumpToPage(newIndex);
-                    _currentPage = newIndex;
-                  });
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: PageView(
-        controller: _pageController,
-        children: <Widget>[
-          MultiBlocProvider(
-            providers: <BlocProvider>[
-              BlocProvider<HomeBloc>(
-                builder: (BuildContext context) =>
-                    HomeBloc()..add(FetchBalance()),
-              ),
-              BlocProvider<NavigationBloc>(
-                builder: (BuildContext context) => _navigationBloc,
-              ),
-            ],
-            child: Home(),
-          ),
-          MultiBlocProvider(
-            providers: [
-              BlocProvider<TransactionsBloc>(
-                builder: (BuildContext context) => TransactionsBloc(
-                  TransactionRepository(
-                    DatabaseProvider.database,
+                        setState(() {
+                          _pageController.jumpToPage(newIndex);
+                          _currentPage = newIndex;
+                        });
+                      },
+                    ),
                   ),
-                )..add(LoadTransactions()),
+                  Expanded(
+                    flex: 2,
+                    child: IconButton(
+                      iconSize: 30.0,
+                      icon: Icon(Icons.attach_money),
+                      onPressed: () {
+                        var newIndex = 1;
+                        BlocProvider.of<NavigationBloc>(context).add(
+                          NavigateToPage(
+                            lastIndex: _currentPage,
+                            targetIndex: newIndex,
+                          ),
+                        );
+
+                        setState(() {
+                          _pageController.jumpToPage(newIndex);
+                          _currentPage = newIndex;
+                        });
+                      },
+                    ),
+                  ),
+                ],
               ),
-              BlocProvider<NavigationBloc>(
-                builder: (BuildContext context) => _navigationBloc,
-              ),
-            ],
-            child: Transactions(),
-          )
-        ],
+            ),
+            body: PageView(
+              controller: _pageController,
+              children: <Widget>[
+                MultiBlocProvider(
+                  providers: <BlocProvider>[
+                    BlocProvider<HomeBloc>(
+                      builder: (BuildContext context) =>
+                          HomeBloc()..add(FetchBalance()),
+                    ),
+                  ],
+                  child: Home(),
+                ),
+                MultiBlocProvider(
+                  providers: [
+                    BlocProvider<TransactionsBloc>(
+                      builder: (BuildContext context) => TransactionsBloc(
+                        TransactionRepository(
+                          DatabaseProvider.database,
+                        ),
+                      )..add(LoadTransactions()),
+                    ),
+                  ],
+                  child: Transactions(),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }
