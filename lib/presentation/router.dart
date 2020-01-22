@@ -104,16 +104,31 @@ class _RouterState extends State<Router> {
       body: PageView(
         controller: _pageController,
         children: <Widget>[
-          BlocProvider(
-            builder: (context) => HomeBloc()..add(FetchBalance()),
+          MultiBlocProvider(
+            providers: <BlocProvider>[
+              BlocProvider<HomeBloc>(
+                builder: (BuildContext context) =>
+                    HomeBloc()..add(FetchBalance()),
+              ),
+              BlocProvider<NavigationBloc>(
+                builder: (BuildContext context) => _navigationBloc,
+              ),
+            ],
             child: Home(),
           ),
-          BlocProvider(
-            builder: (context) => TransactionsBloc(
-              TransactionRepository(
-                DatabaseProvider.database,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider<TransactionsBloc>(
+                builder: (BuildContext context) => TransactionsBloc(
+                  TransactionRepository(
+                    DatabaseProvider.database,
+                  ),
+                )..add(LoadTransactions()),
               ),
-            )..add(LoadTransactions()),
+              BlocProvider<NavigationBloc>(
+                builder: (BuildContext context) => _navigationBloc,
+              ),
+            ],
             child: Transactions(),
           )
         ],
