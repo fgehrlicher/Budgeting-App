@@ -83,6 +83,7 @@ class _TransactionsState extends State<Transactions>
       );
     });
 
+    _fetchIndicator.setSleeping();
     _completeLoadTransactions();
   }
 
