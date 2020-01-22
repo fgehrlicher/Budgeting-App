@@ -17,7 +17,7 @@ class Router extends StatefulWidget {
 }
 
 class _RouterState extends State<Router> {
-  static const INITIAL_PAGE = 1;
+  static const INITIAL_PAGE = 0;
 
   PageController _pageController;
   NavigationBloc _navigationBloc;
