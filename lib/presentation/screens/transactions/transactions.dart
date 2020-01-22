@@ -170,7 +170,7 @@ class _TransactionsState extends State<Transactions>
   void _fetchTransactions() {
     _transactionsBloc.add(
       FetchTransactions(
-        20,
+        10,
         _transactions[_transactions.length - 1],
       ),
     );
