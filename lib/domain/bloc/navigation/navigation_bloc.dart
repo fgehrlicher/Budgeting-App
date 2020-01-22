@@ -8,6 +8,18 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
 
   @override
   Stream<NavigationState> mapEventToState(NavigationEvent event) async* {
+    if (event is NavigateToPage) {
+      yield* _mapNavigateToPageToState(event);
+    }
+  }
 
+  Stream<NavigationState> _mapNavigateToPageToState(
+    NavigateToPage event,
+  ) async* {
+    if (event.lastIndex == event.targetIndex) {
+      yield SamePage();
+    } else {
+      yield NewPage();
+    }
   }
 }

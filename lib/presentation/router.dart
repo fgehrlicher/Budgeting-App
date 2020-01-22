@@ -64,7 +64,7 @@ class _RouterState extends State<Router> {
                 onPressed: () {
                   var newIndex = 0;
                   _navigationBloc.add(
-                    NavigateToPageEvent(
+                    NavigateToPage(
                       lastIndex: _currentPage,
                       targetIndex: newIndex,
                     ),
@@ -72,6 +72,7 @@ class _RouterState extends State<Router> {
 
                   setState(() {
                     _pageController.jumpToPage(newIndex);
+                    _currentPage = newIndex;
                   });
                 },
               ),
@@ -84,7 +85,7 @@ class _RouterState extends State<Router> {
                 onPressed: () {
                   var newIndex = 1;
                   _navigationBloc.add(
-                    NavigateToPageEvent(
+                    NavigateToPage(
                       lastIndex: _currentPage,
                       targetIndex: newIndex,
                     ),
@@ -92,6 +93,7 @@ class _RouterState extends State<Router> {
 
                   setState(() {
                     _pageController.jumpToPage(newIndex);
+                    _currentPage = newIndex;
                   });
                 },
               ),
