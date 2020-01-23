@@ -156,7 +156,6 @@ class _TransactionsState extends State<Transactions>
 
     if (_scrollController.position.pixels ==
         _scrollController.position.minScrollExtent) {
-      _loadTransactions();
       _refreshIndicatorKey.currentState.show();
       return;
     }
