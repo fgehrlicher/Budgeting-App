@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_state.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_state.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/balance_container.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/loading_screen.dart';
 
@@ -14,25 +16,46 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   HomeBloc _homeBloc;
+  NavigationBloc _navigationBloc;
   Completer<void> _refreshCompleter;
+  bool _isUpdating = false;
+  GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _navigationBloc = BlocProvider.of<NavigationBloc>(context);
     _refreshCompleter = Completer<void>();
+
+    _navigationBloc.listen(_handleNavigationStateUpdate);
   }
 
-  RefreshCallback _getRefreshCallback() {
-    return () {
-      _homeBloc.add(FetchBalance());
-      return _refreshCompleter.future;
-    };
+  void _handleNavigationStateUpdate(NavigationState state) {
+    if (state is SamePage) {
+      _handleSamePageState(state);
+    }
+  }
+
+  void _handleSamePageState(SamePage state) {
+    if (_isUpdating) {
+      return;
+    }
+
+    _isUpdating = true;
+    _refreshIndicatorKey.currentState.show();
+  }
+
+  Future<void> _refresh() {
+    _homeBloc.add(FetchBalance());
+    return _refreshCompleter.future;
   }
 
   void _completeRefresh() async {
     await Future.delayed(Duration(milliseconds: 500));
     _refreshCompleter?.complete();
+    _isUpdating = false;
     _refreshCompleter = Completer();
   }
 
@@ -63,7 +86,8 @@ class _HomeState extends State<Home> {
 
               if (state is BalanceCalculated) {
                 return RefreshIndicator(
-                  onRefresh: _getRefreshCallback(),
+                  key: _refreshIndicatorKey,
+                  onRefresh: _refresh,
                   child: SingleChildScrollView(
                     physics: AlwaysScrollableScrollPhysics(),
                     child: ConstrainedBox(
