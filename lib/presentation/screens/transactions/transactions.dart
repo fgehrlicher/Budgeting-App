@@ -290,7 +290,7 @@ class _TransactionsState extends State<Transactions>
                       AnimatedList(
                         shrinkWrap: true,
                         key: _transactionsKey,
-                        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                         initialItemCount: _transactions.length,
                         itemBuilder: _buildItem,
                         physics: NeverScrollableScrollPhysics(),
@@ -305,13 +305,12 @@ class _TransactionsState extends State<Transactions>
           Expanded(
             flex: 1,
             child: Container(
-              padding: EdgeInsets.only(top: 20),
               decoration: BoxDecoration(
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    offset: Offset(0.0, 6.0),
+                    offset: Offset(0.0, 2.0),
                     color: Color(0xffEDEDED),
-                    blurRadius: 8.0,
+                    blurRadius: 2.0,
                   ),
                 ],
                 color: Colors.white70,
