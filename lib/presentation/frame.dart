@@ -48,12 +48,6 @@ class _FrameState extends State<Frame> {
     ];
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentPage = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -73,7 +67,11 @@ class _FrameState extends State<Frame> {
           ],
           currentIndex: _currentPage,
           selectedItemColor: Colors.black,
-          onTap: _onItemTapped,
+          onTap: (int index) {
+            setState(() {
+              _currentPage = index;
+            });
+          },
         ),
       ),
     );
