@@ -11,12 +11,12 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_even
 import 'package:unnamed_budgeting_app/presentation/screens/home/home.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/transactions.dart';
 
-class Router extends StatefulWidget {
+class Frame extends StatefulWidget {
   @override
-  _RouterState createState() => _RouterState();
+  _FrameState createState() => _FrameState();
 }
 
-class _RouterState extends State<Router> {
+class _FrameState extends State<Frame> {
   static const INITIAL_PAGE = 0;
 
   PageController _pageController;
