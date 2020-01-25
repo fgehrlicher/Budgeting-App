@@ -54,30 +54,40 @@ class _FrameState extends State<Frame> {
   Widget build(BuildContext context) {
     return BlocProvider(
       builder: (BuildContext context) => NavigationBloc(),
-      child: Scaffold(
-        body: _screens.elementAt(_currentPage),
-        bottomNavigationBar: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Scaffold(
+            body: _screens.elementAt(_currentPage),
+            bottomNavigationBar: BottomNavigationBar(
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  title: Text('Home'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.attach_money),
+                  title: Text('Transactions'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.settings),
+                  title: Text('Settings'),
+                ),
+              ],
+              currentIndex: _currentPage,
+              onTap: (int index) {
+                setState(() {
+                  _currentPage = index;
+                  BlocProvider.of<NavigationBloc>(context).add(
+                    NavigateToPage(
+                      lastIndex: _currentPage,
+                      targetIndex: index,
+                    ),
+                  );
+                });
+              },
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.attach_money),
-              title: Text('Transactions'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('Settings'),
-            ),
-          ],
-          currentIndex: _currentPage,
-          onTap: (int index) {
-            setState(() {
-              _currentPage = index;
-            });
-          },
-        ),
+          );
+        },
       ),
     );
   }
