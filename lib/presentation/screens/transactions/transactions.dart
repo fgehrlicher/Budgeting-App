@@ -63,8 +63,9 @@ class _TransactionsState extends State<Transactions>
 
   @override
   void dispose() {
-    _refreshCompleter?.complete();
     super.dispose();
+    _refreshCompleter?.complete();
+    _scrollController.dispose();
   }
 
   @override
