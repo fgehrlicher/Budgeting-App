@@ -6,7 +6,7 @@ class UnnamedBudgetingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DynamicTheme(
-      defaultBrightness: Brightness.dark,
+      defaultBrightness: Brightness.light,
       data: (brightness) => ThemeData(brightness: brightness),
       themedWidgetBuilder: (context, theme) => MaterialApp(
         home: Frame(),
