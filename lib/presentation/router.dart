@@ -41,16 +41,6 @@ class _RouterState extends State<Router> {
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Scaffold(
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.white,
-              child: Icon(
-                Icons.add,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            ),
             bottomNavigationBar: BottomAppBar(
               shape: CircularNotchedRectangle(),
               notchMargin: 4.0,
