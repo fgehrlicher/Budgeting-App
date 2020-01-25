@@ -6,9 +6,8 @@ class TransactionCategory {
   final String title;
   final IconData iconData;
   final Color backgroundColor;
-  final Color textColor;
 
-  const TransactionCategory({this.id, this.title, this.iconData, this.backgroundColor, this.textColor});
+  const TransactionCategory({this.id, this.title, this.iconData, this.backgroundColor});
 
   factory TransactionCategory.fromId(int id) {
     return transactionCategories.firstWhere((element) => element.id == id);

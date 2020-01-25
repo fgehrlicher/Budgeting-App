@@ -19,7 +19,6 @@ class EditTransaction extends StatelessWidget {
             leading: IconButton(
               icon: Icon(
                 Icons.keyboard_arrow_down,
-                color: Colors.black,
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -30,7 +29,6 @@ class EditTransaction extends StatelessWidget {
                 tooltip: "Delete Transaction",
                 icon: Icon(
                   Icons.delete,
-                  color: Colors.black,
                 ),
                 onPressed: () {
                   _transactionsBloc.add(DeleteTransaction(_transaction));
@@ -66,7 +64,6 @@ class EditTransaction extends StatelessWidget {
                               initialValue: _transaction.title,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.black,
                                 fontSize: 25.0,
                                 fontWeight: FontWeight.bold,
                               ),

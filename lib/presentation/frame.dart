@@ -66,7 +66,6 @@ class _FrameState extends State<Frame> {
             ),
           ],
           currentIndex: _currentPage,
-          selectedItemColor: Colors.black,
           onTap: (int index) {
             setState(() {
               _currentPage = index;

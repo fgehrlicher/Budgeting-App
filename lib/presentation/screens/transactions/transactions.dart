@@ -311,7 +311,6 @@ class _TransactionsState extends State<Transactions>
                   AccountBalance(balance: 10000).formattedBalance,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
