@@ -6,6 +6,13 @@ class UnnamedBudgetingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Frame(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.dark,
     );
   }
 }
