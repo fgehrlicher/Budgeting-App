@@ -9,6 +9,7 @@ import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_event.da
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/home.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/settings/settings.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/transactions.dart';
 
 class Frame extends StatefulWidget {
@@ -45,6 +46,7 @@ class _FrameState extends State<Frame> {
         ],
         child: Transactions(),
       ),
+      Settings(),
     ];
   }
 
@@ -63,6 +65,10 @@ class _FrameState extends State<Frame> {
             BottomNavigationBarItem(
               icon: Icon(Icons.attach_money),
               title: Text('Transactions'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('Settings'),
             ),
           ],
           currentIndex: _currentPage,
