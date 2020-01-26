@@ -1,9 +1,7 @@
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 
-abstract class TransactionsState {
-  const TransactionsState();
-}
+abstract class TransactionsState {}
 
 class TransactionsEmpty extends TransactionsState {}
 
@@ -14,29 +12,29 @@ class TransactionsLoading extends TransactionsState {}
 class TransactionsLoaded extends TransactionsState {
   final TransactionList transactions;
 
-  const TransactionsLoaded(this.transactions);
+  TransactionsLoaded(this.transactions);
 }
 
 class TransactionDeleted extends TransactionsState {
   final Transaction transaction;
 
-  const TransactionDeleted(this.transaction);
+  TransactionDeleted(this.transaction);
 }
 
 class TransactionRestored extends TransactionsState {
   final Transaction transaction;
 
-  const TransactionRestored(this.transaction);
+  TransactionRestored(this.transaction);
 }
 
 class TransactionAdded extends TransactionsState {
   final Transaction transaction;
 
-  const TransactionAdded(this.transaction);
+  TransactionAdded(this.transaction);
 }
 
 class TransactionFetched extends TransactionsState {
   final TransactionList transactions;
 
-  const TransactionFetched(this.transactions);
+  TransactionFetched(this.transactions);
 }
