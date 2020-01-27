@@ -9,11 +9,11 @@ class TransactionCategory {
   const TransactionCategory({this.id, this.title, this.iconData, this.backgroundColor});
 
   factory TransactionCategory.fromId(int id) {
-    return initalTransactionCategories.firstWhere((element) => element.id == id);
+    return initialTransactionCategories.firstWhere((element) => element.id == id);
   }
 }
 
-const List<TransactionCategory> initalTransactionCategories = [
+const List<TransactionCategory> initialTransactionCategories = [
   TransactionCategory(
     id: 1,
     title: "Salary",

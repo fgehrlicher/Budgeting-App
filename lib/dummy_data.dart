@@ -19,8 +19,8 @@ class DummyData {
       200,
       (int index) => model.Transaction(
         title: faker.lorem.words(3).join(" "),
-        category:
-            initalTransactionCategories[random.nextInt(initalTransactionCategories.length)],
+        category: initialTransactionCategories[
+            random.nextInt(initialTransactionCategories.length)],
         date: DateTime.parse(
             "2019-12-${random.nextInt(20) + 10} ${random.nextInt(13) + 10}:${random.nextInt(49) + 10}:${random.nextInt(49) + 10}"),
         amount: random.nextInt(600000) - 300000,
