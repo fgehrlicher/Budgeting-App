@@ -8,9 +8,9 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]);
+  ]).then((_) {
 
-  DummyData()..insertDummyData();
-
-  runApp(UnnamedBudgetingApp());
+    DummyData()..insertDummyData();
+    runApp(UnnamedBudgetingApp());
+  });
 }
