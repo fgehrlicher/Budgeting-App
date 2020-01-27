@@ -151,7 +151,7 @@ class _TransactionsState extends State<Transactions>
   }
 
   void _handleSamePageState(SamePage state) {
-    if (_isScrollingUp || _isUpdating) {
+    if (_isScrollingUp || _isUpdating || !_scrollController.hasClients) {
       return;
     }
 
@@ -275,51 +275,53 @@ class _TransactionsState extends State<Transactions>
     }
 
     return SafeArea(
-      child: Column(
-        verticalDirection: VerticalDirection.up,
-        children: <Widget>[
-          Expanded(
-            flex: 9,
-            child: Scrollbar(
-              child: RefreshIndicator(
-                key: _refreshIndicatorKey,
-                onRefresh: _loadTransactions,
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                  child: Column(
-                    children: <Widget>[
-                      AnimatedList(
-                        shrinkWrap: true,
-                        key: _transactionsKey,
-                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                        initialItemCount: _transactions.length,
-                        itemBuilder: _buildItem,
-                        physics: NeverScrollableScrollPhysics(),
-                      ),
-                      _fetchIndicator,
-                    ],
+      child: Scaffold(
+        body: Column(
+          verticalDirection: VerticalDirection.up,
+          children: <Widget>[
+            Expanded(
+              flex: 9,
+              child: Scrollbar(
+                child: RefreshIndicator(
+                  key: _refreshIndicatorKey,
+                  onRefresh: _loadTransactions,
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Column(
+                      children: <Widget>[
+                        AnimatedList(
+                          shrinkWrap: true,
+                          key: _transactionsKey,
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          initialItemCount: _transactions.length,
+                          itemBuilder: _buildItem,
+                          physics: NeverScrollableScrollPhysics(),
+                        ),
+                        _fetchIndicator,
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  AccountBalance(balance: 10000).formattedBalance,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+            Expanded(
+              flex: 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    AccountBalance(balance: 10000).formattedBalance,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
