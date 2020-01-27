@@ -5,7 +5,7 @@ import 'package:unnamed_budgeting_app/data/repositories/account_balance_reposito
 import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart' as model;
-import 'package:unnamed_budgeting_app/domain/models/transaction_categories.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_category.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 import 'dart:math';
 
@@ -20,7 +20,7 @@ class DummyData {
       (int index) => model.Transaction(
         title: faker.lorem.words(3).join(" "),
         category:
-            transactionCategories[random.nextInt(transactionCategories.length)],
+            initalTransactionCategories[random.nextInt(initalTransactionCategories.length)],
         date: DateTime.parse(
             "2019-12-${random.nextInt(20) + 10} ${random.nextInt(13) + 10}:${random.nextInt(49) + 10}:${random.nextInt(49) + 10}"),
         amount: random.nextInt(600000) - 300000,
