@@ -335,7 +335,8 @@ class _TransactionsState extends State<Transactions>
           // by tapping main button and overlay is not rendered.
           closeManually: false,
           curve: Curves.bounceIn,
-          overlayOpacity: (Theme.of(context).brightness == Brightness.dark) ? 0.0 : 0.8,
+          overlayColor: (Theme.of(context).brightness == Brightness.dark) ? Colors.grey[800] : Colors.white,
+          overlayOpacity: 0.8,
           elevation: 8.0,
           shape: CircleBorder(),
           children: [
@@ -348,11 +349,11 @@ class _TransactionsState extends State<Transactions>
                   decorationColor:
                   (Theme.of(context).brightness == Brightness.dark)
                       ? Colors.grey[850]
-                      : Colors.white,
+                      : Colors.grey[100],
                   backgroundColor:
                   (Theme.of(context).brightness == Brightness.dark)
                       ? Colors.grey[850]
-                      : Colors.white,
+                      : Colors.grey[100],
                   color: (Theme.of(context).brightness == Brightness.dark)
                       ? Colors.white
                       : Colors.black,
@@ -369,11 +370,11 @@ class _TransactionsState extends State<Transactions>
                   decorationColor:
                   (Theme.of(context).brightness == Brightness.dark)
                       ? Colors.grey[850]
-                      : Colors.white,
+                      : Colors.grey[100],
                   backgroundColor:
                   (Theme.of(context).brightness == Brightness.dark)
                       ? Colors.grey[850]
-                      : Colors.white,
+                      : Colors.grey[100],
                   color: (Theme.of(context).brightness == Brightness.dark)
                       ? Colors.white
                       : Colors.black,
