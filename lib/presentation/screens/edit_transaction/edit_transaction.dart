@@ -40,11 +40,11 @@ class EditTransaction extends StatelessWidget {
             floating: true,
             pinned: true,
             snap: true,
-            backgroundColor: _transaction.category?.backgroundColor ?? Colors.grey,
+            backgroundColor: _transaction.category?.color ?? Colors.grey,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               background: Container(
-                color: _transaction.category?.backgroundColor ?? Colors.grey,
+                color: _transaction.category?.color ?? Colors.grey,
               ),
             ),
           ),

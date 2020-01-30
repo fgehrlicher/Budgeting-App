@@ -28,7 +28,7 @@ class CardItem extends StatelessWidget {
             color: _color,
             child: ListTile(
               leading: Container(
-                color: _transaction.category?.backgroundColor ?? Colors.grey,
+                color: _transaction.category?.color ?? Colors.grey,
                 width: 50,
                 height: 50,
                 child: _transaction.category != null
