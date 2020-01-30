@@ -16,8 +16,8 @@ class TransactionCategory implements PersistentModel {
   static const String TITLE_CONFIG = SqliteTypes.TEXT;
 
   iconAdapter.Icon icon;
-  static const String ICON_DATA_NAME = "icon";
-  static const String ICON_DATA_CONFIG = SqliteTypes.INT;
+  static const String ICON_NAME = "icon";
+  static const String ICON_CONFIG = SqliteTypes.INT;
 
   Color color;
   static const String COLOR_NAME = "color";
@@ -26,7 +26,8 @@ class TransactionCategory implements PersistentModel {
   TransactionCategory({this.id, this.title, this.icon, this.color});
 
   factory TransactionCategory.fromId(int id) {
-    return initialTransactionCategories.firstWhere((element) => element.id == id);
+    return initialTransactionCategories
+        .firstWhere((element) => element.id == id);
   }
 
   @override
@@ -39,7 +40,7 @@ class TransactionCategory implements PersistentModel {
     return [
       FieldConfig(ID_NAME, ID_CONFIG),
       FieldConfig(TITLE_NAME, TITLE_CONFIG),
-      FieldConfig(ICON_DATA_NAME, ICON_DATA_CONFIG),
+      FieldConfig(ICON_NAME, ICON_CONFIG),
       FieldConfig(COLOR_NAME, COLOR_CONFIG),
     ];
   }
@@ -47,18 +48,26 @@ class TransactionCategory implements PersistentModel {
   TransactionCategory.fromMap(Map<String, dynamic> data) {
     id = data[ID_NAME];
     title = data[TITLE_NAME];
+    if (data.containsKey(ICON_NAME)) {
+      var id = data[ICON_NAME];
+      icon = iconAdapter.Icon.fromId(id);
+    }
+    if (data.containsKey(COLOR_NAME)) {
+      color = Color(data[COLOR_NAME]);
+    }
   }
 
   Map<String, dynamic> toMap() {
     var map = {
       ID_NAME: id,
       TITLE_NAME: title,
+      ICON_NAME: icon?.id,
+      COLOR_NAME: color?.value,
     };
 
     map.removeWhere((key, value) => value == null);
     return map;
   }
-
 }
 
 List<TransactionCategory> initialTransactionCategories = [
