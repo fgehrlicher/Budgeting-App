@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unnamed_budgeting_app/data/database/database_provider.dart';
+import 'package:unnamed_budgeting_app/data/repositories/transaction_category_repository.dart';
 import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
@@ -41,6 +42,9 @@ class _FrameState extends State<Frame> {
               TransactionRepository(
                 DatabaseProvider.database,
               ),
+              TransactionCategoryRepository(
+                DatabaseProvider.database,
+              )
             )..add(LoadTransactions()),
           ),
         ],
