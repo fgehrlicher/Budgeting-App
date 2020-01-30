@@ -33,7 +33,7 @@ class CardItem extends StatelessWidget {
                 height: 50,
                 child: _transaction.category != null
                     ? Icon(
-                        _transaction.category.icon.iconData,
+                        _transaction.category?.icon?.iconData,
                         size: 30,
                       )
                     : Container(
