@@ -327,7 +327,7 @@ class _TransactionsState extends State<Transactions>
           // both default to 16
           marginRight: 18,
           marginBottom: 20,
-          animatedIcon: AnimatedIcons.menu_close,
+          animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme: IconThemeData(size: 22.0),
           // this is ignored if animatedIcon is non null
           // child: Icon(Icons.add),
