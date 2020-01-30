@@ -28,6 +28,19 @@ class TransactionCategoryRepository {
     return _parseQueryResult(queryResult);
   }
 
+  Future<TransactionCategory> get(int id) async {
+    var db = await database;
+
+    final List<Map<String, dynamic>> queryResult = await db.query(
+      _tableName,
+      where: "${TransactionCategory.ID_NAME} = ?",
+      whereArgs: [id],
+    );
+
+    var parsedResult = _parseQueryResult(queryResult);
+    return parsedResult.length > 0 ? parsedResult[0] : null;
+  }
+
   void insertMultiple(List<TransactionCategory> transactionCategories) async {
     var db = await database;
     var batch = db.batch();
