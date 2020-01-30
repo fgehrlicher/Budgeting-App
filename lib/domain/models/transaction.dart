@@ -34,6 +34,7 @@ class Transaction implements PersistentModel {
   static const String TYPE_CONFIG = SqliteTypes.INT;
 
   TransactionCategory category;
+  int categoryId;
   static const String CATEGORY_NAME = "transaction_category";
   static const String CATEGORY_CONFIG = SqliteTypes.INT;
 
@@ -64,6 +65,7 @@ class Transaction implements PersistentModel {
     type = data[TYPE_NAME];
     iban = data[IBAN_NAME];
     bic = data[BIC_NAME];
+    categoryId = data[CATEGORY_NAME];
   }
 
   @override
