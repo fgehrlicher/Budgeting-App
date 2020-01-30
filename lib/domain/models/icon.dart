@@ -27,4 +27,8 @@ const List<Icon> icons = [
   Icon(id: 13, iconData: Icons.local_hotel),
   Icon(id: 14, iconData: Icons.palette),
   Icon(id: 15, iconData: Icons.work),
+  Icon(id: 16, iconData: Icons.fastfood),
+  Icon(id: 17, iconData: Icons.local_grocery_store),
+  Icon(id: 18, iconData: Icons.directions_bus),
+  Icon(id: 19, iconData: Icons.devices),
 ];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unnamed_budgeting_app/data/database/field_config.dart';
 import 'package:unnamed_budgeting_app/data/database/persistent_model.dart';
 import 'package:unnamed_budgeting_app/data/database/sqlite_types.dart';
+import 'package:unnamed_budgeting_app/domain/models/icon.dart' as iconAdapter;
 
 class TransactionCategory implements PersistentModel {
   static const String TABLE_NAME = "usertransactioncategory";
@@ -14,15 +15,15 @@ class TransactionCategory implements PersistentModel {
   static const String TITLE_NAME = "title";
   static const String TITLE_CONFIG = SqliteTypes.TEXT;
 
-  IconData iconData;
-  static const String ICON_DATA_NAME = "icondata";
+  iconAdapter.Icon icon;
+  static const String ICON_DATA_NAME = "icon";
   static const String ICON_DATA_CONFIG = SqliteTypes.INT;
 
   Color color;
   static const String COLOR_NAME = "color";
   static const String COLOR_CONFIG = SqliteTypes.TEXT;
 
-  TransactionCategory({this.id, this.title, this.iconData, this.color});
+  TransactionCategory({this.id, this.title, this.icon, this.color});
 
   factory TransactionCategory.fromId(int id) {
     return initialTransactionCategories.firstWhere((element) => element.id == id);
@@ -64,37 +65,37 @@ List<TransactionCategory> initialTransactionCategories = [
   TransactionCategory(
     id: 1,
     title: "Salary",
-    iconData: Icons.attach_money,
+    icon: iconAdapter.Icon.fromId(1),
     color: Colors.orangeAccent,
   ),
   TransactionCategory(
     id: 2,
     title: "Food & Groceries",
-    iconData: Icons.fastfood,
+    icon: iconAdapter.Icon.fromId(16),
     color: Colors.tealAccent,
   ),
   TransactionCategory(
     id: 3,
     title: "Shopping",
-    iconData: Icons.local_grocery_store,
+    icon: iconAdapter.Icon.fromId(17),
     color: Colors.purpleAccent,
   ),
   TransactionCategory(
     id: 4,
     title: "Cash withdrawal",
-    iconData: Icons.account_balance,
+    icon: iconAdapter.Icon.fromId(2),
     color: Colors.amberAccent,
   ),
   TransactionCategory(
     id: 5,
     title: "Transport & car",
-    iconData: Icons.directions_bus,
+    icon: iconAdapter.Icon.fromId(18),
     color: Colors.blueAccent,
   ),
   TransactionCategory(
     id: 6,
     title: "Online Services",
-    iconData: Icons.devices,
+    icon: iconAdapter.Icon.fromId(19),
     color: Colors.deepOrange,
   ),
 ];
