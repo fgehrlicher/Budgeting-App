@@ -2,6 +2,7 @@ import 'package:faker/faker.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:unnamed_budgeting_app/data/database/database_provider.dart';
 import 'package:unnamed_budgeting_app/data/repositories/account_balance_repository.dart';
+import 'package:unnamed_budgeting_app/data/repositories/transaction_category_repository.dart';
 import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart' as model;
@@ -15,6 +16,7 @@ class DummyData {
     var random = Random();
     var transactionRepository = TransactionRepository(database);
     var accountBalanceRepository = AccountBalanceRepository(database);
+    var transactionCategoryRepository = TransactionCategoryRepository(database);
     var dummyTransactions = List<model.Transaction>.generate(
       200,
       (int index) => model.Transaction(
@@ -46,5 +48,7 @@ class DummyData {
         balance: 23200,
       ),
     );
+
+    transactionCategoryRepository.insertMultiple(initialTransactionCategories);
   }
 }
