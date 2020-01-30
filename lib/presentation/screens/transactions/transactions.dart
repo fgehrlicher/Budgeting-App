@@ -340,25 +340,36 @@ class _TransactionsState extends State<Transactions>
           shape: CircleBorder(),
           children: [
             SpeedDialChild(
-                child: Icon(Icons.accessibility),
-                backgroundColor: Colors.red,
-                label: 'First',
-                labelStyle: TextStyle(fontSize: 18.0),
-                onTap: () => print('FIRST CHILD')
+              child: Icon(Icons.attach_money),
+              label: 'Add Transaction',
+              labelStyle: TextStyle(
+                fontSize: 18.0,
+                decorationColor: (Theme.of(context).brightness == Brightness.dark)
+                    ? Colors.grey[850]
+                    : Colors.white,
+                backgroundColor: (Theme.of(context).brightness == Brightness.dark)
+                    ? Colors.grey[850]
+                    : Colors.white,
+                color: (Theme.of(context).brightness == Brightness.dark)
+                    ? Colors.white
+                    : Colors.black,
+              ),
             ),
             SpeedDialChild(
-              child: Icon(Icons.brush),
-              backgroundColor: Colors.blue,
-              label: 'Second',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => print('SECOND CHILD'),
-            ),
-            SpeedDialChild(
-              child: Icon(Icons.keyboard_voice),
-              backgroundColor: Colors.green,
-              label: 'Third',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => print('THIRD CHILD'),
+              child: Icon(Icons.attach_money),
+              label: 'Add Account Balance',
+              labelStyle: TextStyle(
+                fontSize: 18.0,
+                decorationColor: (Theme.of(context).brightness == Brightness.dark)
+                    ? Colors.grey[850]
+                    : Colors.white,
+                backgroundColor: (Theme.of(context).brightness == Brightness.dark)
+                    ? Colors.grey[850]
+                    : Colors.white,
+                color: (Theme.of(context).brightness == Brightness.dark)
+                    ? Colors.white
+                    : Colors.black,
+              ),
             ),
           ],
         ),
