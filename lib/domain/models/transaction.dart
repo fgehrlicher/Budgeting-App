@@ -64,11 +64,6 @@ class Transaction implements PersistentModel {
     type = data[TYPE_NAME];
     iban = data[IBAN_NAME];
     bic = data[BIC_NAME];
-
-    int categoryId = data[CATEGORY_NAME];
-    if (categoryId != null) {
-      category = TransactionCategory.fromId(categoryId);
-    }
   }
 
   @override

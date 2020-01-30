@@ -25,11 +25,6 @@ class TransactionCategory implements PersistentModel {
 
   TransactionCategory({this.id, this.title, this.icon, this.color});
 
-  factory TransactionCategory.fromId(int id) {
-    return initialTransactionCategories
-        .firstWhere((element) => element.id == id);
-  }
-
   @override
   String get tableName {
     return TABLE_NAME;
