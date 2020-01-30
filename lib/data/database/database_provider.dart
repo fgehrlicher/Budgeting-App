@@ -4,6 +4,7 @@ import 'package:unnamed_budgeting_app/domain/models/transaction.dart' as model;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
+import 'package:unnamed_budgeting_app/domain/models/transaction_category.dart';
 
 class DatabaseProvider {
   static const String DATABASE_FILE_NAME = "unnamed-budgeting-app.db";
@@ -24,6 +25,11 @@ class DatabaseProvider {
     batch.execute(
       SchemaProvider.getSchema(
         model.Transaction(),
+      ),
+    );
+    batch.execute(
+      SchemaProvider.getSchema(
+        TransactionCategory(),
       ),
     );
     batch.execute(
