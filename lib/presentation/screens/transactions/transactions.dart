@@ -335,40 +335,49 @@ class _TransactionsState extends State<Transactions>
           // by tapping main button and overlay is not rendered.
           closeManually: false,
           curve: Curves.bounceIn,
-          overlayOpacity: 0.0,
+          overlayOpacity: (Theme.of(context).brightness == Brightness.dark) ? 0.0 : 0.8,
           elevation: 8.0,
           shape: CircleBorder(),
           children: [
             SpeedDialChild(
               child: Icon(Icons.attach_money),
-              label: 'Add Transaction',
-              labelStyle: TextStyle(
-                fontSize: 18.0,
-                decorationColor: (Theme.of(context).brightness == Brightness.dark)
-                    ? Colors.grey[850]
-                    : Colors.white,
-                backgroundColor: (Theme.of(context).brightness == Brightness.dark)
-                    ? Colors.grey[850]
-                    : Colors.white,
-                color: (Theme.of(context).brightness == Brightness.dark)
-                    ? Colors.white
-                    : Colors.black,
+              labelWidget: Text(
+                'Add Transaction',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  decorationColor:
+                  (Theme.of(context).brightness == Brightness.dark)
+                      ? Colors.grey[850]
+                      : Colors.white,
+                  backgroundColor:
+                  (Theme.of(context).brightness == Brightness.dark)
+                      ? Colors.grey[850]
+                      : Colors.white,
+                  color: (Theme.of(context).brightness == Brightness.dark)
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
             ),
             SpeedDialChild(
               child: Icon(Icons.attach_money),
-              label: 'Add Account Balance',
-              labelStyle: TextStyle(
-                fontSize: 18.0,
-                decorationColor: (Theme.of(context).brightness == Brightness.dark)
-                    ? Colors.grey[850]
-                    : Colors.white,
-                backgroundColor: (Theme.of(context).brightness == Brightness.dark)
-                    ? Colors.grey[850]
-                    : Colors.white,
-                color: (Theme.of(context).brightness == Brightness.dark)
-                    ? Colors.white
-                    : Colors.black,
+              labelWidget: Text(
+                  'Add Account Balance',
+
+                style: TextStyle(
+                  fontSize: 18.0,
+                  decorationColor:
+                  (Theme.of(context).brightness == Brightness.dark)
+                      ? Colors.grey[850]
+                      : Colors.white,
+                  backgroundColor:
+                  (Theme.of(context).brightness == Brightness.dark)
+                      ? Colors.grey[850]
+                      : Colors.white,
+                  color: (Theme.of(context).brightness == Brightness.dark)
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
             ),
           ],
