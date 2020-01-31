@@ -42,15 +42,19 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   Stream<TransactionsState> _mapLoadTransactionsToState(
     LoadTransactions event,
   ) async* {
-    var transactions = TransactionList()
-      ..addAll(await _transactionRepository.getAll());
-    transactions.sortBy(TransactionListSorting.DateDescending);
-    transactions.map((transaction) async {
-      var transactionCategory =
-          await _transactionCategoryRepository.get(id: transaction.id);
+    var rawTransactions =
+        await _transactionRepository.getAll(limit: event.loadCount);
+    var transactionCategories = await _transactionCategoryRepository.getAll();
 
-      transaction.category = transactionCategory;
+    var mappedRawTransactions = rawTransactions.map((transaction) {
+      transaction.category = transactionCategories.firstWhere(
+          (transactionCategory) =>
+              transactionCategory.id == transaction.categoryId);
+      return transaction;
     });
+
+    var transactions = TransactionList()..addAll(mappedRawTransactions);
+    transactions.sortBy(TransactionListSorting.DateDescending);
 
     if (transactions.length > 0) {
       yield TransactionsLoaded(transactionList: transactions);
@@ -83,13 +87,20 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   Stream<TransactionsState> _mapFetchTransactionsToState(
     FetchTransactions event,
   ) async* {
-    var transactions = TransactionList()
-      ..addAll(
-        await _transactionRepository.getAll(
-          limit: event.fetchCount,
-          offset: event.lastTransaction.id,
-        ),
-      );
+    var rawTransactions =
+    await _transactionRepository.getAll(limit: event.fetchCount);
+    var transactionCategories = await _transactionCategoryRepository.getAll();
+
+    var mappedRawTransactions = rawTransactions.map((transaction) {
+      transaction.category = transactionCategories.firstWhere(
+              (transactionCategory) =>
+          transactionCategory.id == transaction.categoryId);
+      return transaction;
+    });
+
+    var transactions = TransactionList()..addAll(mappedRawTransactions);
+    transactions.sortBy(TransactionListSorting.DateDescending);
+
     yield TransactionFetched(transactionList: transactions);
   }
 }
