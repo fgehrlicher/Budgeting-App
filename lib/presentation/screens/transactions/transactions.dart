@@ -93,7 +93,7 @@ class _TransactionsState extends State<Transactions>
       _transactions = ListModel<Transaction>(
         _transactionsKey,
         _buildRemovedItem,
-        state.transactions,
+        state.transactionList,
       );
     });
 
@@ -186,13 +186,13 @@ class _TransactionsState extends State<Transactions>
       _fetchIndicator.setSleeping();
     });
 
-    if (state.transactions.length == 0) {
+    if (state.transactionList.length == 0) {
       _transactionsLeft = false;
       _fetchIndicator.setNoTransactionsLeft();
       return;
     }
 
-    state.transactions.forEach((Transaction transaction) {
+    state.transactionList.forEach((Transaction transaction) {
       _transactions.insert(transaction);
     });
   }

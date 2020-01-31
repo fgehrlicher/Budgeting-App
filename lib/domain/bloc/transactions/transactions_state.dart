@@ -1,5 +1,6 @@
 import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
+import 'package:meta/meta.dart';
 
 abstract class TransactionsState {}
 
@@ -10,31 +11,31 @@ class TransactionsInitialLoading extends TransactionsState {}
 class TransactionsLoading extends TransactionsState {}
 
 class TransactionsLoaded extends TransactionsState {
-  final TransactionList transactions;
+  final TransactionList transactionList;
 
-  TransactionsLoaded(this.transactions);
+  TransactionsLoaded({@required this.transactionList});
 }
 
 class TransactionDeleted extends TransactionsState {
   final Transaction transaction;
 
-  TransactionDeleted(this.transaction);
+  TransactionDeleted({@required this.transaction});
 }
 
 class TransactionRestored extends TransactionsState {
   final Transaction transaction;
 
-  TransactionRestored(this.transaction);
+  TransactionRestored({@required this.transaction});
 }
 
 class TransactionAdded extends TransactionsState {
   final Transaction transaction;
 
-  TransactionAdded(this.transaction);
+  TransactionAdded({@required this.transaction});
 }
 
 class TransactionFetched extends TransactionsState {
-  final TransactionList transactions;
+  final TransactionList transactionList;
 
-  TransactionFetched(this.transactions);
+  TransactionFetched({@required this.transactionList});
 }

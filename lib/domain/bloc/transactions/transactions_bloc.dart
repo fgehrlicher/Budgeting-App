@@ -53,7 +53,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     });
 
     if (transactions.length > 0) {
-      yield TransactionsLoaded(transactions);
+      yield TransactionsLoaded(transactionList: transactions);
     } else {
       yield TransactionsEmpty();
     }
@@ -63,21 +63,21 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     DeleteTransaction event,
   ) async* {
     //_transactionRepository.delete(transaction);
-    yield TransactionDeleted(event.transaction);
+    yield TransactionDeleted(transaction: event.transaction);
   }
 
   Stream<TransactionsState> _mapAddTransactionToState(
     AddTransaction event,
   ) async* {
     //_transactionRepository.add(transaction);
-    yield TransactionAdded(event.transaction);
+    yield TransactionAdded(transaction: event.transaction);
   }
 
   Stream<TransactionsState> _mapRestoreTransactionToState(
     RestoreTransaction event,
   ) async* {
     //_transactionRepository.add(transaction);
-    yield TransactionRestored(event.transaction);
+    yield TransactionRestored(transaction: event.transaction);
   }
 
   Stream<TransactionsState> _mapFetchTransactionsToState(
@@ -90,6 +90,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
           offset: event.lastTransaction.id,
         ),
       );
-    yield TransactionFetched(transactions);
+    yield TransactionFetched(transactionList: transactions);
   }
 }
