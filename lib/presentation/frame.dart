@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unnamed_budgeting_app/data/database/database_provider.dart';
-import 'package:unnamed_budgeting_app/data/repositories/transaction_category_repository.dart';
-import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
+import 'package:unnamed_budgeting_app/data/repository/transaction_category_repository.dart';
+import 'package:unnamed_budgeting_app/data/repository/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';

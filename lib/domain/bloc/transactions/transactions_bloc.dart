@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:unnamed_budgeting_app/data/repositories/transaction_category_repository.dart';
-import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
+import 'package:unnamed_budgeting_app/data/repository/transaction_category_repository.dart';
+import 'package:unnamed_budgeting_app/data/repository/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
