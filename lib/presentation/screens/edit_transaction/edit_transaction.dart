@@ -31,7 +31,7 @@ class EditTransaction extends StatelessWidget {
                   Icons.delete,
                 ),
                 onPressed: () {
-                  _transactionsBloc.add(DeleteTransaction(_transaction));
+                  _transactionsBloc.add(DeleteTransaction(transaction: _transaction));
                   Navigator.pop(context);
                 },
               ),

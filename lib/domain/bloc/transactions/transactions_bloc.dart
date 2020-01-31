@@ -4,8 +4,6 @@ import 'package:unnamed_budgeting_app/data/repositories/transaction_category_rep
 import 'package:unnamed_budgeting_app/data/repositories/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_category.dart';
 import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
 
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
@@ -25,23 +23,25 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     TransactionsEvent event,
   ) async* {
     if (event is LoadTransactions) {
-      yield* _mapLoadTransactionsToState();
+      yield* _mapLoadTransactionsToState(event);
     }
     if (event is DeleteTransaction) {
-      yield* _mapDeleteTransactionToState(event.transaction);
+      yield* _mapDeleteTransactionToState(event);
     }
     if (event is RestoreTransaction) {
-      yield* _mapRestoreTransactionToState(event.transaction);
+      yield* _mapRestoreTransactionToState(event);
     }
     if (event is AddTransaction) {
-      yield* _mapAddTransactionToState(event.transaction);
+      yield* _mapAddTransactionToState(event);
     }
     if (event is FetchTransactions) {
       yield* _mapFetchTransactionsToState(event);
     }
   }
 
-  Stream<TransactionsState> _mapLoadTransactionsToState() async* {
+  Stream<TransactionsState> _mapLoadTransactionsToState(
+    LoadTransactions event,
+  ) async* {
     var transactions = TransactionList()
       ..addAll(await _transactionRepository.getAll());
     transactions.sortBy(TransactionListSorting.DateDescending);
@@ -60,33 +60,36 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   }
 
   Stream<TransactionsState> _mapDeleteTransactionToState(
-    Transaction transaction,
+    DeleteTransaction event,
   ) async* {
     //_transactionRepository.delete(transaction);
-    yield TransactionDeleted(transaction);
+    yield TransactionDeleted(event.transaction);
   }
 
   Stream<TransactionsState> _mapAddTransactionToState(
-    Transaction transaction,
+    AddTransaction event,
   ) async* {
     //_transactionRepository.add(transaction);
-    yield TransactionAdded(transaction);
+    yield TransactionAdded(event.transaction);
   }
 
   Stream<TransactionsState> _mapRestoreTransactionToState(
-    Transaction transaction,
+    RestoreTransaction event,
   ) async* {
     //_transactionRepository.add(transaction);
-    yield TransactionRestored(transaction);
+    yield TransactionRestored(event.transaction);
   }
 
   Stream<TransactionsState> _mapFetchTransactionsToState(
     FetchTransactions event,
   ) async* {
-    var transactions = await _transactionRepository.getAll(
-      limit: event.fetchCount,
-      offset: event.lastTransaction.id,
-    );
+    var transactions = TransactionList()
+      ..addAll(
+        await _transactionRepository.getAll(
+          limit: event.fetchCount,
+          offset: event.lastTransaction.id,
+        ),
+      );
     yield TransactionFetched(transactions);
   }
 }

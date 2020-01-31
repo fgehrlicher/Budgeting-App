@@ -119,7 +119,7 @@ class _TransactionsState extends State<Transactions>
           label: 'Undo',
           onPressed: () {
             _transactionsBloc.add(
-              RestoreTransaction(transaction),
+              RestoreTransaction(transaction: transaction),
             );
           },
         ),
@@ -223,8 +223,8 @@ class _TransactionsState extends State<Transactions>
   void _fetchTransactions() {
     _transactionsBloc.add(
       FetchTransactions(
-        10,
-        _transactions[_transactions.length - 1],
+        fetchCount: 10,
+        lastTransaction: _transactions[_transactions.length - 1],
       ),
     );
     setState(() {
@@ -335,7 +335,9 @@ class _TransactionsState extends State<Transactions>
           // by tapping main button and overlay is not rendered.
           closeManually: false,
           curve: Curves.bounceIn,
-          overlayColor: (Theme.of(context).brightness == Brightness.dark) ? Colors.grey[800] : Colors.white,
+          overlayColor: (Theme.of(context).brightness == Brightness.dark)
+              ? Colors.grey[800]
+              : Colors.white,
           overlayOpacity: 0.8,
           elevation: 8.0,
           shape: CircleBorder(),
@@ -347,13 +349,13 @@ class _TransactionsState extends State<Transactions>
                 style: TextStyle(
                   fontSize: 18.0,
                   decorationColor:
-                  (Theme.of(context).brightness == Brightness.dark)
-                      ? Colors.grey[850]
-                      : Colors.grey[100],
+                      (Theme.of(context).brightness == Brightness.dark)
+                          ? Colors.grey[850]
+                          : Colors.grey[100],
                   backgroundColor:
-                  (Theme.of(context).brightness == Brightness.dark)
-                      ? Colors.grey[850]
-                      : Colors.grey[100],
+                      (Theme.of(context).brightness == Brightness.dark)
+                          ? Colors.grey[850]
+                          : Colors.grey[100],
                   color: (Theme.of(context).brightness == Brightness.dark)
                       ? Colors.white
                       : Colors.black,
@@ -363,18 +365,17 @@ class _TransactionsState extends State<Transactions>
             SpeedDialChild(
               child: Icon(Icons.attach_money),
               labelWidget: Text(
-                  'Add Account Balance',
-
+                'Add Account Balance',
                 style: TextStyle(
                   fontSize: 18.0,
                   decorationColor:
-                  (Theme.of(context).brightness == Brightness.dark)
-                      ? Colors.grey[850]
-                      : Colors.grey[100],
+                      (Theme.of(context).brightness == Brightness.dark)
+                          ? Colors.grey[850]
+                          : Colors.grey[100],
                   backgroundColor:
-                  (Theme.of(context).brightness == Brightness.dark)
-                      ? Colors.grey[850]
-                      : Colors.grey[100],
+                      (Theme.of(context).brightness == Brightness.dark)
+                          ? Colors.grey[850]
+                          : Colors.grey[100],
                   color: (Theme.of(context).brightness == Brightness.dark)
                       ? Colors.white
                       : Colors.black,
