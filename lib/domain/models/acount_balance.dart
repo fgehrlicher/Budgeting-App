@@ -31,6 +31,16 @@ class AccountBalance implements PersistentModel {
   }
 
   @override
+  String get idFieldName {
+    return ID_NAME;
+  }
+
+  @override
+  int get idField {
+    return id;
+  }
+
+  @override
   List<FieldConfig> get fieldConf {
     return [
       FieldConfig(ID_NAME, ID_CONFIG),

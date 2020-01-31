@@ -15,7 +15,7 @@ class TransactionList extends DelegatingList<Transaction> {
 
   TransactionList.fromMap(List<Map<String, dynamic>> data) {
     data.forEach(
-          (transactionValueMap) => add(
+      (transactionValueMap) => add(
         Transaction.fromMap(transactionValueMap),
       ),
     );

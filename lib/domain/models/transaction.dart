@@ -57,6 +57,16 @@ class Transaction implements PersistentModel {
     this.bic,
   });
 
+  @override
+  String get idFieldName {
+    return ID_NAME;
+  }
+
+  @override
+  int get idField {
+    return id;
+  }
+
   Transaction.fromMap(Map<String, dynamic> data) {
     date = DateTime.fromMillisecondsSinceEpoch(data[DATE_NAME]);
     amount = data[AMOUNT_NAME];

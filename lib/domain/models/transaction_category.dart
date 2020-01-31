@@ -21,13 +21,23 @@ class TransactionCategory implements PersistentModel {
 
   Color color;
   static const String COLOR_NAME = "color";
-  static const String COLOR_CONFIG = SqliteTypes.TEXT;
+  static const String COLOR_CONFIG = SqliteTypes.INT;
 
   TransactionCategory({this.id, this.title, this.icon, this.color});
 
   @override
   String get tableName {
     return TABLE_NAME;
+  }
+
+  @override
+  String get idFieldName {
+    return ID_NAME;
+  }
+
+  @override
+  int get idField {
+    return id;
   }
 
   @override
