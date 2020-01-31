@@ -21,7 +21,7 @@ abstract class Repository<T extends PersistentModel> {
     List<dynamic> whereArgs,
   }) async {
     var db = await database;
-    List<T> result;
+    List<T> result = [];
     final List<Map<String, dynamic>> queryResult = await db.query(
       tableName,
       offset: offset,
