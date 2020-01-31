@@ -14,9 +14,9 @@ class DummyData {
   void insertDummyData() {
     var database = DatabaseProvider.database;
     var random = Random();
-    var transactionRepository = TransactionRepository(database);
-    var accountBalanceRepository = AccountBalanceRepository(database);
-    var transactionCategoryRepository = TransactionCategoryRepository(database);
+    var transactionRepository = TransactionRepository(database:  database);
+    var accountBalanceRepository = AccountBalanceRepository(database: database);
+    var transactionCategoryRepository = TransactionCategoryRepository(database: database);
     var dummyTransactions = List<model.Transaction>.generate(
       200,
       (int index) => model.Transaction(

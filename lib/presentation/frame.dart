@@ -39,13 +39,13 @@ class _FrameState extends State<Frame> {
         providers: [
           BlocProvider<TransactionsBloc>(
             builder: (BuildContext context) => TransactionsBloc(
-              TransactionRepository(
-                DatabaseProvider.database,
-              ),
-              TransactionCategoryRepository(
-                DatabaseProvider.database,
-              )
-            )..add(LoadTransactions()),
+                TransactionRepository(
+                  database: DatabaseProvider.database,
+                ),
+                TransactionCategoryRepository(
+                  database: DatabaseProvider.database,
+                ))
+              ..add(LoadTransactions()),
           ),
         ],
         child: Transactions(),

@@ -42,11 +42,12 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   }
 
   Stream<TransactionsState> _mapLoadTransactionsToState() async* {
-    var transactions = await _transactionRepository.getAll();
+    var transactions = TransactionList()
+      ..addAll(await _transactionRepository.getAll());
     transactions.sortBy(TransactionListSorting.DateDescending);
     transactions.map((transaction) async {
-      var transactionCategory = await _transactionCategoryRepository
-          .get(transaction.id);
+      var transactionCategory =
+          await _transactionCategoryRepository.get(id: transaction.id);
 
       transaction.category = transactionCategory;
     });
@@ -84,7 +85,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   ) async* {
     var transactions = await _transactionRepository.getAll(
       limit: event.fetchCount,
-      after: event.lastTransaction,
+      offset: event.lastTransaction.id,
     );
     yield TransactionFetched(transactions);
   }
