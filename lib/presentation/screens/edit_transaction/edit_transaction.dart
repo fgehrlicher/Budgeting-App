@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 
 class EditTransaction extends StatelessWidget {
   final Transaction _transaction;

@@ -8,8 +8,8 @@ import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_state.da
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
-import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/card_item.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/fetch_indicator.dart';

@@ -1,4 +1,4 @@
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 import 'package:quiver/collection.dart';
 
 enum TransactionListSorting {

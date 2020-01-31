@@ -1,5 +1,5 @@
 import 'package:unnamed_budgeting_app/data/repository/repository.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart' as model;
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart' as model;
 import 'package:sqflite/sqflite.dart';
 import 'package:meta/meta.dart';
 

@@ -1,4 +1,4 @@
-import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
 
 abstract class HomeState {}
 

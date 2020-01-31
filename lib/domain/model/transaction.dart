@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:unnamed_budgeting_app/data/database/field_config.dart';
 import 'package:unnamed_budgeting_app/data/database/persistent_model.dart';
 import 'package:unnamed_budgeting_app/data/database/sqlite_types.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_category.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction_category.dart';
 
 enum TransactionType {
   CREDIT_CARD,

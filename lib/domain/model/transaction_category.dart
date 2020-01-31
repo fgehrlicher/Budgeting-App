@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unnamed_budgeting_app/data/database/field_config.dart';
 import 'package:unnamed_budgeting_app/data/database/persistent_model.dart';
 import 'package:unnamed_budgeting_app/data/database/sqlite_types.dart';
-import 'package:unnamed_budgeting_app/domain/models/icon.dart' as iconAdapter;
+import 'package:unnamed_budgeting_app/domain/model/icon.dart' as iconAdapter;
 
 class TransactionCategory implements PersistentModel {
   static const String TABLE_NAME = "usertransactioncategory";

@@ -1,6 +1,6 @@
-import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
+import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction_list.dart';
 
 class BalanceIntegrityChecker {
   AccountBalance calculateOffset(

@@ -1,4 +1,4 @@
-import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction_list.dart';
 
 class TransactionsQueryResponse {
   TransactionList transactions;

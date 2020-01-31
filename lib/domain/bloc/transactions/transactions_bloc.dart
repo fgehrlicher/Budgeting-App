@@ -4,7 +4,7 @@ import 'package:unnamed_budgeting_app/data/repository/transaction_category_repos
 import 'package:unnamed_budgeting_app/data/repository/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction_list.dart';
 
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final TransactionRepository _transactionRepository;

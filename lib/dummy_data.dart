@@ -4,10 +4,10 @@ import 'package:unnamed_budgeting_app/data/database/database_provider.dart';
 import 'package:unnamed_budgeting_app/data/repository/account_balance_repository.dart';
 import 'package:unnamed_budgeting_app/data/repository/transaction_category_repository.dart';
 import 'package:unnamed_budgeting_app/data/repository/transaction_repository.dart';
-import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart' as model;
-import 'package:unnamed_budgeting_app/domain/models/transaction_category.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
+import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart' as model;
+import 'package:unnamed_budgeting_app/domain/model/transaction_category.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction_list.dart';
 import 'dart:math';
 
 class DummyData {

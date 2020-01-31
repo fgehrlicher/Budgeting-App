@@ -1,10 +1,10 @@
 import 'package:unnamed_budgeting_app/data/database/schema.dart';
-import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart' as model;
+import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart' as model;
+import 'package:unnamed_budgeting_app/domain/model/transaction_category.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_category.dart';
 
 class DatabaseProvider {
   static const String DATABASE_FILE_NAME = "unnamed-budgeting-app.db";

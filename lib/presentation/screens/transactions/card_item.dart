@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 
 class CardItem extends StatelessWidget {
   final Transaction _transaction;
