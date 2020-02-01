@@ -11,7 +11,7 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/home.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/settings/settings.dart';
-import 'package:unnamed_budgeting_app/presentation/screens/transactions/transactions.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/transaction_list/transactions.dart';
 
 class Frame extends StatefulWidget {
   @override
