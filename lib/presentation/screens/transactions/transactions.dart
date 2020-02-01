@@ -10,8 +10,8 @@ import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_even
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
 import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
-import 'package:unnamed_budgeting_app/presentation/screens/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/card_item.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/fetch_indicator.dart';
 import 'package:unnamed_budgeting_app/presentation/widgets/list_model.dart';
 
