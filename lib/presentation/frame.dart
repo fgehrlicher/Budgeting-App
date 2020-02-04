@@ -6,52 +6,64 @@ import 'package:unnamed_budgeting_app/data/repository/transaction_repository.dar
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
-import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
+import 'package:unnamed_budgeting_app/presentation/screen.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/home.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/settings/settings.dart';
-import 'package:unnamed_budgeting_app/presentation/screens/transactions/transaction_list/transactions.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/transactions_frame.dart';
 
 class Frame extends StatefulWidget {
   @override
   _FrameState createState() => _FrameState();
 }
 
+List<Screen> _screens = <Screen>[
+  Screen(
+    icon: Icons.home,
+    text: 'Home',
+    widget: MultiBlocProvider(
+      providers: <BlocProvider>[
+        BlocProvider<HomeBloc>(
+          builder: (BuildContext context) => HomeBloc()..add(FetchBalance()),
+        ),
+      ],
+      child: Home(),
+    ),
+  ),
+  Screen(
+    icon: Icons.attach_money,
+    text: 'Transactions',
+    widget: MultiBlocProvider(
+      providers: [
+        BlocProvider<TransactionsBloc>(
+          builder: (BuildContext context) => TransactionsBloc(
+              TransactionRepository(
+                database: DatabaseProvider.database,
+              ),
+              TransactionCategoryRepository(
+                database: DatabaseProvider.database,
+              ))
+            ..add(LoadTransactions()),
+        ),
+      ],
+      child: TransactionsFrame(),
+    ),
+  ),
+  Screen(
+    icon: Icons.settings,
+    text: 'Settings',
+    widget: Settings(),
+  ),
+];
+
 class _FrameState extends State<Frame> {
   int _currentPage;
-  List<Widget> _screens;
 
   @override
   void initState() {
     super.initState();
     _currentPage = 0;
-    _screens = <Widget>[
-      MultiBlocProvider(
-        providers: <BlocProvider>[
-          BlocProvider<HomeBloc>(
-            builder: (BuildContext context) => HomeBloc()..add(FetchBalance()),
-          ),
-        ],
-        child: Home(),
-      ),
-      MultiBlocProvider(
-        providers: [
-          BlocProvider<TransactionsBloc>(
-            builder: (BuildContext context) => TransactionsBloc(
-                TransactionRepository(
-                  database: DatabaseProvider.database,
-                ),
-                TransactionCategoryRepository(
-                  database: DatabaseProvider.database,
-                ))
-              ..add(LoadTransactions()),
-          ),
-        ],
-        child: Transactions(),
-      ),
-      Settings(),
-    ];
   }
 
   @override
@@ -61,32 +73,18 @@ class _FrameState extends State<Frame> {
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return Scaffold(
-            body: _screens.elementAt(_currentPage),
+            body: _screens.elementAt(_currentPage).widget,
             bottomNavigationBar: BottomNavigationBar(
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  title: Text('Home'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.attach_money),
-                  title: Text('Transactions'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  title: Text('Settings'),
-                ),
-              ],
+              items: _screens.map<BottomNavigationBarItem>((Screen screen) {
+                return BottomNavigationBarItem(
+                  icon: Icon(screen.icon),
+                  title: Text(screen.text),
+                );
+              }).toList(),
               currentIndex: _currentPage,
               onTap: (int index) {
                 setState(() {
                   _currentPage = index;
-                  BlocProvider.of<NavigationBloc>(context).add(
-                    NavigateToPage(
-                      lastIndex: _currentPage,
-                      targetIndex: index,
-                    ),
-                  );
                 });
               },
             ),
