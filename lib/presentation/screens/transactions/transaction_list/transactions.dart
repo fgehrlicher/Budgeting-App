@@ -15,12 +15,12 @@ import 'package:unnamed_budgeting_app/presentation/screens/transactions/edit_tra
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/transaction_list/fetch_indicator.dart';
 import 'package:unnamed_budgeting_app/presentation/widgets/list_model.dart';
 
-class Transactions extends StatefulWidget {
+class TransactionList extends StatefulWidget {
   @override
-  _TransactionsState createState() => _TransactionsState();
+  _TransactionListState createState() => _TransactionListState();
 }
 
-class _TransactionsState extends State<Transactions>
+class _TransactionListState extends State<TransactionList>
     with AutomaticKeepAliveClientMixin {
   TransactionsBloc _transactionsBloc;
   NavigationBloc _navigationBloc;
@@ -40,7 +40,7 @@ class _TransactionsState extends State<Transactions>
   ScaffoldState _mainScaffold;
   FetchIndicator _fetchIndicator;
 
-  _TransactionsState() {
+  _TransactionListState() {
     _refreshCompleter = Completer<void>();
     _scrollController = ScrollController();
     _fetchIndicator = FetchIndicator();
@@ -319,67 +319,6 @@ class _TransactionsState extends State<Transactions>
                     ),
                   ),
                 ],
-              ),
-            ),
-          ],
-        ),
-        floatingActionButton: SpeedDial(
-          // both default to 16
-          marginRight: 18,
-          marginBottom: 20,
-          animatedIcon: AnimatedIcons.add_event,
-          animatedIconTheme: IconThemeData(size: 22.0),
-          // this is ignored if animatedIcon is non null
-          // child: Icon(Icons.add),
-          // If true user is forced to close dial manually
-          // by tapping main button and overlay is not rendered.
-          closeManually: false,
-          curve: Curves.bounceIn,
-          overlayColor: (Theme.of(context).brightness == Brightness.dark)
-              ? Colors.grey[800]
-              : Colors.white,
-          overlayOpacity: 0.8,
-          elevation: 8.0,
-          shape: CircleBorder(),
-          children: [
-            SpeedDialChild(
-              child: Icon(Icons.attach_money),
-              labelWidget: Text(
-                'Add Transaction',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  decorationColor:
-                      (Theme.of(context).brightness == Brightness.dark)
-                          ? Colors.grey[850]
-                          : Colors.grey[100],
-                  backgroundColor:
-                      (Theme.of(context).brightness == Brightness.dark)
-                          ? Colors.grey[850]
-                          : Colors.grey[100],
-                  color: (Theme.of(context).brightness == Brightness.dark)
-                      ? Colors.white
-                      : Colors.black,
-                ),
-              ),
-            ),
-            SpeedDialChild(
-              child: Icon(Icons.attach_money),
-              labelWidget: Text(
-                'Add Account Balance',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  decorationColor:
-                      (Theme.of(context).brightness == Brightness.dark)
-                          ? Colors.grey[850]
-                          : Colors.grey[100],
-                  backgroundColor:
-                      (Theme.of(context).brightness == Brightness.dark)
-                          ? Colors.grey[850]
-                          : Colors.grey[100],
-                  color: (Theme.of(context).brightness == Brightness.dark)
-                      ? Colors.white
-                      : Colors.black,
-                ),
               ),
             ),
           ],
