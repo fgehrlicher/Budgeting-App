@@ -1,8 +1,8 @@
 abstract class NavigationEvent {}
 
 class NavigateToPage extends NavigationEvent{
-  final int targetIndex;
-  final int lastIndex;
+  final String targetScreen;
+  final String lastScreen;
 
-  NavigateToPage({this.targetIndex, this.lastIndex});
+  NavigateToPage({this.targetScreen, this.lastScreen});
 }
