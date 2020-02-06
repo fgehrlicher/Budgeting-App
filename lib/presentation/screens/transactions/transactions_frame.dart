@@ -19,11 +19,13 @@ List<Screen> _screens = <Screen>[
   Screen(
     icon: Icons.attach_money,
     text: 'Transaction List',
+    name: 'transactionlist',
     widget: TransactionList(),
   ),
   Screen(
     icon: Icons.print,
     text: 'TEST 1',
+    name: 'test1',
     widget: Container(
       color: Colors.red,
     ),
@@ -31,6 +33,7 @@ List<Screen> _screens = <Screen>[
   Screen(
     icon: Icons.close,
     text: 'TEST 2',
+    name: 'test2',
     widget: Container(
       color: Colors.blueAccent,
     ),

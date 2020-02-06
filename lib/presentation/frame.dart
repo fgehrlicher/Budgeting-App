@@ -22,6 +22,7 @@ List<Screen> _screens = <Screen>[
   Screen(
     icon: Icons.home,
     text: 'Home',
+    name: 'home',
     widget: MultiBlocProvider(
       providers: <BlocProvider>[
         BlocProvider<HomeBloc>(
@@ -34,6 +35,7 @@ List<Screen> _screens = <Screen>[
   Screen(
     icon: Icons.attach_money,
     text: 'Transactions',
+    name: 'transactions',
     widget: MultiBlocProvider(
       providers: [
         BlocProvider<TransactionsBloc>(
@@ -53,6 +55,7 @@ List<Screen> _screens = <Screen>[
   Screen(
     icon: Icons.settings,
     text: 'Settings',
+    name: 'settings',
     widget: Settings(),
   ),
 ];
