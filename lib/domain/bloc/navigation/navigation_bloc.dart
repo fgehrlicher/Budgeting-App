@@ -16,7 +16,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   Stream<NavigationState> _mapNavigateToPageToState(
     NavigateToPage event,
   ) async* {
-    if (event.lastIndex == event.targetIndex) {
+    if (event.lastScreen == event.targetScreen) {
       yield SamePage();
     } else {
       yield NewPage();
