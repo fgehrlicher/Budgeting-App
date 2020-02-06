@@ -6,6 +6,7 @@ import 'package:unnamed_budgeting_app/data/repository/transaction_repository.dar
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
 import 'package:unnamed_budgeting_app/presentation/screen.dart';
@@ -61,12 +62,11 @@ List<Screen> _screens = <Screen>[
 ];
 
 class _FrameState extends State<Frame> {
-  int _currentPage;
+  int _currentPage = 0;
 
   @override
   void initState() {
     super.initState();
-    _currentPage = 0;
   }
 
   @override
@@ -86,6 +86,13 @@ class _FrameState extends State<Frame> {
               }).toList(),
               currentIndex: _currentPage,
               onTap: (int index) {
+                BlocProvider.of<NavigationBloc>(context).add(
+                  NavigateToPage(
+                    lastScreen: _screens.elementAt(_currentPage).name,
+                    targetScreen: _screens.elementAt(index).name,
+                  ),
+                );
+
                 setState(() {
                   _currentPage = index;
                 });
