@@ -8,13 +8,6 @@ class TransactionsFrame extends StatefulWidget {
   State createState() => _TransactionsFrameState();
 }
 
-class _Page {
-  const _Page({this.icon, this.text});
-
-  final IconData icon;
-  final String text;
-}
-
 List<Screen> _screens = <Screen>[
   Screen(
     icon: Icons.attach_money,
@@ -42,7 +35,6 @@ List<Screen> _screens = <Screen>[
 
 class _TransactionsFrameState extends State<TransactionsFrame>
     with SingleTickerProviderStateMixin {
-  int _currentPage;
   TabController _controller;
 
   @override
