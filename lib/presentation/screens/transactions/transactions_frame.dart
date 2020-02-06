@@ -73,15 +73,8 @@ class _TransactionsFrameState extends State<TransactionsFrame>
         }).toList(),
       ),
       floatingActionButton: SpeedDial(
-        // both default to 16
-        marginRight: 18,
-        marginBottom: 20,
         animatedIcon: AnimatedIcons.add_event,
         animatedIconTheme: IconThemeData(size: 22.0),
-        // this is ignored if animatedIcon is non null
-        // child: Icon(Icons.add),
-        // If true user is forced to close dial manually
-        // by tapping main button and overlay is not rendered.
         closeManually: false,
         curve: Curves.bounceIn,
         overlayColor: (Theme.of(context).brightness == Brightness.dark)
