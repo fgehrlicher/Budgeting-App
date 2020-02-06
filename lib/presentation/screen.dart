@@ -5,6 +5,7 @@ class Screen {
   final String text;
   final Widget widget;
   final String name;
+  final int index;
 
-  const Screen({this.icon, this.text, this.widget, this.name});
+  const Screen({this.icon, this.text, this.widget, this.name, this.index});
 }
