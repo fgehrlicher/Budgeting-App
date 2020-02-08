@@ -199,7 +199,7 @@ class _TransactionListState extends State<TransactionList>
 
   Future<void> _loadTransactions() {
     _isUpdating = true;
-    _transactionsBloc.add(LoadTransactions());
+    _transactionsBloc.add(LoadTimeFrame());
     return _refreshCompleter.future;
   }
 
@@ -222,7 +222,7 @@ class _TransactionListState extends State<TransactionList>
 
   void _fetchTransactions() {
     _transactionsBloc.add(
-      FetchTransactions(
+      FetchTimeFrame(
         fetchCount: 10,
         lastTransaction: _transactions[_transactions.length - 1],
       ),

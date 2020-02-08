@@ -47,7 +47,7 @@ List<Screen> _screens = <Screen>[
               TransactionCategoryRepository(
                 database: DatabaseProvider.database,
               ))
-            ..add(LoadTransactions()),
+            ..add(LoadTimeFrame()),
         ),
       ],
       child: TransactionsFrame(),

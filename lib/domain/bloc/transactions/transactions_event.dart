@@ -3,10 +3,17 @@ import 'package:meta/meta.dart';
 
 abstract class TransactionsEvent {}
 
-class LoadTransactions extends TransactionsEvent {
+class LoadTimeFrame extends TransactionsEvent {
   final int loadCount;
 
-  LoadTransactions({this.loadCount = 20});
+  LoadTimeFrame({this.loadCount = 20});
+}
+
+class FetchTimeFrame extends TransactionsEvent {
+  final int fetchCount;
+  final Transaction lastTransaction;
+
+  FetchTimeFrame({@required this.lastTransaction, this.fetchCount = 20});
 }
 
 class AddTransaction extends TransactionsEvent {
@@ -31,11 +38,4 @@ class RestoreTransaction extends TransactionsEvent {
   final Transaction transaction;
 
   RestoreTransaction({@required this.transaction});
-}
-
-class FetchTransactions extends TransactionsEvent {
-  final int fetchCount;
-  final Transaction lastTransaction;
-
-  FetchTransactions({@required this.lastTransaction, this.fetchCount = 20});
 }

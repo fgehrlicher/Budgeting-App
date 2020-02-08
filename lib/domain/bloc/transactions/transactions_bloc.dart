@@ -22,8 +22,8 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   Stream<TransactionsState> mapEventToState(
     TransactionsEvent event,
   ) async* {
-    if (event is LoadTransactions) {
-      yield* _mapLoadTransactionsToState(event);
+    if (event is LoadTimeFrame) {
+      yield* _mapLoadTimeFrameToState(event);
     }
     if (event is DeleteTransaction) {
       yield* _mapDeleteTransactionToState(event);
@@ -34,13 +34,13 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     if (event is AddTransaction) {
       yield* _mapAddTransactionToState(event);
     }
-    if (event is FetchTransactions) {
-      yield* _mapFetchTransactionsToState(event);
+    if (event is FetchTimeFrame) {
+      yield* _mapFetchTimeFrameToState(event);
     }
   }
 
-  Stream<TransactionsState> _mapLoadTransactionsToState(
-    LoadTransactions event,
+  Stream<TransactionsState> _mapLoadTimeFrameToState(
+    LoadTimeFrame event,
   ) async* {
     var rawTransactions =
         await _transactionRepository.getAll(limit: event.loadCount);
@@ -84,8 +84,8 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     yield TransactionRestored(transaction: event.transaction);
   }
 
-  Stream<TransactionsState> _mapFetchTransactionsToState(
-    FetchTransactions event,
+  Stream<TransactionsState> _mapFetchTimeFrameToState(
+    FetchTimeFrame event,
   ) async* {
     var rawTransactions =
     await _transactionRepository.getAll(limit: event.fetchCount);
