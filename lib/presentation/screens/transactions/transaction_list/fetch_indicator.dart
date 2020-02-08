@@ -62,7 +62,7 @@ class _FetchIndicatorState extends State<FetchIndicator> {
       break;
 
       case FetchIndicatorMode.NoTransactionsLeft: {
-        return Text('no more transactions left');
+        return Text('no more time_frame left');
       }
       break;
 

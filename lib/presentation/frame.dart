@@ -7,8 +7,8 @@ import 'package:unnamed_budgeting_app/domain/bloc/home/home_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/home/home_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_event.dart';
-import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
-import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_event.dart';
 import 'package:unnamed_budgeting_app/presentation/screen.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/home/home.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/settings/settings.dart';
@@ -36,11 +36,11 @@ List<Screen> _screens = <Screen>[
   Screen(
     icon: Icons.attach_money,
     text: 'Transactions',
-    name: 'transactions',
+    name: 'time_frame',
     widget: MultiBlocProvider(
       providers: [
-        BlocProvider<TransactionsBloc>(
-          builder: (BuildContext context) => TransactionsBloc(
+        BlocProvider<TimeFrameBloc>(
+          builder: (BuildContext context) => TimeFrameBloc(
               TransactionRepository(
                 database: DatabaseProvider.database,
               ),

@@ -70,7 +70,7 @@ void main() {
       );
     });
 
-    test("Get Transactions returns the right transactions", () {
+    test("Get Transactions returns the right time_frame", () {
       var expectedFilteredList = TransactionList();
       expectedFilteredList.addAll([
         secondNewestTransaction,

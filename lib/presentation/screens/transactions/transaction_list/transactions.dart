@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_state.dart';
-import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
-import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_event.dart';
-import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_state.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_bloc.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_event.dart';
+import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_state.dart';
 import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/transaction_list/card_item.dart';
@@ -21,7 +21,7 @@ class TransactionList extends StatefulWidget {
 
 class _TransactionListState extends State<TransactionList>
     with AutomaticKeepAliveClientMixin {
-  TransactionsBloc _transactionsBloc;
+  TimeFrameBloc _transactionsBloc;
   NavigationBloc _navigationBloc;
   Completer<void> _refreshCompleter;
   ScrollController _scrollController;
@@ -53,7 +53,7 @@ class _TransactionListState extends State<TransactionList>
   @override
   void initState() {
     super.initState();
-    _transactionsBloc = BlocProvider.of<TransactionsBloc>(context);
+    _transactionsBloc = BlocProvider.of<TimeFrameBloc>(context);
     _navigationBloc = BlocProvider.of<NavigationBloc>(context);
     _mainScaffold = Scaffold.of(context);
 
@@ -71,7 +71,7 @@ class _TransactionListState extends State<TransactionList>
   @override
   bool get wantKeepAlive => true;
 
-  void _handleStateUpdate(TransactionsState state) {
+  void _handleStateUpdate(TimeFrameState state) {
     if (state is TimeFrameLoaded) {
       _handleTransactionsLoadedState(state);
     }
@@ -270,7 +270,7 @@ class _TransactionListState extends State<TransactionList>
     }
     if (_transactions.length == 0) {
       return Center(
-        child: Text('no transactions'),
+        child: Text('no time_frame'),
       );
     }
 
