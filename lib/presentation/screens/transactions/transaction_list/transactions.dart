@@ -8,6 +8,7 @@ import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_bloc.dar
 import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_state.dart';
 import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/model/time_frame.dart';
 import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/transaction_list/card_item.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/edit_transaction/edit_transaction.dart';
@@ -72,7 +73,7 @@ class _TransactionListState extends State<TransactionList>
   bool get wantKeepAlive => true;
 
   void _handleStateUpdate(TimeFrameState state) {
-    if (state is TimeFrameLoaded) {
+    if (state is TimeFramesLoaded) {
       _handleTransactionsLoadedState(state);
     }
     if (state is TransactionDeleted) {
@@ -81,18 +82,23 @@ class _TransactionListState extends State<TransactionList>
     if (state is TransactionRestored) {
       _handleTransactionRestoredState(state);
     }
-    if (state is TimeFrameFetched) {
+    if (state is TimeFramesFetched) {
       _handleTransactionFetched(state);
     }
   }
 
-  void _handleTransactionsLoadedState(TimeFrameLoaded state) {
+  void _handleTransactionsLoadedState(TimeFramesLoaded state) {
     setState(() {
       _transactionsKey = GlobalKey<AnimatedListState>();
       _transactions = ListModel<Transaction>(
         _transactionsKey,
         _buildRemovedItem,
-        state.transactionList,
+        state.timeFrames.reduce(
+          (value, element) {
+            value.transactions.addAll(element.transactions);
+            return value;
+          },
+        ).transactions,
       );
     });
 
@@ -179,20 +185,22 @@ class _TransactionListState extends State<TransactionList>
     });
   }
 
-  void _handleTransactionFetched(TimeFrameFetched state) async {
+  void _handleTransactionFetched(TimeFramesFetched state) async {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
       _fetchIndicator.setSleeping();
     });
 
-    if (state.transactionList.length == 0) {
+    if (state.timeFrames.length == 0) {
       _transactionsLeft = false;
       _fetchIndicator.setNoTransactionsLeft();
       return;
     }
 
-    state.transactionList.forEach((Transaction transaction) {
-      _transactions.insert(transaction);
+    state.timeFrames.forEach((TimeFrame timeFrame) {
+      timeFrame.transactions.forEach((Transaction transaction) {
+        _transactions.insert(transaction);
+      });
     });
   }
 

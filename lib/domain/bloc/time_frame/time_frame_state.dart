@@ -1,3 +1,4 @@
+import 'package:unnamed_budgeting_app/domain/model/time_frame.dart';
 import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 import 'package:unnamed_budgeting_app/domain/model/transaction_list.dart';
 import 'package:meta/meta.dart';
@@ -10,16 +11,16 @@ class TimeFrameInitialLoading extends TimeFrameState {}
 
 class TimeFrameLoading extends TimeFrameState {}
 
-class TimeFrameLoaded extends TimeFrameState {
-  final TransactionList transactionList;
+class TimeFramesLoaded extends TimeFrameState {
+  final List<TimeFrame> timeFrames;
 
-  TimeFrameLoaded({@required this.transactionList});
+  TimeFramesLoaded({@required this.timeFrames});
 }
 
-class TimeFrameFetched extends TimeFrameState {
-  final TransactionList transactionList;
+class TimeFramesFetched extends TimeFrameState {
+  final List<TimeFrame> timeFrames;
 
-  TimeFrameFetched({@required this.transactionList});
+  TimeFramesFetched({@required this.timeFrames});
 }
 
 class TransactionDeleted extends TimeFrameState {

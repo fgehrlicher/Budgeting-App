@@ -4,6 +4,7 @@ import 'package:unnamed_budgeting_app/data/repository/transaction_category_repos
 import 'package:unnamed_budgeting_app/data/repository/transaction_repository.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_event.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_state.dart';
+import 'package:unnamed_budgeting_app/domain/model/time_frame.dart';
 import 'package:unnamed_budgeting_app/domain/model/transaction_list.dart';
 
 class TimeFrameBloc extends Bloc<TimeFrameEvent, TimeFrameState> {
@@ -57,7 +58,11 @@ class TimeFrameBloc extends Bloc<TimeFrameEvent, TimeFrameState> {
     transactions.sortBy(TransactionListSorting.DateDescending);
 
     if (transactions.length > 0) {
-      yield TimeFrameLoaded(transactionList: transactions);
+      yield TimeFramesLoaded(
+        timeFrames: [
+          TimeFrame(transactions: transactions),
+        ],
+      );
     } else {
       yield NoTimeFrame();
     }
@@ -88,19 +93,23 @@ class TimeFrameBloc extends Bloc<TimeFrameEvent, TimeFrameState> {
     FetchTimeFrame event,
   ) async* {
     var rawTransactions =
-    await _transactionRepository.getAll(limit: event.fetchCount);
+        await _transactionRepository.getAll(limit: event.fetchCount);
     var transactionCategories = await _transactionCategoryRepository.getAll();
 
     var mappedRawTransactions = rawTransactions.map((transaction) {
       transaction.category = transactionCategories.firstWhere(
-              (transactionCategory) =>
-          transactionCategory.id == transaction.categoryId);
+          (transactionCategory) =>
+              transactionCategory.id == transaction.categoryId);
       return transaction;
     });
 
     var transactions = TransactionList()..addAll(mappedRawTransactions);
     transactions.sortBy(TransactionListSorting.DateDescending);
 
-    yield TimeFrameFetched(transactionList: transactions);
+    yield TimeFramesFetched(
+      timeFrames: [
+        TimeFrame(transactions: transactions),
+      ],
+    );
   }
 }
