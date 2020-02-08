@@ -3,7 +3,7 @@ import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 import 'package:unnamed_budgeting_app/domain/model/transaction_list.dart';
 
 class BalanceIntegrityChecker {
-  AccountBalance calculateOffset(
+  int calculateOffset(
     AccountBalance from,
     AccountBalance until,
     TransactionList transactions,
@@ -20,9 +20,7 @@ class BalanceIntegrityChecker {
 
     int offset = calculationBalance - until.balance;
 
-    return (calculationBalance != until.balance)
-        ? AccountBalance(balance: offset)
-        : null;
+    return (calculationBalance != until.balance) ? offset : null;
   }
 
   void _validateTransaction(

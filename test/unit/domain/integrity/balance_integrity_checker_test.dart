@@ -51,7 +51,7 @@ void main() {
       var result =
           subject.calculateOffset(dummyFrom, dummyUntil, dummyTransactions);
 
-      expect(result.balance, exceptedOffset);
+      expect(result, exceptedOffset);
     });
 
     test("'check' returns the correct negative deviating balance", () {
@@ -85,7 +85,7 @@ void main() {
       var result =
           subject.calculateOffset(dummyFrom, dummyUntil, dummyTransactions);
 
-      expect(result.balance, exceptedOffset);
+      expect(result, exceptedOffset);
     });
 
     test("'check' throws exception dates are identical", () {
