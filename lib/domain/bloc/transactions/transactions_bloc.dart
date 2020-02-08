@@ -16,7 +16,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   );
 
   @override
-  TransactionsState get initialState => TransactionsInitialLoading();
+  TransactionsState get initialState => TimeFrameInitialLoading();
 
   @override
   Stream<TransactionsState> mapEventToState(
@@ -57,9 +57,9 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     transactions.sortBy(TransactionListSorting.DateDescending);
 
     if (transactions.length > 0) {
-      yield TransactionsLoaded(transactionList: transactions);
+      yield TimeFrameLoaded(transactionList: transactions);
     } else {
-      yield TransactionsEmpty();
+      yield NoTimeFrame();
     }
   }
 
@@ -101,6 +101,6 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     var transactions = TransactionList()..addAll(mappedRawTransactions);
     transactions.sortBy(TransactionListSorting.DateDescending);
 
-    yield TransactionFetched(transactionList: transactions);
+    yield TimeFrameFetched(transactionList: transactions);
   }
 }

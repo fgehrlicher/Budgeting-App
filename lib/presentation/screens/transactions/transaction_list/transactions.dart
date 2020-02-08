@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/navigation/navigation_state.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/transactions/transactions_bloc.dart';
@@ -73,7 +72,7 @@ class _TransactionListState extends State<TransactionList>
   bool get wantKeepAlive => true;
 
   void _handleStateUpdate(TransactionsState state) {
-    if (state is TransactionsLoaded) {
+    if (state is TimeFrameLoaded) {
       _handleTransactionsLoadedState(state);
     }
     if (state is TransactionDeleted) {
@@ -82,12 +81,12 @@ class _TransactionListState extends State<TransactionList>
     if (state is TransactionRestored) {
       _handleTransactionRestoredState(state);
     }
-    if (state is TransactionFetched) {
+    if (state is TimeFrameFetched) {
       _handleTransactionFetched(state);
     }
   }
 
-  void _handleTransactionsLoadedState(TransactionsLoaded state) {
+  void _handleTransactionsLoadedState(TimeFrameLoaded state) {
     setState(() {
       _transactionsKey = GlobalKey<AnimatedListState>();
       _transactions = ListModel<Transaction>(
@@ -180,7 +179,7 @@ class _TransactionListState extends State<TransactionList>
     });
   }
 
-  void _handleTransactionFetched(TransactionFetched state) async {
+  void _handleTransactionFetched(TimeFrameFetched state) async {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
       _fetchIndicator.setSleeping();

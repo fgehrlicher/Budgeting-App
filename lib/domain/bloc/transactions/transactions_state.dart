@@ -4,16 +4,22 @@ import 'package:meta/meta.dart';
 
 abstract class TransactionsState {}
 
-class TransactionsEmpty extends TransactionsState {}
+class NoTimeFrame extends TransactionsState {}
 
-class TransactionsInitialLoading extends TransactionsState {}
+class TimeFrameInitialLoading extends TransactionsState {}
 
-class TransactionsLoading extends TransactionsState {}
+class TimeFrameLoading extends TransactionsState {}
 
-class TransactionsLoaded extends TransactionsState {
+class TimeFrameLoaded extends TransactionsState {
   final TransactionList transactionList;
 
-  TransactionsLoaded({@required this.transactionList});
+  TimeFrameLoaded({@required this.transactionList});
+}
+
+class TimeFrameFetched extends TransactionsState {
+  final TransactionList transactionList;
+
+  TimeFrameFetched({@required this.transactionList});
 }
 
 class TransactionDeleted extends TransactionsState {
@@ -32,10 +38,4 @@ class TransactionAdded extends TransactionsState {
   final Transaction transaction;
 
   TransactionAdded({@required this.transaction});
-}
-
-class TransactionFetched extends TransactionsState {
-  final TransactionList transactionList;
-
-  TransactionFetched({@required this.transactionList});
 }
