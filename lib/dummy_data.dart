@@ -41,13 +41,30 @@ class DummyData {
       TransactionList()..addAll(dummyTransactions),
     );
 
-    accountBalanceRepository.insert(
+    List<AccountBalance> accountBalances = [
       AccountBalance(
         id: 1,
-        date: DateTime.parse("2019-28-11 10:00:00"),
-        balance: 23200,
+        date: DateTime.parse("2019-12-10 10:00:00"),
+        balance: 10200,
       ),
-    );
+      AccountBalance(
+        id: 1,
+        date: DateTime.parse("2019-12-15 10:00:00"),
+        balance: 11200,
+      ),
+      AccountBalance(
+        id: 1,
+        date: DateTime.parse("2019-12-20 10:00:00"),
+        balance: 21200,
+      ),
+      AccountBalance(
+        id: 1,
+        date: DateTime.parse("2019-12-30 10:00:00"),
+        balance: 11200,
+      ),
+    ];
+
+    accountBalanceRepository.insertMultiple(accountBalances);
 
     transactionCategoryRepository.insertMultiple(initialTransactionCategories);
   }
