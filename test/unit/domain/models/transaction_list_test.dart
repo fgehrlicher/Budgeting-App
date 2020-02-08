@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction.dart';
-import 'package:unnamed_budgeting_app/domain/models/transaction_list.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
+import 'package:unnamed_budgeting_app/domain/model/transaction_list.dart';
 
 void main() {
   group("Transaction List", () {

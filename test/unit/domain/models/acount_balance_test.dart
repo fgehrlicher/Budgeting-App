@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:unnamed_budgeting_app/domain/models/acount_balance.dart';
+import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
 
 void main() {
   group("Account Balance", () {
