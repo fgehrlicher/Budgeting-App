@@ -21,6 +21,7 @@ class _TimeFrameContainerState extends State<TimeFrameContainer> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
       children: _timeFrame.transactions.map<Widget>((Transaction transaction) {
         return CardItem(
           transaction,
@@ -34,7 +35,7 @@ class _TimeFrameContainerState extends State<TimeFrameContainer> {
             );
           },
         );
-      }),
+      }).toList(),
     );
   }
 }

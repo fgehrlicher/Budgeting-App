@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_bloc.dart';
 import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_event.dart';
 import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
 
 class EditTransaction extends StatelessWidget {
   final Transaction _transaction;
-  final TimeFrameBloc _transactionsBloc;
   final _formKey = GlobalKey<FormState>();
 
-  EditTransaction(this._transaction, this._transactionsBloc);
+  EditTransaction(this._transaction);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,8 @@ class EditTransaction extends StatelessWidget {
                   Icons.delete,
                 ),
                 onPressed: () {
-                  _transactionsBloc.add(DeleteTransaction(transaction: _transaction));
+                  BlocProvider.of<TimeFrameBloc>(context)
+                      .add(DeleteTransaction(transaction: _transaction));
                   Navigator.pop(context);
                 },
               ),
@@ -88,7 +89,8 @@ class EditTransaction extends StatelessWidget {
                         children: <Widget>[
                           Expanded(
                             child: TextFormField(
-                              initialValue: _transaction.category?.title ?? "No Category",
+                              initialValue:
+                                  _transaction.category?.title ?? "No Category",
                               textAlign: TextAlign.center,
                             ),
                           ),

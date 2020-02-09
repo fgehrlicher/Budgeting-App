@@ -9,11 +9,8 @@ import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_event.da
 import 'package:unnamed_budgeting_app/domain/bloc/time_frame/time_frame_state.dart';
 import 'package:unnamed_budgeting_app/domain/model/acount_balance.dart';
 import 'package:unnamed_budgeting_app/domain/model/time_frame.dart';
-import 'package:unnamed_budgeting_app/domain/model/transaction.dart';
-import 'package:unnamed_budgeting_app/presentation/screens/transactions/transaction_list/card_item.dart';
-import 'package:unnamed_budgeting_app/presentation/screens/transactions/edit_transaction/edit_transaction.dart';
 import 'package:unnamed_budgeting_app/presentation/screens/transactions/transaction_list/fetch_indicator.dart';
-import 'package:unnamed_budgeting_app/presentation/widgets/list_model.dart';
+import 'package:unnamed_budgeting_app/presentation/screens/transactions/transaction_list/time_frame_container.dart';
 
 class TransactionList extends StatefulWidget {
   @override
@@ -22,7 +19,7 @@ class TransactionList extends StatefulWidget {
 
 class _TransactionListState extends State<TransactionList>
     with AutomaticKeepAliveClientMixin {
-  TimeFrameBloc _transactionsBloc;
+  TimeFrameBloc _timeFrameBloc;
   NavigationBloc _navigationBloc;
   Completer<void> _refreshCompleter;
   ScrollController _scrollController;
@@ -30,13 +27,10 @@ class _TransactionListState extends State<TransactionList>
   bool _isScrollingUp;
   bool _isUpdating;
 
-  ListModel<Transaction> _transactions;
-  GlobalKey<AnimatedListState> _transactionsKey =
-      GlobalKey<AnimatedListState>();
+  List<TimeFrame> _timeFrames;
   GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
-  int _lastDeletedIndex;
   ScaffoldState _mainScaffold;
   FetchIndicator _fetchIndicator;
 
@@ -54,11 +48,11 @@ class _TransactionListState extends State<TransactionList>
   @override
   void initState() {
     super.initState();
-    _transactionsBloc = BlocProvider.of<TimeFrameBloc>(context);
+    _timeFrameBloc = BlocProvider.of<TimeFrameBloc>(context);
     _navigationBloc = BlocProvider.of<NavigationBloc>(context);
     _mainScaffold = Scaffold.of(context);
 
-    _transactionsBloc.listen(_handleStateUpdate);
+    _timeFrameBloc.listen(_handleStateUpdate);
     _navigationBloc.listen(_handleNavigationStateUpdate);
   }
 
@@ -74,7 +68,10 @@ class _TransactionListState extends State<TransactionList>
 
   void _handleStateUpdate(TimeFrameState state) {
     if (state is TimeFramesLoaded) {
-      _handleTransactionsLoadedState(state);
+      _handleTimeFrameLoadedState(state);
+    }
+    if (state is TimeFramesFetched) {
+      _handleTimeFrameFetched(state);
     }
     if (state is TransactionDeleted) {
       _handleTransactionDeletedState(state);
@@ -82,24 +79,11 @@ class _TransactionListState extends State<TransactionList>
     if (state is TransactionRestored) {
       _handleTransactionRestoredState(state);
     }
-    if (state is TimeFramesFetched) {
-      _handleTransactionFetched(state);
-    }
   }
 
-  void _handleTransactionsLoadedState(TimeFramesLoaded state) {
+  void _handleTimeFrameLoadedState(TimeFramesLoaded state) {
     setState(() {
-      _transactionsKey = GlobalKey<AnimatedListState>();
-      _transactions = ListModel<Transaction>(
-        _transactionsKey,
-        _buildRemovedItem,
-        state.timeFrames.reduce(
-          (value, element) {
-            value.transactions.addAll(element.transactions);
-            return value;
-          },
-        ).transactions,
-      );
+      _timeFrames = state.timeFrames;
     });
 
     _fetchIndicator.setSleeping();
@@ -108,8 +92,7 @@ class _TransactionListState extends State<TransactionList>
 
   void _handleTransactionDeletedState(TransactionDeleted state) {
     var transaction = state.transaction;
-    _lastDeletedIndex = _transactions.indexOf(transaction);
-    _transactions.remove(_lastDeletedIndex);
+    // @TODO
 
     _mainScaffold.removeCurrentSnackBar();
     _mainScaffold.showSnackBar(
@@ -123,7 +106,7 @@ class _TransactionListState extends State<TransactionList>
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
-            _transactionsBloc.add(
+            _timeFrameBloc.add(
               RestoreTransaction(transaction: transaction),
             );
           },
@@ -134,7 +117,7 @@ class _TransactionListState extends State<TransactionList>
 
   void _handleTransactionRestoredState(TransactionRestored state) {
     var transaction = state.transaction;
-    _transactions.insert(transaction, _lastDeletedIndex);
+    // @TODO
 
     _mainScaffold.removeCurrentSnackBar();
     _mainScaffold.showSnackBar(
@@ -185,7 +168,7 @@ class _TransactionListState extends State<TransactionList>
     });
   }
 
-  void _handleTransactionFetched(TimeFramesFetched state) async {
+  void _handleTimeFrameFetched(TimeFramesFetched state) async {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
       _fetchIndicator.setSleeping();
@@ -197,16 +180,12 @@ class _TransactionListState extends State<TransactionList>
       return;
     }
 
-    state.timeFrames.forEach((TimeFrame timeFrame) {
-      timeFrame.transactions.forEach((Transaction transaction) {
-        _transactions.insert(transaction);
-      });
-    });
+    // @TODO
   }
 
   Future<void> _loadTransactions() {
     _isUpdating = true;
-    _transactionsBloc.add(LoadTimeFrame());
+    _timeFrameBloc.add(LoadTimeFrame());
     return _refreshCompleter.future;
   }
 
@@ -228,55 +207,26 @@ class _TransactionListState extends State<TransactionList>
   }
 
   void _fetchTransactions() {
-    _transactionsBloc.add(
+    // @TODO
+    /*
+    _timeFrameBloc.add(
       FetchTimeFrame(
         fetchCount: 10,
         lastTransaction: _transactions[_transactions.length - 1],
       ),
-    );
+    );*/
     setState(() {
       _fetchIndicator.setFetching();
     });
   }
 
-  Widget _buildItem(
-    BuildContext context,
-    int index,
-    Animation<double> animation,
-  ) {
-    var transaction = _transactions[index];
-    return CardItem(transaction, () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          fullscreenDialog: true,
-          builder: (BuildContext context) =>
-              EditTransaction(transaction, _transactionsBloc),
-        ),
-      );
-    }, animation, null);
-  }
-
-  Widget _buildRemovedItem(
-    Transaction transaction,
-    BuildContext context,
-    Animation<double> animation,
-  ) {
-    return CardItem(
-      transaction,
-      null,
-      animation,
-      Colors.red,
-    );
-  }
-
   Widget build(BuildContext context) {
-    if (_transactions == null) {
+    if (_timeFrames == null) {
       return Center(
         child: CircularProgressIndicator(),
       );
     }
-    if (_transactions.length == 0) {
+    if (_timeFrames.length == 0) {
       return Center(
         child: Text('no time_frame'),
       );
@@ -293,21 +243,10 @@ class _TransactionListState extends State<TransactionList>
                 child: RefreshIndicator(
                   key: _refreshIndicatorKey,
                   onRefresh: _loadTransactions,
-                  child: SingleChildScrollView(
-                    controller: _scrollController,
-                    child: Column(
-                      children: <Widget>[
-                        AnimatedList(
-                          shrinkWrap: true,
-                          key: _transactionsKey,
-                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                          initialItemCount: _transactions.length,
-                          itemBuilder: _buildItem,
-                          physics: NeverScrollableScrollPhysics(),
-                        ),
-                        _fetchIndicator,
-                      ],
-                    ),
+                  child: ListView(
+                    children: _timeFrames.map<Widget>(
+                      (TimeFrame timeFrame) => TimeFrameContainer(timeFrame),
+                    ).toList(),
                   ),
                 ),
               ),
