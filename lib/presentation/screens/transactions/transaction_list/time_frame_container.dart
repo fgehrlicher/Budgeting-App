@@ -22,6 +22,7 @@ class _TimeFrameContainerState extends State<TimeFrameContainer> {
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       children: _timeFrame.transactions.map<Widget>((Transaction transaction) {
         return CardItem(
           transaction,

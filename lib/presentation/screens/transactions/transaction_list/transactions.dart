@@ -244,6 +244,7 @@ class _TransactionListState extends State<TransactionList>
                   key: _refreshIndicatorKey,
                   onRefresh: _loadTransactions,
                   child: ListView(
+                    physics: AlwaysScrollableScrollPhysics(),
                     children: _timeFrames.map<Widget>(
                       (TimeFrame timeFrame) => TimeFrameContainer(timeFrame),
                     ).toList(),
