@@ -19,6 +19,7 @@ dependencies:
   faker: ^1.1.1
   dynamic_theme: ^1.0.1
   flutter_speed_dial: ^1.2.5
+  dart_n26: ^0.1.2
 
 dev_dependencies:
   flutter_test:
